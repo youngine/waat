@@ -14,3 +14,14 @@ def contact(request):
 
 def funding(request):
     return render(request, 'app/funding.html') 
+
+
+
+def funding_challenge(request):
+    return render(request, 'app/index.html') 
+
+def funding_join(request):
+    return render(request, 'app/funding.html') 
+
+def assemble(request):
+    return render(request, 'app/contact.html') 
