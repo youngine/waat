@@ -2,10 +2,14 @@ from django.contrib import admin
 from django.urls import path
 from app import views
 
+
+
 urlpatterns = [
-    path('main/', views.index,name='index'),
-    path('contact/', views.contact,name='contact'),
-    path('funding/', views.funding,name='funding'),
+    path('main/', views.funding_challenge,name='funding_challenge'),
+    path('contact/', views.assemble,name='assemble'),
+    path('funding/', views.funding_join,name='funding_join'),
+
+
     path('shop/', views.shop,name='shop'),
     path('shop-single/', views.shop_single,name='shop_single'),
 ]

@@ -2,6 +2,23 @@
 {% load static %} 
 
 {% block content %}
+    <!-- Modal -->
+    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <button type="submit" class="input-group-text bg-success text-light">
+                        <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Start Banner Hero -->
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
         <ol class="carousel-indicators">
@@ -18,7 +35,7 @@
                         </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left align-self-center">
-                                <h1 class="h1 text-success"><b>도전해라</b> 펀딩이어</h1>
+                                <h1 class="h1 text-success"><b>Zay</b> eCommerce</h1>
                                 <h3 class="h2">Tiny and Perfect eCommerce Template</h3>
                                 <p>
                                     Zay Shop is an eCommerce HTML5 CSS template with latest version of Bootstrap 5 (beta 1). 
@@ -80,7 +97,8 @@
     </div>
     <!-- End Banner Hero -->
 
-    {% comment %} <!-- Start Categories of The Month -->
+
+    <!-- Start Categories of The Month -->
     <section class="container py-5">
         <div class="row text-center pt-3">
             <div class="col-lg-6 m-auto">
@@ -108,12 +126,12 @@
                 <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
             </div>
         </div>
-    </section> {% endcomment %}
+    </section>
     <!-- End Categories of The Month -->
 
 
     <!-- Start Featured Product -->
-    {% comment %} <section class="bg-light">
+    <section class="bg-light">
         <div class="container py-5">
             <div class="row text-center py-3">
                 <div class="col-lg-6 m-auto">
@@ -199,7 +217,7 @@
                 </div>
             </div>
         </div>
-    </section> {% endcomment %}
+    </section>
     <!-- End Featured Product -->
 
     {%endblock content%}
