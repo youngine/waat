@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="/static/assets/css/fund_view.css">
+
+
+    {% for item in data %}
+    
+    <div class="rect" >
+        <a href="/app/main" style = "text-decoration: none; color : black;">
+            <div >
+                <i style = "color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-2x"></i>
+            </div>
+
+            <div style = "display : inline-block;">  
+                <img src = '/static/{{item.board_id}}.jpg' width = 100px>
+            </div> 
+
+            <div style = "display : inline-block;">
+                <div>
+                    {{item.title}}
+                </div>
+                <div>
+                    {{item.content}}
+                </div>
+                <div>
+                    <span>
+                        목표 금액 : {{item.fund_goal_price}}
+                    </span>
+                    <span>
+                        펀딩 금액 :  {{item.fund_total_price}}
+                    </span>
+                </div>
+                <div>
+                    달성률 : 
+                </div>
+            </div>
+        </a>   
+    </div>
+    {% endfor %}
+
+{%endblock content%}
