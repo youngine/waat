@@ -13,7 +13,7 @@
 
     {% for item in data %}
 
-    <a href="/app/main" style = "text-decoration: none; color : black;">
+
         
         <div class="card mb-3" style="max-width: 540px;">
 
@@ -37,27 +37,53 @@
                 
                 <p class="card-text"> {{item.content}}</p>
                 <p class="card-text">  목표 금액 : {{item.fund_goal_price}}</p>
-                <p class="card-text">  펀딩 금액 :  {{item.fund_total_price}}</p>
-                <p class="card-text">  달성률 : </p>
+                <p class="card-text">  펀딩 금액 :  {{ item.fund_total_price }}</p>
+                <p class="card-text">  달성률 : {{item.percent}} % </p>
+
 
                 <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                     <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btncheck1">기능 1</label>
+                    <label class="btn btn-outline-primary" for="btncheck1">기능 1  {{item.func_a_price}}원</label>
                   
                     <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btncheck2">기능 2</label>
+                    <label class="btn btn-outline-primary" for="btncheck2">기능 2 {{item.func_b_price}}원</label>
                   
                     <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btncheck3">기능 3</label>
+                    <label class="btn btn-outline-primary" for="btncheck3">기능 3 {{item.func_c_price}}원</label>
                   </div>
 
-                <button type="button" class="btn btn-secondary">펀딩하기</button>
+                <!-- <button type="button" class="btn btn-secondary">펀딩하기</button> -->
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    펀딩하기
+                  </button>
+                  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">펀딩을 진행하시겠습니까?</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          총 진행된 금액은 {{item.fund_goal_price}} 입니다.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">안하겠습니다.</button>
+                          <button type="button" class="btn btn-primary">사겠습니다.</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+
+
+
 
                 </div>
             </div>
             </div>
         </div>
-    </a>
+
       {% endfor %}
 
 
