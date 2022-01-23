@@ -6,6 +6,6 @@ from . import views
 urlpatterns = [
 
     path('select/', views.select),
-
+    path('detail/<int:board_id>', views.detail),
 
 ]

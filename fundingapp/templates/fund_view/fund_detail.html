@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="/static/assets/css/fund_view.css">
+
+
+    {% for item in data %}
+
+    <a href="/app/main" style = "text-decoration: none; color : black;">
+        
+        <div class="card mb-3" style="max-width: 540px;">
+
+            <div>
+                <i style = "color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            </div>
+
+            <div class="row g-0">
+
+            <div class="col-md-4">
+
+                <img src='/static/{{item.board_id}}.jpg' class="img-fluid rounded-start" alt="...">
+
+            </div>
+
+            <div class="col-md-8">
+
+                <div class="card-body">
+
+                <h5 class="card-title">{{item.title}}</h5>
+                
+                <p class="card-text"> {{item.content}}</p>
+                <p class="card-text">  목표 금액 : {{item.fund_goal_price}}</p>
+                <p class="card-text">  펀딩 금액 :  {{item.fund_total_price}}</p>
+                <p class="card-text">  달성률 : </p>
+
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck1">기능 1</label>
+                  
+                    <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck2">기능 2</label>
+                  
+                    <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck3">기능 3</label>
+                  </div>
+
+                <button type="button" class="btn btn-secondary">펀딩하기</button>
+
+                </div>
+            </div>
+            </div>
+        </div>
+    </a>
+      {% endfor %}
+
+
+
+
+{%endblock content%}
