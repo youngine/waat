@@ -18,7 +18,7 @@ def funding(request):
 
 
 
-def funding_challenge(request):
+def funding_main(request):
     return render(request, 'app/index.html') 
 
 def funding_join(request):
@@ -26,3 +26,6 @@ def funding_join(request):
 
 def assemble(request):
     return render(request, 'app/contact.html') 
+
+# def tb(request):  # 테스트 한다고 만든 것 ->종원
+#     return render(request, 'app/dasd.html') 

@@ -51,3 +51,171 @@
     border-radius: 7px;
     opacity: 1;
 }
+
+.create_input_box{
+    top: 264px;
+    left: 341px;
+    width: 707px;
+    height: 40px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+}
+.create_input_text_color{
+    top: 272px;
+    left: 221px;
+    width: 42px;
+    height: 24px;
+    text-align: center;
+    font: normal normal normal 24px/29px;
+    letter-spacing: 0px;
+    color: #59AB6E;
+    opacity: 1;
+}
+
+.wrapper {
+    display: flex ;
+    width: 850px;
+    margin: 1rem auto;
+  }
+  .create_input_text_boxSize{
+    top: 334px;
+    left: 175px;
+    width: 164px;
+    height: 24px;
+    text-align: center;
+    font: normal normal normal 24px/29px;
+    letter-spacing: 0px;
+    color: #59AB6E;
+    opacity: 1;
+  }
+
+  .create_choice_box{
+    top: 264px;
+    left: 341px;
+    width: 130px;
+    height: 40px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+    margin:0rem 1rem;
+}
+.create_choice_text_boxSize{
+    top: 334px;
+    left: 175px;
+    width: 54px;
+    height: 24px;
+    text-align: center;
+    font: normal normal normal 24px/29px;
+    letter-spacing: 0px;
+    color: #000;
+    opacity: 1;
+    margin:0rem 0.5rem;
+  }
+
+.next_btn_color{
+    top: 645px;
+    left: 703px;
+    width: 132px;
+    height: 52px;
+    background: #C3DB80 0% 0% no-repeat padding-box;
+    border: 1px solid #C3DB80;
+    border-radius: 31px;
+    opacity: 1;
+}
+.before_btn_color{
+    top: 645px;
+    left: 531px;
+    width: 132px;
+    height: 52px;
+    background: #E68E8E 0% 0% no-repeat padding-box;
+    border: 1px solid #E68E8E;
+    border-radius: 31px;
+    opacity: 1;
+    margin: 0rem 3rem;
+}
+
+.create_triangle{
+    top: 339px;
+    left: 347px;
+    width: 26px;
+    height: 22px;
+    transform: matrix(-1, 0, 0, -1, 0, 0);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+}
+.create_input_big_box{
+    top: 348px;
+    left: 149px;
+    width: 214px;
+    height: 24px;
+    text-align: center;
+    font: normal normal normal 24px/29px;
+    letter-spacing: 0px;
+    color: #59AB6E;
+    opacity: 1;
+    margin :1rem 2rem;
+}
+
+.create_input_baground_box{
+    top: 340px;
+    left: 346px;
+    width: 805px;
+    height: 108px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+}
+
+.create_input_object_box{
+    top: 475px;
+    left: 346px;
+    width: 805px;
+    height: 124px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+}
+
+.developContent_text{
+    top: 275px;
+    left: 170px;
+    width: 162px;
+    height: 24px;
+    text-align: center;
+    font: normal normal normal 24px/29px;
+    letter-spacing: 0px;
+    color: #59AB6E;
+    opacity: 1;
+}
+
+.developContent{
+    top: 275px;
+    left: 344px;
+    width: 799px;
+    height: 109px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+}
+.developPlan{
+    top: 419px;
+    left: 344px;
+    width: 799px;
+    height: 181px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+}
+
+.intro_box{
+    top: 264px;
+    left: 341px;
+    width: 807px;
+    height: 40px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+}
+
