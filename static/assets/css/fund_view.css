@@ -1,0 +1,10 @@
+.rect {
+    text-align : center;
+    top: 257px;
+    left: 294px;
+    width: 849px;
+    height: 215px;
+    border: 4px solid #000000;
+    border-radius: 22px 40px 0px 22px;
+    opacity: 1;
+}

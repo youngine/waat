@@ -1,4 +1,5 @@
 
+
 from pathlib import Path
 import json,os
 from django.core.exceptions import ImproperlyConfigured
@@ -83,8 +84,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'custom': { # thirdapp에서 사용할 데이터베이스 설정 추가
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'busan04',
+    'USER': 'busan04',
+    'PASSWORD': 'busan04',
+    'HOST': '15.164.153.191',
+    'PORT': 3306
     }
 }
+DATABASE_ROUTERS = ['fundingapp.router.DBRouter',
+'user.router.DBRouter']
 
 
 # Password validation
@@ -109,9 +120,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -121,7 +132,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
