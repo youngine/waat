@@ -12,7 +12,43 @@
 
 
     {% for item in data %}
-    
+
+    <a href="/app/main" style = "text-decoration: none; color : black;">
+        
+        <div class="card mb-3" style="max-width: 540px;">
+
+            <div>
+                <i style = "color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            </div>
+
+            <div class="row g-0">
+
+            <div class="col-md-4">
+
+                <img src='/static/{{item.board_id}}.jpg' class="img-fluid rounded-start" alt="...">
+
+            </div>
+
+            <div class="col-md-8">
+
+                <div class="card-body">
+
+                <h5 class="card-title">{{item.title}}</h5>
+                
+                <p class="card-text"> {{item.content}}</p>
+                <p class="card-text">  목표 금액 : {{item.fund_goal_price}}</p>
+                <p class="card-text">  펀딩 금액 :  {{item.fund_total_price}}</p>
+                <p class="card-text">  달성률 : </p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </a>
+      {% endfor %}
+
+<!-- 
+
+
     <div class="rect" >
         <a href="/app/main" style = "text-decoration: none; color : black;">
             <div >
@@ -43,7 +79,7 @@
                 </div>
             </div>
         </a>   
-    </div>
-    {% endfor %}
+    </div> -->
+
 
 {%endblock content%}
