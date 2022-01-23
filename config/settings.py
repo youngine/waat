@@ -93,7 +93,8 @@ DATABASES = {
     'PORT': 3306
     }
 }
-DATABASE_ROUTERS = ['fundingapp.router.DBRouter']
+
+DATABASE_ROUTERS = ['user.router.DBRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
