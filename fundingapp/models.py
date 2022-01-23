@@ -20,7 +20,7 @@ class FundingBoard(models.Model):
 
 class User1(models.Model):
 
-    user_id = CharField(max_length=30, primary_key=Tr)
+    user_id = CharField(max_length=30, primary_key=True)
     user_pw = CharField(max_length=30)
 
 
