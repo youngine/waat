@@ -32,18 +32,28 @@ def select(request):
         }
     )
 
-def detail(request):
-    data = FundingBoard.objects.filter(board_id=1)
+def detail(request, board_id):
+    data = FundingBoard.objects.filter(board_id=board_id)
+    
+    result = []
 
-    img = []
     for d in data:
-        img.append("/static/" + str(d.board_id) + "jpg")
+        
+        result.append({
+            "board_id" : d.board_id,
+            "user_id" : d.user_id,
+            "title" : d.title,
+            "content" : d.content,
+            "fund_goal_price" : d.fund_goal_price,
+            "fund_total_price" : d.fund_total_price,
+            "percent" : int(d.fund_total_price / d.fund_goal_price * 100)
+
+        })
 
     return render(
         request,
         'fund_view/fund_detail.html',
         {
             "data" : data,
-            "img" : img
         }
     )
