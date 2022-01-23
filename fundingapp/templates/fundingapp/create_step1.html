@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+
+{% block content %}
+<div>
+    <div style="margin:3rem 0rem"></div>
+        <div>
+            <h2 class= text-success style="font-family: 'NanumSquareEB'; text-align:center;">
+                신청서</h2>
+        <div style="margin:2rem 0rem; text-align:center;">
+            <div class= create_bar_color style="display:inline-block"></div>
+            <div class= create_bar_blank style="display:inline-block"></div>
+            <div class= create_bar_blank style="display:inline-block"></div>
+        <div>
+            <div style="margin:3rem 0rem"></div>
+    </div>
+   
+    <form action="/fund/create1/", method="POST">
+        {% csrf_token %}
+        <div class=wrapper>
+            <p class= "create_input_text_boxSize" style="display:inline-block;font-family: 'NanumSquareEB';">주제</p>
+            {% if title %}
+                <input class = create_input_box  style="display:inline-block" type="text" name="title">
+            {% else %}
+                <input class = create_input_box  style="display:inline-block" placeholder="타이틀 없음" type="text" name="title">
+            {% endif %}
+        </div>
+        <div class=wrapper>
+            <p class= "create_input_text_boxSize" style="display:inline-block;font-family: 'NanumSquareEB';">카테고리 유형</p>
+            <input class = create_input_box  style="display:inline-block" type="text" name="category">
+        </div>
+        <div class=wrapper>
+            <p class= "create_input_text_boxSize" style="display:inline-block;font-family: 'NanumSquareEB';">언어 선택</p>
+            <input class = create_input_box  style="display:inline-block" type="text" name="language">
+        </div>
+        <div class=wrapper>
+            <p class= "create_input_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">타켓층</p>
+            <input class = create_input_box  style="display:inline-block" type="text" name="target">
+        </div>
+        <div class=wrapper>
+            <p class= "create_input_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">기능별 가격</p>
+            <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">A 기능</p>
+            <input class = create_choice_box  style="display:inline-block;" type="text" name="eqA">
+            <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">B 기능</p>
+            <input class = create_choice_box  style="display:inline-block;" type="text" name="eqB">
+            <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">C 기능</p>
+            <input class = create_choice_box  style="display:inline-block;" type="text" name="eqC">
+        </div>
+        <div class=wrapper>
+            <p class= "create_input_text_boxSize" style="display:inline-block;font-family: 'NanumSquareEB';">기획이미지</p>
+            <input class = create_input_box  style="display:inline-block" type="text" name="imgefile">            
+        </div>
+        <div style="margin:3rem 0rem"></div>
+        <input class= "next_btn_color" type="submit" method="POST" value="다음">
+    </form>
+    <div style="margin:3rem 0rem"></div>
+</div>
+
+{% endblock %}
+
