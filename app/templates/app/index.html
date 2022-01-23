@@ -1,81 +1,9 @@
 {% extends "base.html" %}
 {% load static %} 
 
-{% block content %}
-    {% comment %}
-    배너 밖으로 뺐음 -> 종원
-    <!-- Start Banner Hero -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
-            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="container">
-                    <div class="row p-5">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="/static/assets/img/2022year.jpg" alt="">
-                            <h3 class="h4" style="text-align:center;margin:1rem 0rem; font-family: 'NanumSquareEB';"> You are not Alone, We are Together </h3>
-                        </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left align-self-center">
-                                <h1 class="h1 text-success" style="font-family: 'NanumSquareEB';" ><b>22년부터<br> WAT과 함께가자!</b></h1>
-                                <p style="margin:1rem 0rem; font-family: 'NanumSquareR';">
-                                    앞으로 개발자들에게는 이전과 다른 프로젝트의 끝맺음을 맞이할 수 있는 기회의 플랫폼을 서포터들에게는 색다른 아이디어로 태어난 기획을 펀딩함으로써 사용할수 있는 플랫폼을 제공하여 개발자들이 기획을 펼칠 수 있는 플랫폼입니다.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="row p-5">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="/static/assets/img/2022year.jpg" alt="">
-                        </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left">
-                                <h1 class="h1 text-success" style="font-family: 'NanumSquareEB';"><b>프로젝트 펀딩도전 <br>Let's get it !</b></h1>
-                                <p style="margin:1rem 0rem; font-family: 'NanumSquareR';">
-                                    펀딩 도전을 함으로써 당신의 프로젝트가 사람들에게 가치있는 프로젝트가 되어 끝을 아름답게 맺게될 것 입니다.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="row p-5">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="/static/assets/img/2022year.jpg" alt="">
-                        </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left">
-                                <h1 class="h2 text-success" style="font-family: 'NanumSquareEB';"><b>신기하고 유용하고 재미있는</b></h1>
-                                <h3 class="h3" style="font-family: 'NanumSquareEB';">프로젝트에 서포터가 되어 개발자들을 응원해주세요</h3>
-                                <p style="margin:1rem 0rem; font-family: 'NanumSquareR';">
-                                    응원이 새로운 세상, 새로운 변화를 맞이할 수 있는 원동력이 될 것 입니다.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
-            <i class="fas fa-chevron-left"></i>
-        </a>
-        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
-            <i class="fas fa-chevron-right"></i>
-        </a>
-    </div>
-    <!-- End Banner Hero --> 
-    {% endcomment %}
 
+{% block content %}
+    {% include 'banner.html' %} 
     {% comment %} 여기부터 수정하면 됩니다. {% endcomment %}
     <!-- Start Categories of The Month -->
     <section class="container py-5">
