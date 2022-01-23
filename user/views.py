@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from django.shortcuts import render,redirect
 from .models import  User_info
 from django.http import HttpResponse
@@ -21,4 +21,5 @@ def signin(request):
 
 
 def signout(request):
-    return render(request,'user/signout.html')
+    logout(request)
+    return redirect('/app/main/')
