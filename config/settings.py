@@ -1,4 +1,5 @@
 
+
 from pathlib import Path
 import json,os
 from django.core.exceptions import ImproperlyConfigured
@@ -93,8 +94,11 @@ DATABASES = {
     'PORT': 3306
     }
 }
+DATABASE_ROUTERS = [
+    'fundingapp.router.DBRouter',
+    'user.router.DBRouter'
+]
 
-DATABASE_ROUTERS = ['user.router.DBRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -118,9 +122,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -130,7 +134,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
