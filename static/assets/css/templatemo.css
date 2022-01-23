@@ -171,14 +171,14 @@ body, ul, li, p, a, label, input, div {
   .tempaltemo-carousel .h1 { font-size: 1em !important;}
 }
 
-/*// Medium devices (tablets, 768px and up)*/
-@media (min-width: 768px) {
-  #templatemo_main_nav .navbar-nav {max-width: 450px;}
+/*// Medium devices (tablets, 768px and up) -> 500으로 수정하고 450에서 350으로 수정*/
+@media (min-width: 500px) {
+  #templatemo_main_nav .navbar-nav {max-width: 350px;}
  }
 
-/* Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) {
-  #templatemo_main_nav .navbar-nav {max-width: 550px;}
+/* Large devices (desktops, 992px and up) -> 592로 수정*/
+@media (min-width: 592px) {
+  #templatemo_main_nav .navbar-nav {max-width: 500px;}
   #template-mo-zay-hero-carousel .carousel-item {min-height: 30rem !important;}
   .product-wap .h3, .product-wap li, .product-wap i, .product-wap p {font-size: 18px !important;}
   .product-wap .product-color-dot {
