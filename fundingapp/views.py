@@ -58,24 +58,24 @@ class Step1View(View):
     def get(self, request, *args, **kwargs):
         request.session['step1_complete'] = False
         request.session['step2_complete'] = False
-        return render(request, 'step1.html')
+        return render(request, 'fundingapp/step1.html')
 
     def post(self, request, *args, **kwargs):
         request.session['step1_complete'] = True
-        return redirect(reverse('step2'))
+        print(request.session['step1_complete'])
+        return HttpResponseRedirect(reverse('fundingapp:step2'))
 
 
 class Step2View(View):
-
     def get(self, request, *args, **kwargs):
         if not request.session.get('step1_complete', False):
             raise PermissionDenied
         request.session['step1_complete'] = False
-        return render(request, 'step2.html')
+        return render(request, 'fundingapp/step2.html')
 
     def post(self, request, *args, **kwargs):
         request.session['step2_complete'] = True
-        return redirect(reverse('step3'))
+        return HttpResponseRedirect(reverse('fundingapp:step3'))
 
 
 class Step3View(View):
@@ -84,4 +84,4 @@ class Step3View(View):
         if not request.session.get('step2_complete', False):
             raise PermissionDenied
         request.session['step2_complete'] = False
-        return render(request, 'step3.html')
+        return render(request, 'fundingapp/step3.html')

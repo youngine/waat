@@ -5,9 +5,9 @@
 {% block content %}
 <div>
     <div style="margin:3rem 0rem"></div>
-    <div>
-        <h2 class= text-success style="font-family: 'NanumSquareEB'; text-align:center;">
-            신청서</h2>
+        <div>
+            <h2 class= text-success style="font-family: 'NanumSquareEB'; text-align:center;">
+                신청서</h2>
         <div style="margin:2rem 0rem; text-align:center;">
             <div class= create_bar_color style="display:inline-block"></div>
             <div class= create_bar_blank style="display:inline-block"></div>
@@ -30,11 +30,11 @@
 
     <br>
     {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
     {% endif %}
 
 
