@@ -7,7 +7,7 @@
         <div class="container d-flex justify-content-between align-items-center">
             
             {% comment %} 로고 부분 {% endcomment %}
-            <a class="navbar-brand text-success logo h1 align-self-center" a href="{% url 'funding_challenge' %}">
+            <a class="navbar-brand text-success logo h1 align-self-center" a href="{% url 'app:funding_challenge' %}">
                 WAT
             </a>
             
@@ -16,13 +16,13 @@
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex">
                         <li class="nav-item">
-                            <a class="nav-link" style="font-family: 'NanumSquareEB';margin: 0rem 2.4rem;" a href="{% url 'funding_challenge' %}">펀딩도전</a>
+                            <a class="nav-link" style="font-family: 'NanumSquareEB';margin: 0rem 2.4rem;" a href="{% url 'fundingapp:create' %}">펀딩도전</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="font-family: 'NanumSquareEB';margin: 0rem 2.4rem;" a href="{% url 'funding_join' %}">펀딩참여</a>
+                            <a class="nav-link" style="font-family: 'NanumSquareEB';margin: 0rem 2.4rem;" a href="{% url 'fundingapp:select' %}">펀딩참여</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="font-family: 'NanumSquareEB';margin: 0rem 2.4rem;" a href="{% url 'assemble' %}">팀원모집</a>
+                            <a class="nav-link" style="font-family: 'NanumSquareEB';margin: 0rem 2.4rem;" a href="{% url 'app:assemble' %}">팀원모집</a>
                         </li>
                     </ul>
                 

@@ -44,3 +44,8 @@ class JoinFund(models.Model):
         db_table = 'JoinFund'
         app_label = 'fundingapp'
         managed = False
+
+
+class Post(models.Model):
+    postname = models.CharField(max_length=50)
+    contents = models.TextField()
