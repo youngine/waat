@@ -16,3 +16,31 @@ class FundingBoard(models.Model):
         db_table = 'FundingBoard'
         app_label = 'fundingapp'
         managed = False
+
+
+class User1(models.Model):
+
+    user_id = CharField(max_length=30, primary_key=True)
+    user_pw = CharField(max_length=30)
+
+
+    
+    class Meta:
+        db_table = 'User'
+        app_label = 'fundingapp'
+        managed = False
+
+
+class JoinFund(models.Model):
+
+    user_id = CharField(max_length=30)
+    board_id = IntegerField(max_length=30)
+    fund_master_id = CharField(max_length=30)
+    fund_price = IntegerField(max_length=30)
+
+
+    
+    class Meta:
+        db_table = 'JoinFund'
+        app_label = 'fundingapp'
+        managed = False

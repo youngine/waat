@@ -94,7 +94,8 @@ DATABASES = {
     'PORT': 3306
     }
 }
-DATABASE_ROUTERS = ['fundingapp.router.DBRouter']
+DATABASE_ROUTERS = ['fundingapp.router.DBRouter',
+'user.router.DBRouter']
 
 
 # Password validation
