@@ -83,9 +83,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'custom': { # thirdapp에서 사용할 데이터베이스 설정 추가
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'busan04',
+    'USER': 'busan04',
+    'PASSWORD': 'busan04',
+    'HOST': '15.164.153.191',
+    'PORT': 3306
     }
 }
-
+DATABASE_ROUTERS = ['fundingapp.router.DBRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
