@@ -30,3 +30,24 @@
     border: 1px solid #707070;
     opacity: 1;
 }
+
+.create_bar_color{
+    top: 210px;
+    left: 501px;
+    width: 117px;
+    height: 13px;
+    background: #C3DB80 0% 0% no-repeat padding-box;
+    border: 1px solid #C3DB80;
+    border-radius: 7px;
+    opacity: 1;
+}
+.create_bar_blank{
+    top: 210px;
+    left: 625px;
+    width: 117px;
+    height: 13px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 7px;
+    opacity: 1;
+}

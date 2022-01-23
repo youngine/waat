@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-
-
 {% load static %}
+
+
 
 {% block content %}
 
@@ -12,8 +12,9 @@
 
 
     {% for item in data %}
-
-    <a href="/app/main" style = "text-decoration: none; color : black;">
+    
+   
+    <a href="/fund/detail/{{item.board_id}}" style = "text-decoration: none; color : black;">
         
         <div class="card mb-3" style="max-width: 540px;">
 
@@ -34,18 +35,19 @@
                 <div class="card-body">
 
                 <h5 class="card-title">{{item.title}}</h5>
-                
+               
                 <p class="card-text"> {{item.content}}</p>
                 <p class="card-text">  목표 금액 : {{item.fund_goal_price}}</p>
                 <p class="card-text">  펀딩 금액 :  {{item.fund_total_price}}</p>
-                <p class="card-text">  달성률 : </p>
+                <p class="card-text">  달성률 : {{ item.percent }}%</p>
                 </div>
             </div>
             </div>
         </div>
     </a>
-      {% endfor %}
+    {% endfor %}
 
+{%endblock content%}
 <!-- 
 
 
@@ -81,5 +83,3 @@
         </a>   
     </div> -->
 
-
-{%endblock content%}
