@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login,logout
 from django.shortcuts import render,redirect
 from .models import  User_info
 from django.http import HttpResponse
-from django.contrib import messages
+from .forms import UserForm
 
 def signin(request):
     if request.method =='POST':
@@ -18,6 +18,31 @@ def signin(request):
             render(request,'user/signin.html')
     else:
         return render(request,'user/signin.html')
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+
+            user_id = username
+            user_pw = raw_password
+            user_name = form.cleaned_data.get('last_name')
+            user_email =form.cleaned_data.get('email')
+            
+            m = User_info(user_id=user_id, user_pw=user_pw, user_name=user_name,user_email=user_email)
+            m.save()
+
+            return redirect('/user/signin/')
+    else:
+        form = UserForm()
+    return render(request,'user/signup.html',{'form': form})
+
+
 
 
 def signout(request):

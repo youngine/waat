@@ -32,7 +32,7 @@
                         <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" a href="{% url 'signout' %}"> 로그아웃 </a>
                     {%else%}
                         <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" a href="{% url 'signin' %}"> 로그인 </a>
-                        <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" href="#"> 회원가입 </a>
+                        <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;"a href="{% url 'signup' %}"> 회원가입 </a>
                     {% endif %}
                     </div>
                 </div>
