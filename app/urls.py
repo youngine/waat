@@ -9,8 +9,6 @@ urlpatterns = [
     path('contact/', views.assemble,name='assemble'),
     path('funding/', views.funding_join,name='funding_join'),
 
-    # path('tb/', views.tb,name='tb'), # 테스트 한다고 만든것. ->종원
-    
     path('shop/', views.shop,name='shop'),
     path('shop-single/', views.shop_single,name='shop_single'),
 ]
