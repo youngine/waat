@@ -2,25 +2,23 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render,redirect
 from .models import  User_info
 from django.http import HttpResponse
+from django.contrib import messages
 
-def login(request):
+def signin(request):
     if request.method =='POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        try:
-            u = User_info.objects.get(user_id=username, user_pw=password)
-            user = authenticate(username=username, password=password)
+        user = authenticate(request,username=username, password=password)
+        if user is not None: 
             login(request, user)
-
-        except User_info.DoesNotExist as e:
-            return HttpResponse('로그인 실패')
+            request.session['user_id'] = username
+            request.session['user_pw'] = password    
+            return redirect('/app/main/')
+        else:
+            render(request,'user/signin.html')
     else:
-        return redirect('/app/main/')
+        return render(request,'user/signin.html')
 
 
-def user_list(request):
-    data = User_info.objects.all()
-    return render(
-        request, 'user/user_list.html',
-        { 'data': data}
-    )
+def signout(request):
+    return render(request,'user/signout.html')
