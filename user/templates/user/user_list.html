@@ -1,3 +1,6 @@
 <body>
-    {{user_list}}
+    <h1>User</h1>
+    {% for user in data %}
+    <li>{{user.user_id }}, {{ user.user_pw }}</li>
+    {% endfor %}
 </body>
