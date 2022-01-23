@@ -1,11 +1,8 @@
-{%load static%}
 <!DOCTYPE html>
  <html lang="ko">
     {% include 'head.html' %}
-    
     <body class="text-center">
-        {% include 'header.html' %} 
-   
+      {% include 'header.html' %} 
     <form method = "post" class="form-signin" action="{% url 'signin' %}">
       {% csrf_token %}
       <div class="mb-1 pb-1">
