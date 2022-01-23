@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from fundingapp.saveData import DataContent
 
 def index(request):
     return render(request, 'app/index.html') 

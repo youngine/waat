@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+
+{% block content %}
+<div>
+    <div style="margin:3rem 0rem"></div>
+    <div>
+        <h2 class= text-success style="font-family: 'NanumSquareEB'; text-align:center;">
+            신청서</h2>
+        <div style="margin:2rem 0rem; text-align:center;">
+            <div class= create_bar_color style="display:inline-block"></div>
+            <div class= create_bar_blank style="display:inline-block"></div>
+            <div class= create_bar_blank style="display:inline-block"></div>
+        <div>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        title<br>
+        <input type="text" name="title"><br>
+        category<br>
+        <input type="text" name="category"><br>
+        language<br>
+        <input type="text" name="language"><br>
+        <input type="submit" value="글쓰기">
+    </form>
+    <input type ="submit" method="GET" value="뒤로가기">
+    <button><a href="{% url 'app:funding_challenge' %}">뒤로가기</a></button>
+
+    <br>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    <div style="margin:3rem 0rem"></div>
+</div>
+
+{% endblock %}
+
