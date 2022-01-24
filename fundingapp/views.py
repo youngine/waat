@@ -22,7 +22,7 @@ def select(request):
             "board_id" : d.board_id,
             "user_id" : d.user_id,
             "title" : d.title,
-            "content" : d.content,
+            "content" : d.intro	,
             "fund_goal_price" : d.fund_goal_price,
             "fund_total_price" : d.fund_total_price,
             "percent" : int(d.fund_total_price / d.fund_goal_price * 100)
@@ -38,19 +38,64 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def detail(request, board_id):
+
+    # 현재는 root 아이디로 들어왔다고 가정하고 진행
     if request.method == 'POST':
+
+        # selected : 현재 선택 된 펀딩 목록 (1~3)
         selected = request.POST.getlist('func_check')
-        print(selected)
+
+   
+
+        # 현재 선택된 아이디는 root라고 진행 (나중에 바꿔야함)
+        user_name = "jang"
+
+        fund_data = FundingFunc.objects.filter(board_id =board_id)
+
+        total_price = 0
+        # 아무것도 선택을 안한상태
+        if len(selected) == 0:
+
+            # 첫 페이지 혹은 selelct 이거는 정해야할듯?
+            return HttpResponseRedirect(reverse('fundingapp:select'))
+
+
+        else:
+            for i in selected:
+                if i == "1":
+                    total_price += fund_data[0].func_a_price
+                elif i == "2":
+                    total_price += fund_data[0].func_b_price
+                elif i == "3":
+                    total_price += fund_data[0].func_c_price
+
+
+
+        # for i in fund_data:
+
+
+        join_db = JoinFund()
+        # 유저 이름
+        join_db.user_id = user_name
+        join_db.board_id = board_id
+        join_db.fund_price = total_price
+        
+        join_db.save()
+
+        
+        # data : 현재 선택 된 게시물 정보
+        data = FundingBoard.objects.get(board_id=board_id)
+        data.fund_total_price += total_price
+        data.save()
+
+
         return HttpResponseRedirect(reverse('fundingapp:select'))
         
     data = FundingBoard.objects.filter(board_id=board_id)
-    join_data = FundingFunc.objects.filter(board_id =board_id)
+    fund_data = FundingFunc.objects.filter(board_id =board_id)
     result = []
 
-    for j in join_data:
-        func_a_expl = j.func_a_expl
-        func_b_expl = j.func_b_expl
-        func_c_expl = j.func_c_expl
+    for j in fund_data:
         func_a_price = j.func_a_price
         func_b_price = j.func_b_price
         func_c_price = j.func_c_price
@@ -61,16 +106,13 @@ def detail(request, board_id):
             "board_id" : d.board_id,
             "user_id" : d.user_id,
             "title" : d.title,
-            "content" : d.content,
+            "content" : d.intro,
             "fund_goal_price" : d.fund_goal_price,
             "fund_total_price" : d.fund_total_price,
              "percent" : int(d.fund_total_price / d.fund_goal_price * 100),
              "func_a_price" : func_a_price,
              "func_b_price" : func_b_price,
-             "func_c_price" : func_c_price,
-             "func_a_expl" : func_a_expl,
-             "func_b_expl" : func_b_expl,
-             "func_c_expl" : func_c_expl,
+             "func_c_price" : func_c_price
              
         })
 
