@@ -2,7 +2,7 @@ import re
 from django.forms import forms
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import FundingBoard, User1, JoinFund, Post, FundingFunc,FundingBoardS
+from .models import FundingBoard, User1, JoinFund, Post, FundingFunc
 from django.views.generic import FormView
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse, reverse_lazy
@@ -13,6 +13,9 @@ from django.shortcuts import render,redirect
 from django.views import View  
 from django.shortcuts import redirect, render  
 from django.core.exceptions import PermissionDenied
+
+import datetime
+
 
 def select(request):
     data = FundingBoard.objects.all()
@@ -75,11 +78,7 @@ def detail(request, board_id):
                     result_list.append("3")
                     total_price += fund_data[0].func_c_price
 
-
-
         # for i in fund_data:
-
-
         join_db = JoinFund()
         # 유저 이름
         join_db.user_id = user_name
@@ -89,12 +88,10 @@ def detail(request, board_id):
         
         join_db.save()
 
-        
         # data : 현재 선택 된 게시물 정보
         data = FundingBoard.objects.get(board_id=board_id)
         data.fund_total_price += total_price
         data.save()
-
 
         return HttpResponseRedirect(reverse('fundingapp:select'))
         
@@ -179,29 +176,33 @@ class Create3(View):
 
     def post(self, request, *args, **kwargs):
         if request.POST.get("finsh",0) =="완료":
-            developContent = request.POST['developContent']
-          
-
             # 세션에 다 저장이 됨. 그래서 삭제를 해야하는데 삭제는 del을 통해 삭제가 가능
             # 삭제전 세션에 저장된 데이터 DB에 저장하기.
             # 여기부터 DB 코드임.-> 종원
 
-            FDB = FundingBoardS()
-            FDB.user_id = "Dsad"
+            FDB = FundingBoard()
+            FCF = FundingFunc()
+            FDB.user_id = request.session['user']
             
             FDB.title = request.session['title']
             FDB.category = request.session['category']
-            FDB.language = request.session['language']
+            FDB.language_text = request.session['language']
             FDB.target = request.session['target']
-            FDB.eqA = request.session['eqA']
-            FDB.eqB = request.session['eqB']
-            FDB.eqC = request.session['eqC']
-            FDB.imgefile = request.session['imgefile']
+            
+            FCF.func_a_price = request.session['eqA']
+            FCF.func_b_price = request.session['eqB']
+            FCF.func_c_price = request.session['eqC']
+
+            FDB.file_name = request.session['imgefile']
             FDB.intro = request.session['intro']
-            FDB.background = request.session['background']
-            FDB.objectstive = request.session['objects']
-            FDB.developContent = request.POST['developContent']
+            FDB.background_text = request.session['background']
+            FDB.object_text = request.session['objects']
+            FDB.develop_content = request.POST['developContent']
+            FDB.fund_goal_price = 5000000
+            FDB.fund_total_price = 0
+            FDB.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
             FDB.save()
+            # FCF.save()
 
             # 세션에 저장된거 삭제
             # del request.session['intro']
