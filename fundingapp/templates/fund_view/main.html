@@ -5,48 +5,51 @@
 
 {% block content %}
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
-
-<link rel="stylesheet" href="/static/assets/css/fund_view.css">
-
-
+<div>
+    <div style="margin:3rem 0rem"></div>
+        <div>
+            <h2 class= text-success style="font-family: 'NanumSquareEB'; text-align:center;">
+                펀딩 참여</h2>
+        <div style="margin:2rem 0rem; text-align:center;">
+    </div>
+    <div style="margin:3rem 0rem"></div>
+    <div>
     {% for item in data %}
-    
-   
-    <a href="/fund/detail/{{item.board_id}}" style = "text-decoration: none; color : black;">
-        
-        <div class="card mb-3" style="max-width: 540px;">
+        <a href="/app/fund/detail/{{item.board_id}}" style = "text-decoration: none; color : black;">
+            
+            <div class="card mb-3" style="max-width: 840px;margin:auto;">
 
-            <div>
-                <i style = "color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
-            </div>
+                <div>
+                    <i style = "color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+                </div>
 
-            <div class="row g-0">
+                <div class="row g-0">
 
-            <div class="col-md-4">
+                <div class="col-md-4">
 
-                <img src='/static/{{item.board_id}}.jpg' class="img-fluid rounded-start" alt="...">
+                    <img src='/static/{{item.board_id}}.jpg' class="img-fluid rounded-start" alt="...">
 
-            </div>
+                </div>
 
-            <div class="col-md-8">
+                <div class="col-md-8">
 
-                <div class="card-body">
+                    <div class="card-body">
 
-                <h5 class="card-title">{{item.title}}</h5>
-               
-                <p class="card-text"> {{item.content}}</p>
-                <p class="card-text">  목표 금액 : {{item.fund_goal_price}}</p>
-                <p class="card-text">  펀딩 금액 :  {{item.fund_total_price}}</p>
-                <p class="card-text">  달성률 : {{ item.percent }}%</p>
+                    <h5 class="card-title">{{item.title}}</h5>
+                
+                    <p class="card-text"> {{item.content}}</p>
+                    <p class="card-text">  목표 금액 : {{item.fund_goal_price}}</p>
+                    <p class="card-text">  펀딩 금액 :  {{item.fund_total_price}}</p>
+                    <p class="card-text">  달성률 : {{ item.percent }}%</p>
+                    </div>
+                </div>
                 </div>
             </div>
-            </div>
-        </div>
-    </a>
+        </a>
     {% endfor %}
-
+    </div>
+</div>
 {%endblock content%}
 <!-- 
 

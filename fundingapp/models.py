@@ -34,9 +34,9 @@ class User1(models.Model):
 class JoinFund(models.Model):
 
     user_id = CharField(max_length=30)
-    board_id = IntegerField(max_length=30)
+    board_id = IntegerField()
     fund_master_id = CharField(max_length=30)
-    fund_price = IntegerField(max_length=30)
+    fund_price = IntegerField()
 
 
     
@@ -45,6 +45,20 @@ class JoinFund(models.Model):
         app_label = 'fundingapp'
         managed = False
 
+class FundingFunc(models.Model):
+
+    board_id = IntegerField(primary_key=True)
+    func_a_price = IntegerField()
+    func_a_expl = CharField(max_length=50)
+    func_b_price = IntegerField()
+    func_b_expl = CharField(max_length=50)
+    func_c_price = IntegerField()
+    func_c_expl = CharField(max_length=50)
+
+    class Meta:
+        db_table = 'FundingFunc'
+        app_label = 'fundingapp'
+        managed = False
 
 class Post(models.Model):
     postname = models.CharField(max_length=50)

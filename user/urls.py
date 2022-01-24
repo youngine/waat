@@ -3,6 +3,7 @@ from django.urls import path
 from user import views
 from django.contrib.auth import views as auth_views
 
+app_name = 'user'
 
 urlpatterns = [
     path('signin/', views.signin,name='signin'),
