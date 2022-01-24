@@ -20,11 +20,13 @@
         {% csrf_token %}
         <div class=wrapper>
             <p class= "create_input_text_boxSize" style="display:inline-block;font-family: 'NanumSquareEB';">주제</p>
+            
             {% if title %}
                 <input class = create_input_box  style="display:inline-block" type="text" name="title">
             {% else %}
                 <input class = create_input_box  style="display:inline-block" placeholder="타이틀 없음" type="text" name="title">
             {% endif %}
+
         </div>
         <div class=wrapper>
             <p class= "create_input_text_boxSize" style="display:inline-block;font-family: 'NanumSquareEB';">카테고리 유형</p>

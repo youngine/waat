@@ -63,3 +63,30 @@ class FundingFunc(models.Model):
 class Post(models.Model):
     postname = models.CharField(max_length=50)
     contents = models.TextField()
+
+
+class FundingBoardS(models.Model):
+
+    board_id = IntegerField(primary_key=True)
+    user_id = CharField(max_length=30, null=True)
+    title = CharField(max_length=30, null=True)
+    category = CharField(max_length=30, null=True)
+    language  = CharField(max_length=30, null=True)
+    target  =CharField(max_length=30, null=True)
+    eqA  = IntegerField()
+    eqB = IntegerField()
+    eqC = IntegerField()
+    imgefile = CharField(max_length=30, null=True)
+    intro = TextField(null=True)
+    background = TextField(null=True)
+    objectstive  = TextField(null=True)
+    developContent = TextField(null=True) 
+    
+    fund_goal_price = IntegerField()
+    fund_total_price = IntegerField()
+    regi_date = DateField()
+    
+    # class Meta:
+        # db_table = 'FundingBoardS'
+        # app_label = 'fundingapp'
+        # managed = False

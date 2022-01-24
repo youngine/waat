@@ -2,7 +2,7 @@ import re
 from django.forms import forms
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import FundingBoard, User1, JoinFund, Post, FundingFunc
+from .models import FundingBoard, User1, JoinFund, Post, FundingFunc,FundingBoardS
 from django.views.generic import FormView
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse, reverse_lazy
@@ -136,6 +136,23 @@ class Create3(View):
             # 세션에 다 저장이 됨. 그래서 삭제를 해야하는데 삭제는 del을 통해 삭제가 가능
             # 삭제전 세션에 저장된 데이터 DB에 저장하기.
             # 여기부터 DB 코드임.-> 종원
+
+            FDB = FundingBoardS()
+            FDB.user_id = "Dsad"
+            
+            FDB.title = request.session['title']
+            FDB.category = request.session['category']
+            FDB.language = request.session['language']
+            FDB.target = request.session['target']
+            FDB.eqA = request.session['eqA']
+            FDB.eqB = request.session['eqB']
+            FDB.eqC = request.session['eqC']
+            FDB.imgefile = request.session['imgefile']
+            FDB.intro = request.session['intro']
+            FDB.background = request.session['background']
+            FDB.objectstive = request.session['objects']
+            FDB.developContent = request.POST['developContent']
+            FDB.save()
 
             # 세션에 저장된거 삭제
             # del request.session['intro']
