@@ -41,18 +41,21 @@ def detail(request, board_id):
 
     # 현재는 root 아이디로 들어왔다고 가정하고 진행
     if request.method == 'POST':
+        
+        
+        try:
+            user_name = request.session['user']
+        except KeyError as k:
+            print("No User")
+            return HttpResponseRedirect(reverse('app:funding_main'))
 
         # selected : 현재 선택 된 펀딩 목록 (1~3)
         selected = request.POST.getlist('func_check')
 
-   
-
-        # 현재 선택된 아이디는 root라고 진행 (나중에 바꿔야함)
-        user_name = "jang"
-
         fund_data = FundingFunc.objects.filter(board_id =board_id)
 
         total_price = 0
+        result_list = []
         # 아무것도 선택을 안한상태
         if len(selected) == 0:
 
@@ -63,10 +66,13 @@ def detail(request, board_id):
         else:
             for i in selected:
                 if i == "1":
+                    result_list.append("1")
                     total_price += fund_data[0].func_a_price
                 elif i == "2":
+                    result_list.append("2")
                     total_price += fund_data[0].func_b_price
                 elif i == "3":
+                    result_list.append("3")
                     total_price += fund_data[0].func_c_price
 
 
@@ -79,6 +85,7 @@ def detail(request, board_id):
         join_db.user_id = user_name
         join_db.board_id = board_id
         join_db.fund_price = total_price
+        join_db.fund_join_list = result_list
         
         join_db.save()
 
