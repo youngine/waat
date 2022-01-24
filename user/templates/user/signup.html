@@ -3,7 +3,7 @@
     {% include 'head.html' %}
     <body class="text-center">
       {% include 'header.html' %} 
-    <form method = "post" class="form-signin" action="{% url 'signup' %}">
+    <form method = "post" class="form-signin" action="{% url 'user:signup' %}">
       {% csrf_token %}
       {% include "form_errors.html" %}
       <div class="mb-1 pb-1">
