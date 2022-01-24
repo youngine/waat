@@ -85,14 +85,31 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
+    ## AIVLE DB 살릴때 사용하시면 됩니다.
+    
+    # 'custom': { # thirdapp에서 사용할 데이터베이스 설정 추가
+    # 'ENGINE': 'django.db.backends.mysql',
+    # 'NAME': 'busan04',
+    # 'USER': 'busan04',
+    # 'PASSWORD': 'busan04',
+    # 'HOST': '15.164.153.191',
+    # 'PORT': 3306
+
+    ##
+
+    ## 저희 DB 살릴 때 사용하시면 됩니다.
+
     'custom': { # thirdapp에서 사용할 데이터베이스 설정 추가
     'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'busan04',
-    'USER': 'busan04',
-    'PASSWORD': 'busan04',
-    'HOST': '15.164.153.191',
-    'PORT': 3306
-    }
+    'NAME': 'ktaivle',
+    'USER': 'kt_aivle',
+    'PASSWORD': 'aivle',
+    'HOST': '203.250.72.99',
+    'PORT': 8000
+
+    ##
+    }   
+    
 }
 DATABASE_ROUTERS = [
     'fundingapp.router.DBRouter',
