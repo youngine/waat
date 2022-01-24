@@ -2,7 +2,7 @@ import re,os
 from django.forms import forms
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import FundingBoard, User1, JoinFund, Post, FundingFunc
+from .models import FundingBoard, User1, JoinFund
 from django.views.generic import FormView
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse, reverse_lazy
@@ -55,7 +55,7 @@ def detail(request, board_id):
         # selected : 현재 선택 된 펀딩 목록 (1~3)
         selected = request.POST.getlist('func_check')
 
-        fund_data = FundingFunc.objects.filter(board_id =board_id)
+        data = FundingBoard.objects.get(board_id=board_id)
 
         total_price = 0
         result_list = []
@@ -70,13 +70,13 @@ def detail(request, board_id):
             for i in selected:
                 if i == "1":
                     result_list.append("1")
-                    total_price += fund_data[0].func_a_price
+                    total_price += data.func_a_price
                 elif i == "2":
                     result_list.append("2")
-                    total_price += fund_data[0].func_b_price
+                    total_price += data.func_b_price
                 elif i == "3":
                     result_list.append("3")
-                    total_price += fund_data[0].func_c_price
+                    total_price += data.func_c_price
 
         # for i in fund_data:
         join_db = JoinFund()
@@ -89,21 +89,15 @@ def detail(request, board_id):
         join_db.save()
 
         # data : 현재 선택 된 게시물 정보
-        data = FundingBoard.objects.get(board_id=board_id)
+        # data = FundingBoard.objects.get(board_id=board_id)
         data.fund_total_price += total_price
         data.save()
 
         return HttpResponseRedirect(reverse('fundingapp:select'))
         
     data = FundingBoard.objects.filter(board_id=board_id)
-    fund_data = FundingFunc.objects.filter(board_id =board_id)
-    result = []
 
-    for j in fund_data:
-        func_a_price = j.func_a_price
-        func_b_price = j.func_b_price
-        func_c_price = j.func_c_price
-        
+    result = []      
 
     for d in data:
         result.append({
@@ -114,9 +108,9 @@ def detail(request, board_id):
             "fund_goal_price" : d.fund_goal_price,
             "fund_total_price" : d.fund_total_price,
              "percent" : int(d.fund_total_price / d.fund_goal_price * 100),
-             "func_a_price" : func_a_price,
-             "func_b_price" : func_b_price,
-             "func_c_price" : func_c_price
+             "func_a_price" : d.func_a_price,
+             "func_b_price" : d.func_b_price,
+             "func_c_price" : d.func_c_price
              
         })
 
@@ -193,7 +187,7 @@ class Create3(View):
             # 여기부터 DB 코드임.-> 종원
 
             FDB = FundingBoard()
-            FCF = FundingFunc()
+
             FDB.user_id = request.session['user']
             
             FDB.title = request.session['title']
@@ -201,16 +195,18 @@ class Create3(View):
             FDB.language_text = request.session['language']
             FDB.target = request.session['target']
             
-            FCF.func_a_price = request.session['eqA']
-            FCF.func_b_price = request.session['eqB']
-            FCF.func_c_price = request.session['eqC']
+            FDB.func_a_price = request.session['eqA']
+            FDB.func_b_price = request.session['eqB']
+            FDB.func_c_price = request.session['eqC']
 
             FDB.file_name = request.session['imgefile']
             FDB.intro = request.session['intro']
             FDB.background_text = request.session['background']
             FDB.object_text = request.session['objects']
             FDB.develop_content = request.POST['developContent']
-            FDB.fund_goal_price = 5000000
+            # FDB.fund_goal_price = request.POST['goal_money']
+            FDB.fund_goal_price = 500000
+
             FDB.fund_total_price = 0
             FDB.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
             FDB.save()
