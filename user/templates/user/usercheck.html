@@ -2,7 +2,10 @@
  <html lang="ko">
     {% include 'head.html' %}
     <body class="text-center">
-      {% include 'header.html' %} 
+      {% include 'header.html' %}
+      <div class="mt-5 mx-5">
+      {% include 'tab.html' %} 
+      </div>
     <form method = "post" class="form-signin" action="{% url 'user:usercheck' %}">
       {% csrf_token %}
       {% if messages %}
