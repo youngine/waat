@@ -1,50 +1,55 @@
-from django.contrib.auth import authenticate, login,logout
 from django.shortcuts import render,redirect
 from .models import  User_info
-from django.http import HttpResponse
-from .forms import UserForm
+from django.contrib import messages
 
 def signin(request):
     if request.method =='POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request,username=username, password=password)
-        if user is not None: 
-            login(request, user)
-            request.session['user_id'] = username
-            request.session['user_pw'] = password    
-            return redirect('/app/main/')
+        try:
+            user = User_info.objects.get(user_id = username)
+            if password != user.user_pw:
+                messages.info(request, '비밀번호를 확인해주세요.')
+                return redirect('/user/signin/')
+            else:
+                username = user.user_id
+        except User_info.DoesNotExist as e:
+                messages.info(request, '확인되지 않는 아이디입니다.')
+                return redirect('/user/signin/')
         else:
-            render(request,'user/signin.html')
+            request.session['user'] = username
+            return redirect('/app/main/')
     else:
         return render(request,'user/signin.html')
 
 
 def signup(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            form.save()
 
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
+        user_id = request.POST.get('username')
+        user_pw =  request.POST.get('password1')
+        user_pw_check = request.POST.get('password2')
+        user_name = request.POST.get('last_name')
+        user_email = request.POST.get('email')
 
-            user_id = username
-            user_pw = raw_password
-            user_name = form.cleaned_data.get('last_name')
-            user_email =form.cleaned_data.get('email')
-            
+        if user_pw_check != user_pw:
+            messages.info(request, '비밀번호가 일치하지 않습니다.')
+            return redirect('/user/signup/')
+
+        try:
+            user = User_info.objects.get(user_id = user_id)
+            messages.info(request, '존재하는 아이디입니다.')
+            return redirect('/user/signup/')
+        except User_info.DoesNotExist as e:
             m = User_info(user_id=user_id, user_pw=user_pw, user_name=user_name,user_email=user_email)
             m.save()
-
             return redirect('/user/signin/')
     else:
-        form = UserForm()
-    return render(request,'user/signup.html',{'form': form})
+        return render(request,'user/signup.html')
 
 
 
 
 def signout(request):
-    logout(request)
+    del request.session['user']
     return redirect('/app/main/')
