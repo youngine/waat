@@ -6,7 +6,6 @@ from .models import FundingBoard, User1, JoinFund
 from django.views.generic import FormView
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse, reverse_lazy
-
 from .saveData import DataContent
 from django.contrib import messages
 from django.shortcuts import render,redirect
@@ -49,8 +48,9 @@ def detail(request, board_id):
         try:
             user_name = request.session['user']
         except KeyError as k:
-            print("No User")
-            return HttpResponseRedirect(reverse('app:funding_main'))
+
+            request.session['detail_funding'] = (True, board_id)
+            return HttpResponseRedirect(reverse('user:signin'))
 
         # selected : 현재 선택 된 펀딩 목록 (1~3)
         selected = request.POST.getlist('func_check')

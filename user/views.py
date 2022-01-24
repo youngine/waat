@@ -20,6 +20,17 @@ def signin(request):
                 return HttpResponseRedirect(reverse('user:signin'))   
         else:
             request.session['user'] = username
+            # access_detail, detail_board_id = request.session.get('detail_funding',(False, False))
+
+            # if access_detail:
+            #     return render(
+            #         request,
+            #         "app/fundingapp/fund_detail.html",
+            #         {
+            #             "data" : detail_board_id
+            #         }
+            #     )
+
             return HttpResponseRedirect(reverse('app:funding_main'))    
     else:
         return render(request,'user/signin.html')
