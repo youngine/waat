@@ -21,7 +21,9 @@ class FundingBoard(models.Model):
     func_c_price = IntegerField()
     fund_goal_price = IntegerField()
     fund_total_price = IntegerField()
-    regi_date = DateField(null=True)
+    regi_date = DateField()
+    start_date = DateField()
+    end_date = DateField()
 
     
     class Meta:
