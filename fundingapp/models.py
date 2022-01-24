@@ -16,7 +16,9 @@ class FundingBoard(models.Model):
     background_text = CharField(max_length=200, null=True)
     object_text = CharField(max_length = 200, null=True)
     develop_content = CharField(max_length=200, null=True)
-
+    func_a_price = IntegerField()
+    func_b_price = IntegerField()
+    func_c_price = IntegerField()
     fund_goal_price = IntegerField()
     fund_total_price = IntegerField()
     regi_date = DateField(null=True)
@@ -57,18 +59,3 @@ class JoinFund(models.Model):
         app_label = 'fundingapp'
         managed = False
 
-class FundingFunc(models.Model):
-
-    board_id = IntegerField(primary_key=True)
-    func_a_price = IntegerField()
-    func_b_price = IntegerField()
-    func_c_price = IntegerField()
-
-    class Meta:
-        db_table = 'FundingFunc'
-        app_label = 'fundingapp'
-        managed = False
-
-class Post(models.Model):
-    postname = models.CharField(max_length=50)
-    contents = models.TextField()
