@@ -1,4 +1,4 @@
-import re
+import re,os
 from django.forms import forms
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -127,7 +127,10 @@ class Create1(View):
     def get(self, request, *args, **kwargs):
         request.session['step1_complete'] = False
         request.session['step2_complete'] = False
-        return render(request, 'fundingapp/create_step1.html') 
+        if len(request.session.get('user',"")) ==0:
+            return HttpResponseRedirect(reverse('user:signin'))
+        else:
+            return render(request, 'fundingapp/create_step1.html') 
 
     def post(self, request, *args, **kwargs):
         request.session['step1_complete'] = True
@@ -138,7 +141,18 @@ class Create1(View):
         request.session['eqA'] = request.POST['eqA']
         request.session['eqB'] = request.POST['eqB']
         request.session['eqC'] = request.POST['eqC']
-        request.session['imgefile'] = request.POST['imgefile']
+        
+        upload_file = request.FILES.get('file',"")
+        if len(upload_file) !=0: 
+            path = os.path.join("media/img/",upload_file.name)        
+            with open(path, 'wb') as file:
+                file.write(upload_file.read())
+                for chunk in upload_file.chunks():
+                    file.write(chunk)
+            print("저장위치 : ",path)
+            request.session['imgefile'] = path
+        else:
+            request.session['imgefile'] = ""
         return HttpResponseRedirect(reverse('fundingapp:create2'))
 
 class Create2(View):
@@ -155,7 +169,6 @@ class Create2(View):
             request.session['background'] = request.POST['background']
             request.session['objects'] = request.POST['objects']
 
-            print(request.session['imgefile'])
             return HttpResponseRedirect(reverse('fundingapp:create3'))
         if request.POST.get("before",0) =="이전":
             print(request.session['title'])
@@ -192,13 +205,11 @@ class Create3(View):
             FDB.background_text = request.session['background']
             FDB.object_text = request.session['objects']
             FDB.develop_content = request.POST['developContent']
-            # FDB.fund_goal_price = request.POST['goal_money']
-            FDB.fund_goal_price = 500000
+            FDB.fund_goal_price = request.POST['goal_money']
 
             FDB.fund_total_price = 0
             FDB.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
             FDB.save()
-            # FCF.save()
 
             # 세션에 저장된거 삭제
             # del request.session['intro']
