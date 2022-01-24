@@ -1,57 +1,75 @@
 {%load static%}
 <head>
-    <title>개발자를 위한 창고(WAT)</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>개발자를 위한 창고(WAT)</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="apple-touch-icon" href='{% static "assets/img/apple-icon.png" %}'>
-    <link rel="shortcut icon" type="image/x-icon" href='{% static "assets/img/favicon.ico" %}'>
+  <link
+    rel="apple-touch-icon"
+    href='{% static "assets/img/apple-icon.png" %}'
+  />
+  <link
+    rel="shortcut icon"
+    type="image/x-icon"
+    href='{% static "assets/img/favicon.ico" %}'
+  />
 
- 
-    <link rel="stylesheet" href= '{% static "assets/css/bootstrap.min.css" %}'>
-    <link rel="stylesheet" href='{% static "assets/css/templatemo.css" %}'>
-    <link rel="stylesheet" href='{% static "assets/css/custom.css" %}'>
-    <link href='{% static "assets/css/signin.css"%}' rel="stylesheet">
+  <link rel="stylesheet" href='{% static "assets/css/bootstrap.min.css" %}' />
+  <link rel="stylesheet" href='{% static "assets/css/templatemo.css" %}' />
+  <link rel="stylesheet" href='{% static "assets/css/custom.css" %}' />
+  <link href='{% static "assets/css/signin.css"%}' rel="stylesheet" />
+  <link href='{% static "assets/css/profile.css"%}' rel="stylesheet" />
 
-    <!-- Load fonts style after rendering the layout styles -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href='{% static "assets/css/fontawesome.min.css" %}'>
+  <!-- Load fonts style after rendering the layout styles -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap"
+  />
+  <link rel="stylesheet" href='{% static "assets/css/fontawesome.min.css" %}' />
 
-    <!-- 펀딩 참여에 쓰인 head 정보-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/assets/css/fund_view.css">
+  <!-- 펀딩 참여에 쓰인 head 정보-->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="/static/assets/css/fund_view.css" />
 
-<!--
+  <!--
     
 TemplateMo 559 Zay Shop
 
 https://templatemo.com/tm-559-zay-shop
 
 -->
-{% comment %} 나눔글씨체 한글 {% endcomment %}
-<style>
+  {% comment %} 나눔글씨체 한글 {% endcomment %}
+  <style>
     @font-face {
-        font-family: 'NanumSquareR';
-        src:local('NanumSquareR'),
-        url("{% static 'assets/fonts/NanumSquareR.ttf' %}") format('opentype');
+      font-family: "NanumSquareR";
+      src: local("NanumSquareR"),
+        url("{% static 'assets/fonts/NanumSquareR.ttf' %}") format("opentype");
     }
     @font-face {
-        font-family: 'NanumSquareEB';
-        src:local('NanumSquareEB'),
-        url("{% static 'assets/fonts/NanumSquareEB.otf' %}") format('opentype');
+      font-family: "NanumSquareEB";
+      src: local("NanumSquareEB"),
+        url("{% static 'assets/fonts/NanumSquareEB.otf' %}") format("opentype");
     }
     @font-face {
-        font-family: 'NanumSquareB';
-        src:local('NanumSquareB'),
-        url("{% static 'assets/fonts/NanumSquareB.otf' %}") format('opentype');
+      font-family: "NanumSquareB";
+      src: local("NanumSquareB"),
+        url("{% static 'assets/fonts/NanumSquareB.otf' %}") format("opentype");
     }
     @font-face {
-        font-family: 'NanumSquareR';
-        src:local('NanumSquareR'),
-        url("{% static 'assets/fonts/NanumSquareR.otf' %}") format('opentype');
+      font-family: "NanumSquareR";
+      src: local("NanumSquareR"),
+        url("{% static 'assets/fonts/NanumSquareR.otf' %}") format("opentype");
     }
-</style>
-<!-- DEFAULT CSS LINK-->
-<link rel="stylesheet" type="text/css" href="{% static 'assets/css/base.css' %}">
-
+  </style>
+  <!-- DEFAULT CSS LINK-->
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static 'assets/css/base.css' %}"
+  />
 </head>
