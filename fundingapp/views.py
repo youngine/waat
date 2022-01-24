@@ -41,7 +41,7 @@ def detail(request, board_id):
     if request.method == 'POST':
         selected = request.POST.getlist('func_check')
         print(selected)
-        return HttpResponseRedirect('fundingapp:select')
+        return HttpResponseRedirect(reverse('fundingapp:select'))
         
     data = FundingBoard.objects.filter(board_id=board_id)
     join_data = FundingFunc.objects.filter(board_id =board_id)
@@ -72,9 +72,6 @@ def detail(request, board_id):
              "func_b_expl" : func_b_expl,
              "func_c_expl" : func_c_expl,
              
-             
-             
-
         })
 
     return render(
