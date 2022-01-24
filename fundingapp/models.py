@@ -48,6 +48,7 @@ class JoinFund(models.Model):
     user_id = CharField(max_length=30)
     board_id = IntegerField()
     fund_price = IntegerField()
+    fund_join_list = CharField(max_length=30)
 
 
     
