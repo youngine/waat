@@ -2,7 +2,7 @@ import re
 from django.forms import forms
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import FundingBoard, User1, JoinFund, Post
+from .models import FundingBoard, User1, JoinFund, Post, FundingFunc
 from django.views.generic import FormView
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse, reverse_lazy
@@ -34,10 +34,28 @@ def select(request):
             "data" : result,
         }
     )
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def detail(request, board_id):
+    if request.method == 'POST':
+        selected = request.POST.getlist('func_check')
+        print(selected)
+        return HttpResponseRedirect('fundingapp:select')
+        
     data = FundingBoard.objects.filter(board_id=board_id)
+    join_data = FundingFunc.objects.filter(board_id =board_id)
     result = []
+
+    for j in join_data:
+        func_a_expl = j.func_a_expl
+        func_b_expl = j.func_b_expl
+        func_c_expl = j.func_c_expl
+        func_a_price = j.func_a_price
+        func_b_price = j.func_b_price
+        func_c_price = j.func_c_price
+        
+
     for d in data:
         result.append({
             "board_id" : d.board_id,
@@ -46,14 +64,24 @@ def detail(request, board_id):
             "content" : d.content,
             "fund_goal_price" : d.fund_goal_price,
             "fund_total_price" : d.fund_total_price,
-            "percent" : int(d.fund_total_price / d.fund_goal_price * 100)
+             "percent" : int(d.fund_total_price / d.fund_goal_price * 100),
+             "func_a_price" : func_a_price,
+             "func_b_price" : func_b_price,
+             "func_c_price" : func_c_price,
+             "func_a_expl" : func_a_expl,
+             "func_b_expl" : func_b_expl,
+             "func_c_expl" : func_c_expl,
+             
+             
+             
+
         })
 
     return render(
         request,
         'fund_view/fund_detail.html',
         {
-            "data" : data,
+            "data" : result,
         }
     )
 
