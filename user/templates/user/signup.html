@@ -4,8 +4,17 @@
     <body class="text-center">
       {% include 'header.html' %} 
     <form method = "post" class="form-signin" action="{% url 'signup' %}">
+
       {% csrf_token %}
-      {% include "form_errors.html" %}
+      {% if messages %}
+      <div class="alert alert-danger" role="alert">
+          {% for message in messages %}
+              {{ message.message }}
+          {% endfor %}
+      </div>
+    {% endif %}
+    
+      {% comment %} {% include "form_errors.html" %} {% endcomment %}
       <div class="mb-1 pb-1">
             <i class="fas fa-cubes fa-2x me-3" style="color: #59ab6e;"></i>
     </div>
