@@ -12,7 +12,6 @@ from django.shortcuts import render,redirect
 from django.views import View  
 from django.shortcuts import redirect, render  
 from django.core.exceptions import PermissionDenied
-
 import datetime
 
 
@@ -209,6 +208,13 @@ class Create3(View):
 
             FDB.fund_total_price = 0
             FDB.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
+
+            # FDB.start_date = datetime.datetime.strptime(request.POST['start_date'], "%Y-%m-%d")
+            FDB.start_date =request.POST['start_date']
+            FDB.end_date =request.POST['end_date']
+
+            # FDB.end_date = datetime.datetime.strptime(request.POST['end_date'], "%Y-%m-%d")
+            
             FDB.save()
 
             # 세션에 저장된거 삭제
