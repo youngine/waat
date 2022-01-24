@@ -40,21 +40,21 @@
                 <p class="card-text">  펀딩 금액 :  {{ item.fund_total_price }}</p>
                 <p class="card-text">  달성률 : {{item.percent}} % </p>
 
-
+                <form action="" method="post">
                 <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                    <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                    <input type="checkbox" class="btn-check" id="btncheck1" name = "func_check" autocomplete="off" value = "1">
                     <label class="btn btn-outline-primary" for="btncheck1">기능 1  {{item.func_a_price}}원</label>
                   
-                    <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                    <input type="checkbox" class="btn-check" id="btncheck2" name = "func_check" autocomplete="off" value = "2">
                     <label class="btn btn-outline-primary" for="btncheck2">기능 2 {{item.func_b_price}}원</label>
                   
-                    <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                    <input type="checkbox" class="btn-check" id="btncheck3" name = "func_check" autocomplete="off" value = "3">
                     <label class="btn btn-outline-primary" for="btncheck3">기능 3 {{item.func_c_price}}원</label>
                   </div>
 
-                <!-- <button type="button" class="btn btn-secondary">펀딩하기</button> -->
-
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="submit" class="btn btn-secondary">펀딩하기</button>
+                </form>
+                <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     펀딩하기
                   </button>
                   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -73,7 +73,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   
 
 

@@ -42,8 +42,15 @@ def select(request):
 
         }
     )
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def detail(request, board_id):
+    if request.method == 'POST':
+        selected = request.POST.getlist('func_check')
+        print(selected)
+        return HttpResponseRedirect('fundingapp:select')
+        
     data = FundingBoard.objects.filter(board_id=board_id)
     join_data = FundingFunc.objects.filter(board_id =board_id)
     result = []
@@ -78,7 +85,7 @@ def detail(request, board_id):
              
 
         })
-    print(result)
+
     return render(
         request,
         'fund_view/fund_detail.html',
@@ -86,6 +93,8 @@ def detail(request, board_id):
             "data" : result,
         }
     )
+
+
     
 def get_info(request):
     print("받음")
