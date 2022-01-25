@@ -1,12 +1,11 @@
-<!DOCTYPE html>
- <html lang="ko">
-    {% include 'head.html' %}
-    <body class="text-center">
-      {% include 'header.html' %} 
+{% extends "no_footer_base.html" %}
+{% load static %}
+{% block content %}
+
       <div class="mt-5 mx-5">
         {% include 'tab.html' %} 
         </div>
-    <form method = "post" class="form-signin" action="{% url 'user:pwchange' %}">
+    <form method = "post" class="form-signin text-center" action="{% url 'user:pwchange' %}">
       {% csrf_token %}
     {% if messages %}
         <div class="alert alert-danger" role="alert">
@@ -34,5 +33,5 @@
       <button class="btn btn-outline-success" type="submit">Change</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
-  </body>
-</html>
+    
+{%endblock content%}
