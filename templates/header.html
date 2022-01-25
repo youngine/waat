@@ -30,13 +30,23 @@
                 <div class="navbar align-self-center d-flex">
                     {% if request.session.user %}
                         <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" a href="{% url 'user:usercheck' %}"> 마이페이지 </a>
-                        <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" a href="{% url 'user:signout' %}"> 로그아웃 </a>
+                        <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" id = "signout" a href="{% url 'user:signout' %}"> 로그아웃 </a>
                     {%else%}
                         <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" a href="{% url 'user:signin' %}"> 로그인 </a>
                         <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;"a href="{% url 'user:signup' %}"> 회원가입 </a>
                     {% endif %}
                     </div>
                 </div>
+                <script>
+                    document.querySelector("#signout").addEventListener("click", (e) => {
+                        if (confirm("로그아웃 하시겠습니까?")) {
+                            alert("로그아웃 되셨습니다.");
+                        } else {
+                            e.preventDefault();
+                            alert("취소하셨습니다.");
+                        }
+                      });
+                </script>
             </div>
         </div>
     </nav>
