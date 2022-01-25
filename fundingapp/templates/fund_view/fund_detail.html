@@ -19,6 +19,11 @@
           <!-- <a href="#" style="text-decoration: none; color : black;"> -->
 
             <div class="card mb-3" style="max-width: 840px;margin:auto;">
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-outline-success me-md-2" type="button">수정</button>
+                <button class="btn btn-outline-success" type="button">삭제</button>
+              </div>
+
               {% comment %} <div>
                 <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
               </div> {% endcomment %}
@@ -41,9 +46,22 @@
                     </div>
 
                      <form action="" method="post" class="mb-2">
-                        <button style="float:right;" type="submit" class="btn btn-outline-success mx-1" >
+
+                      <button style="float:right;" type="button" class="btn btn-outline-success position-relative mx-1"> 
+                        <div>
+                        펀딩하기
+                        </div>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                          D-9
+                          <span class="visually-hidden">unread messages</span>
+                        </span>
+                      </button>
+
+
+
+                        {% comment %} <button style="float:right;" type="submit" class="btn btn-outline-success mx-1" >
                           <div style="font-family:NanumSquareR;">펀딩하기<div>
-                        </button>
+                        </button> {% endcomment %}
 
                         <div class="d-grid gap-2">
                             <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
