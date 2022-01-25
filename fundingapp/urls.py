@@ -13,7 +13,9 @@ urlpatterns = [
     path('create2/', Create2.as_view(),name='create2'),
     path('create3/', Create3.as_view(),name='create3'),
     path('download/<str:file_path>', views.download, name='download'),
+    path('allViewPage/<int:page_num>/<int:board_id>/',AllViewPage.as_view(), name="allViewPage"),
 
+    # path('AllViewPage/<int:board_id>/<int:page_num>/',AllViewPage.as_view(),name="modify")
+    # path('AllViewPage/',AllViewPage.as_view(),name="AllViewPage")
 
-   
 ]

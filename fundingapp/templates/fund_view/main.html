@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "no_footer_base.html" %}
 {% load static %}
 
 {% block content %}
@@ -7,33 +7,26 @@
 
 
 <div>
-    <div style="margin:3rem 0rem"></div>
         <div>
-            <h2 class= text-success style="font-family: 'NanumSquareEB'; text-align:center;">
-                펀딩 참여</h2>
-                <div style="margin:2rem 0rem; text-align:center; ">
-                <div class="btn-group " role="group">
-                  <button style = "float:right;" id="btnGroupDrop1" type="button" class="btn btn-success btn-primary dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
-                    정렬
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    <li><a class="dropdown-item" href="#">인기순</a></li>
-                    <li><a class="dropdown-item" href="#">최신순</a></li>
-                    <li><a class="dropdown-item" href="#">오랜된순</a></li>
-                  </ul>
-                </div>
-              </div>
-        
+      
+            <h2 class= "text-success mt-5 mb-4" style="font-family: 'NanumSquareEB'; text-align:center;">
+                펀딩 참여
+            </h2>
+        <div style="text-align:center;">
+          <div class="btn-group" role="group">
+            <button syle="float:right" id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+              <li><a class="dropdown-item" href="#">인기순</a></li>
+              <li><a class="dropdown-item" href="#">최신순</a></li>
+              <li><a class="dropdown-item" href="#">오랜된순</a></li>
+            </ul>
+          </div>
     </div>
     
-    
-    <div style="margin:3rem 0rem"></div>
-
-    <div>
-
+    <div class="p-5">
     {% for item in data %}
-
-
         <a href="/app/fund/detail/{{item.board_id}}" style = "text-decoration: none; color : black;">
             
                         <div class="card mb-3" style="max-width: 840px;margin:auto;">
@@ -57,11 +50,6 @@
                       <span class="badge badge-success"style="font-family:NanumSquareR;"># 인공지능</span>
                       <span class="badge badge-danger"style="font-family:NanumSquareR;"># 중소기업</span>
                     </div>
-
-
-
-                  <!-- <input style = "display : none;" value = "{{item.func_c_price}}" name = "test"></input>
-                  꿀팀 종원님의 꿀팀 꿀오브더 팁 -->
 
 
                 <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -96,6 +84,4 @@
     {% endfor %}
     </div>
 </div>
-<div style="margin:10rem 0rem"></div>
-
 {%endblock content%}

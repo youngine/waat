@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "no_footer_base.html" %}
 {% load static %}
 {% block content %}
- <link href='{% static "assets/css/fundingcard.css"%}' rel="stylesheet" />
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+<link href='{% static "assets/css/fundingcard.css"%}' rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <div>
   <div style="margin:3rem 0rem"></div>
   <div>
@@ -21,8 +21,15 @@
                 <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
               </div> {% endcomment %}
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-outline-success me-md-2" type="button">수정</button>
-                <button class="btn btn-outline-success" type="button">삭제</button>
+                {% if item.user_id == current_user %}
+
+                <form action = "" method = "post">
+                  <button class="btn btn-outline-success me-md-2" type="submit" name = "btn_modify" value = "btn_modify">수정</button>
+                </form>
+                <form action = "" method = "post">
+                  <button class="btn btn-outline-success" type="submit" name = "btn_delete" value = "btn_delete">삭제</button>
+                </form>
+                {% endif %}
               </div>
               <div class="row g-0">
                 <div class="col-md-4">
@@ -36,10 +43,10 @@
                     <p class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.intro}}</p>
 
                     <div class="mb-2">
-                      <span class="badge badge-primary"style="font-family:NanumSquareR;"># 파이썬</span>
-                      <span class="badge badge-secondary"style="font-family:NanumSquareR;"># 자바</span>
-                      <span class="badge badge-success"style="font-family:NanumSquareR;"># 인공지능</span>
-                      <span class="badge badge-danger"style="font-family:NanumSquareR;"># 중소기업</span>
+                      <span class="badge badge-primary"style="font-family:NanumSquareR;"># {{item.language_text}}</span>
+                      <span class="badge badge-secondary"style="font-family:NanumSquareR;"># {{item.target}}</span>
+                      <span class="badge badge-success"style="font-family:NanumSquareR;"># {{item.category}}</span>
+                      {% comment %} <span class="badge badge-danger"style="font-family:NanumSquareR;"># 중소기업</span> {% endcomment %}
                     </div>
 
                     {% comment %} <div style="margin:2rem 0rem; text-align:center;"> {% endcomment %}
@@ -68,6 +75,7 @@
                       <button type="submit" class = "btn btn-secondary" name = "btn_modify" value = "btn_modify" method = "post">수정하기</button> 
                     </form> {% endcomment %}
                     {% comment %} {% else %} {% endcomment %}
+                    {% if item.user_id != current_user %}
                     <form action="" method="post" class="mb-2">
 
                       <button style="float:right;" type="submit" class="btn btn-outline-success position-relative mx-1" name = "btn_funding", value = "btn_funding"> 
@@ -110,13 +118,17 @@
                           </div>
                       </div>
                   </form>
+                  {% endif %}
                   {% comment %} {% endif %} {% endcomment %}
 
 
-                    <div class="d-grid gap-2 mb-3">
-                      <button type="button" class="btn btn-secondary btn-lg btn-block">
+                    
+                  <div class="d-grid gap-2 mb-3">
+                    <a href="/{{item.file_name}}" download="다운로드.png">
+                      <button type="button" class="btn btn-secondary btn-lg btn-block" name ="download_button" value="True" method="POST">
                       image download
                       </button>
+                    </a>
                     </div>
 
                   <div class="accordion" id="accordionExample">
