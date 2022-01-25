@@ -19,31 +19,22 @@
           <!-- <a href="#" style="text-decoration: none; color : black;"> -->
 
             <div class="card mb-3" style="max-width: 840px;margin:auto;">
-
               <div>
                 <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
               </div>
-
               <div class="row g-0">
-
                 <div class="col-md-4">
-
                   <img src='/{{item.file_name}}' class="img-fluid rounded-start" alt="...">
-
                 </div>
-
                 <div class="col-md-8">
-
                   <div class="card-body">
-
                     <h5 class="card-title">{{item.title}}</h5>
-
                     <p class="card-text"> {{item.intro}}</p>
                     <p class="card-text"> 목표 금액 : {{item.fund_goal_price}}</p>
                     <p class="card-text"> 펀딩 금액 : {{ item.fund_total_price }}</p>
                     <p class="card-text"> 달성률 : {{item.percent}} % </p>
-                    <a href="http://203.250.72.8:3677/test_File/oneFile" download="bottle.png">다운로드</a>
                     
+                    <a href="/{{item.file_name}}" download="다운로드.png"><button name ="download_button" value="True" method="POST">파일 다운로드</button></a>
 
                     {% if item.user_id == current_user %}
                     <form action="" method="post" style = "display : None;">
