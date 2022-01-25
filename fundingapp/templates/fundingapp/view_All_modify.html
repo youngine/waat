@@ -1,16 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'template.html' %}
 {% load static %} 
 
 {% block content %}
-
-    {% if data == 1 %}
+    {% if page_num == 1 %}
         {% include 'fundingapp/create_step1.html' %} 
-    {% elif data == 2%}
+    {% elif page_num == 2%}
         {% include 'fundingapp/create_step2.html' %} 
-    {% elif data == 3%}
+    {% elif page_num == 3%}
         {% include 'fundingapp/create_step3.html' %} 
     {% else%}
-        <h2>{{data}}</h2>
+        <h2>{{page_num}}</h2>
     {% endif %}
-
 {% endblock %}
