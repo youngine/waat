@@ -20,14 +20,26 @@ def select(request):
     result = []
     for d in data:
         result.append({
+
             "board_id" : d.board_id,
             "user_id" : d.user_id,
             "title" : d.title,
-            "content" : d.intro	,
-            "file_name" : "/media/img/2022year.jpg",
+            "category" : d.category,
+            "target" : d.target,
+            "intro" : d.intro,
+            "file_name" : d.file_name,
+            "background_text" : d.background_text,
+            "object_text" : d.object_text,
+            "develop_content" : d.develop_content,
+            "func_a_price" : d.func_a_price,
+            "func_b_price" : d.func_b_price,
+            "func_c_price" : d.func_c_price,
             "fund_goal_price" : d.fund_goal_price,
             "fund_total_price" : d.fund_total_price,
-            "percent" : int(d.fund_total_price / d.fund_goal_price * 100)
+            "percent" : int(d.fund_total_price / d.fund_goal_price * 100),
+            "regi_date" : d.regi_date,
+            "start_date" : d.start_date,
+            "end_date" : d.end_date
         })
     return render(
         request,
@@ -104,13 +116,22 @@ def detail(request, board_id):
             "board_id" : d.board_id,
             "user_id" : d.user_id,
             "title" : d.title,
-            "content" : d.intro,
+            "category" : d.category,
+            "target" : d.target,
+            "intro" : d.intro,
+            "file_name" : d.file_name,
+            "background_text" : d.background_text,
+            "object_text" : d.object_text,
+            "develop_content" : d.develop_content,
+            "func_a_price" : d.func_a_price,
+            "func_b_price" : d.func_b_price,
+            "func_c_price" : d.func_c_price,
             "fund_goal_price" : d.fund_goal_price,
             "fund_total_price" : d.fund_total_price,
-             "percent" : int(d.fund_total_price / d.fund_goal_price * 100),
-             "func_a_price" : d.func_a_price,
-             "func_b_price" : d.func_b_price,
-             "func_c_price" : d.func_c_price
+            "percent" : int(d.fund_total_price / d.fund_goal_price * 100),
+            "regi_date" : d.regi_date,
+            "start_date" : d.start_date,
+            "end_date" : d.end_date
              
         })
 
