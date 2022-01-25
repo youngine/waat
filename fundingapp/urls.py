@@ -8,7 +8,10 @@ app_name = 'fundingapp'
 urlpatterns = [
 
     path('detail/<int:board_id>', views.detail, name='detail'),
-    path('select/', views.select,name='select'),
+    path('select/<int:select_drop>', views.select,name='select'),
+    path('contact/<int:board_id>', views.contact, name='contact'),
+
+
     path('create1/', Create1.as_view(),name='create1'),
     path('create2/', Create2.as_view(),name='create2'),
     path('create3/', Create3.as_view(),name='create3'),
