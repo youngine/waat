@@ -189,7 +189,9 @@ class Create1(View):
         request.session['category'] = request.POST['category']
         request.session['language'] = request.POST['language']
         request.session['target'] = request.POST['target']
-
+        request.session['eqA'] = request.POST['eqA']
+        request.session['eqB'] = request.POST['eqB']
+        request.session['eqC'] = request.POST['eqC']
         
         upload_file = request.FILES.get('file',"")
         if len(upload_file) !=0: 
@@ -245,9 +247,9 @@ class Create3(View):
             FDB.language_text = request.session['language']
             FDB.target = request.session['target']
             
-            FDB.func_a_price = request.POST['eqA']
-            FDB.func_b_price = request.POST['eqB']
-            FDB.func_c_price = request.POST['eqC']
+            FDB.func_a_price = request.session['eqA']
+            FDB.func_b_price = request.session['eqB']
+            FDB.func_c_price = request.session['eqC']
 
             FDB.file_name = request.session['imgefile']
             FDB.intro = request.session['intro']
