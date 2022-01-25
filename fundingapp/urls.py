@@ -12,6 +12,8 @@ urlpatterns = [
     path('create1/', Create1.as_view(),name='create1'),
     path('create2/', Create2.as_view(),name='create2'),
     path('create3/', Create3.as_view(),name='create3'),
+    path('download/<str:file_path>', views.download, name='download'),
+
 
    
 ]
