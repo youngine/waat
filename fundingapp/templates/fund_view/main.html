@@ -7,83 +7,95 @@
 
 
 <div>
-        <div>
+  <div>
       
-            <h2 class= "text-success mt-5 mb-4" style="font-family: 'NanumSquareEB'; text-align:center;">
-                펀딩 참여
-            </h2>
-        <div style="text-align:center;">
-          <div class="btn-group" role="group">
-            <button syle="float:right" id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-              <li><a class="dropdown-item" href="/app/fund/select/1">최신순</a></li>
-              <li><a class="dropdown-item" href="/app/fund/select/2">인기순</a></li>
-              <li><a class="dropdown-item" href="/app/fund/select/3">오랜된순</a></li>
-            </ul>
+    <h2 class= "text-success mt-5 mb-4" style="font-family: 'NanumSquareEB'; text-align:center;">
+        펀딩 참여
+    </h2>
+    <!-- <div style="text-align:center;">
+      <div class="btn-group" role="group">
+        <button syle="float:right" id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          정렬 순서
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+          <li><a class="dropdown-item" href="/app/fund/select/1">최신순</a></li>
+          <li><a class="dropdown-item" href="/app/fund/select/2">인기순</a></li>
+          <li><a class="dropdown-item" href="/app/fund/select/3">오랜된순</a></li>
+        </ul>
+      </div>
+    </div> -->
+    
+      <a class="dropdown-item" href="/app/fund/select/1">최신순</a>
+      <a class="dropdown-item" href="/app/fund/select/2">인기순</a>
+      <a class="dropdown-item" href="/app/fund/select/3">오랜된순</a>
+      
+      {% for item in info %}  
+  
+      <div class="card mb-3" style="max-width: 840px;margin:auto;">
+        <a href="/app/fund/detail/{{item.board_id}}" style = "text-decoration: none; color : black;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src='/{{item.file_name}}' class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <div class="circle " style="font-family:NanumSquareR; float:right;">{{item.percent}}%</div>
+                <h4 class="card-title mt-0" style="font-family:NanumSquareR;">{{item.title}}</h4>
+                <p class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.intro}}</p>
+                <div class="mb-2">
+                  <span class="badge badge-primary"style="font-family:NanumSquareR;"># {{item.language_text}}</span>
+                  <span class="badge badge-secondary"style="font-family:NanumSquareR;"># {{item.target}}</span>
+                  <span class="badge badge-success"style="font-family:NanumSquareR;"># {{item.category}}</span>
+                </div>
+                <p class="card-text mb-1"style="font-family:NanumSquareR;"> 작성일자 : {{item.regi_date}}</p>
+                <p class="card-text mb-1"style="font-family:NanumSquareR;"> 펀딩 시작 : {{item.start_date}}</p>  
+                <p class="card-text mb-1"style="font-family:NanumSquareR;"> 펀딩 마감 : {{item.end_date}}</p>      
+              </div>
+            </div>
           </div>
-    </div>
+        </a>
+      </div>   
+      {% endfor %}
     
     <div class="p-5">
-    {% for item in data %}
-
-
-    
-    <div class="card mb-3" style="max-width: 840px;margin:auto;">
-                          <a href="/app/fund/detail/{{item.board_id}}" style = "text-decoration: none; color : black;">
-              {% comment %} <div>
-                <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
-              </div> {% endcomment %}
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src='/{{item.file_name}}' class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-
-                    <div class="circle " style="font-family:NanumSquareR; float:right;">{{item.percent}}%</div>
-                    <h4 class="card-title mt-0" style="font-family:NanumSquareR;">{{item.title}}</h4>
-                    <p class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.intro}}</p>
-
-                    <div class="mb-2">
-                      <span class="badge badge-primary"style="font-family:NanumSquareR;"># {{item.language_text}}</span>
-                      <span class="badge badge-secondary"style="font-family:NanumSquareR;"># {{item.target}}</span>
-                      <span class="badge badge-success"style="font-family:NanumSquareR;"># {{item.category}}</span>
-                      {% comment %} <span class="badge badge-danger"style="font-family:NanumSquareR;"># 중소기업</span> {% endcomment %}
-                    </div>
-
-
-                <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  펀딩하기
-
-                  </button>
-                  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="staticBackdropLabel">펀딩을 진행하시겠습니까?</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          총 진행된 금액은 {{item.fund_goal_price}} 입니다.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">안하겠습니다.</button>
-                          <button type="button" class="btn btn-primary">사겠습니다.</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-
-                  </div>
-                </div>
-              </div>
-            </a>
-            </div>
-
-
-    {% endfor %}
+    <div style='text-align:center;'>
+      <ul class='pagination'>
+        {% for i in page_range %}
+        <li>
+          <a href='/app/fund/select/{{ select_drop}}?page={{ i }}'>
+            {{ i }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
+
+
+
+  </div>
 </div>
+
 {%endblock content%}
+
+
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  펀딩하기
+
+  </button>
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">펀딩을 진행하시겠습니까?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          총 진행된 금액은 {{item.fund_goal_price}} 입니다.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">안하겠습니다.</button>
+          <button type="button" class="btn btn-primary">사겠습니다.</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
