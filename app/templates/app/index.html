@@ -4,8 +4,6 @@
 
 {% block content %}
     {% include 'banner.html' %} 
-    {% comment %} 여기부터 수정하면 됩니다. {% endcomment %}
-    <!-- Start Categories of The Month -->
     <section class="container py-5">
         <div class="row text-center pt-3">
             <div class="col-lg-6 m-auto" >
@@ -16,38 +14,26 @@
             </div>
         </div>
     </section>
-    <!-- {% include 'card.html' %} -->
-    <div class="row mx-5">
-    <!-- 카드 내용입니다. -->
-    {% for item in result %}
 
+    <div class="row mx-5">
+    {% for item in result %}
         <div class="col-md-3">
             <div class="card mb-4 product-wap rounded-0">
-                <div class="card rounded-0">
+                <div class="card rounded-0 mb-0">
                     <a href="/app/fund/detail/{{item.board_id}}" class="h3 text-decoration-none">
                     <img class="card-img rounded-0 img-fluid" src='{% static "assets/img/shop_02.jpg"%}' style="height:300px; width:330px">
                     </a>
                 </div>
                 <div class="card-body">
-                    {{ item.title }}
-                    <!-- <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                        <li>M/L/X/XL</li>
-                    </ul>
-                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                        <li>
-                            <i class="text-warning fa fa-star"></i>
-                            <i class="text-warning fa fa-star"></i>
-                            <i class="text-warning fa fa-star"></i>
-                            <i class="text-muted fa fa-star"></i>
-                            <i class="text-muted fa fa-star"></i>
-                        </li>
-                    </ul> -->
-                    <p class="text-center mb-0">펀딩 {{item.percent}}% 진행 중</p>
+                    <h4 class= " text-center mb-2" style="font-family:NanumSquareR;"> 
+                        {{ item.title }}
+                    </h4>
+                    <p class="text-center mb-0" style="font-family:NanumSquareR;">
+                        펀딩 {{item.percent}}% 진행 중
+                    </p>
                 </div>
             </div>
         </div>
         {% endfor %}
-
-
-
+    </div>
     {%endblock content%}
