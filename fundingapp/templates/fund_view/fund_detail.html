@@ -40,35 +40,47 @@
                       <span class="badge badge-danger"style="font-family:NanumSquareR;"># 중소기업</span>
                     </div>
 
-                     <form action="" method="post" class="mb-2">
-                        <button style="float:right;" type="submit" class="btn btn-outline-success mx-1" >
-                          <div style="font-family:NanumSquareR;">펀딩하기<div>
-                        </button>
+                    {% if item.user_id == current_user %}
 
-                        <div class="d-grid gap-2">
-                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                              
-                              <input type="checkbox" class="btn-check" id="btncheck1" name="func_check" autocomplete="off"
-                                value="1">
-                              <label class="btn btn-outline-primary" for="btncheck1" style="font-family:NanumSquareR;">
-                                기능 1
-                              </label>
-
-                              <input type="checkbox" class="btn-check" id="btncheck2" name="func_check" autocomplete="off"
-                                value="2">
-                              <label class="btn btn-outline-primary" for="btncheck2" style="font-family:NanumSquareR;">
-                                기능 2
-                              </label>
-
-                              <input type="checkbox" class="btn-check" id="btncheck3" name="func_check" autocomplete="off"
-                                value="3">
-                              <label class="btn btn-outline-primary" for="btncheck3" style="font-family:NanumSquareR;">
-                                기능 3
-                              </label>
-                            
-                            </div>
-                        </div>
+                    <form action = "" method = "post">
+                      <button type="submit" class = "btn btn-secondary" name = "btn_delete" value = "btn_delete">삭제하기</button> 
                     </form>
+
+                    <form action = "" method = "post">
+                      <button type="submit" class = "btn btn-secondary" name = "btn_modify" value = "btn_modify" method = "post">수정하기</button> 
+                    </form>
+                    {% else %}
+                    <form action="" method="post" class="mb-2">
+                      <button style="float:right;" type="submit" class="btn btn-outline-success mx-1" >
+                        <div style="font-family:NanumSquareR;">펀딩하기<div>
+                      </button>
+
+                      <div class="d-grid gap-2">
+                          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                            
+                            <input type="checkbox" class="btn-check" id="btncheck1" name="func_check" autocomplete="off"
+                              value="1">
+                            <label class="btn btn-outline-primary" for="btncheck1" style="font-family:NanumSquareR;">
+                              기능 1
+                            </label>
+
+                            <input type="checkbox" class="btn-check" id="btncheck2" name="func_check" autocomplete="off"
+                              value="2">
+                            <label class="btn btn-outline-primary" for="btncheck2" style="font-family:NanumSquareR;">
+                              기능 2
+                            </label>
+
+                            <input type="checkbox" class="btn-check" id="btncheck3" name="func_check" autocomplete="off"
+                              value="3">
+                            <label class="btn btn-outline-primary" for="btncheck3" style="font-family:NanumSquareR;">
+                              기능 3
+                            </label>
+                          
+                          </div>
+                      </div>
+                  </form>
+                  {% endif %}
+
 
                     <div class="d-grid gap-2 mb-3">
                       <button type="button" class="btn btn-secondary btn-lg btn-block">
@@ -117,10 +129,6 @@
                       </div>
 
                     </div>
-
-                  <!-- <input style = "display : none;" value = "{{item.func_c_price}}" name = "test"></input>
-                  꿀팀 종원님의 꿀팀 꿀오브더 팁 -->
-
 
                 <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                   펀딩하기
