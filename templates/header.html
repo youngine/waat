@@ -38,6 +38,7 @@
                 </div>
                 <div class="navbar align-self-center d-flex">
                     {% if request.session.user %}
+                        {{ request.session.user }}님 반갑습니다.    
                         <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" a href="{% url 'user:usercheck' %}"> 마이페이지 </a>
                         <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" id = "signout" a href="{% url 'user:signout' %}"> 로그아웃 </a>
                     {%else%}
