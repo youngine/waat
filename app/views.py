@@ -25,7 +25,7 @@ def assemble(request):
 
 
 def funding_main(request):
-
+    
     data = FundingBoard.objects.all().order_by('-board_id')
     result = []
     for i, d in enumerate(data):
@@ -41,7 +41,7 @@ def funding_main(request):
 
     return render(request, 
     'app/index.html',
-    {
-        "result" : result
-    }
+        {
+            "result" : result,
+        }
     ) 
