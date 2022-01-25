@@ -28,7 +28,10 @@
       <a class="dropdown-item" href="/app/fund/select/1">최신순</a>
       <a class="dropdown-item" href="/app/fund/select/2">인기순</a>
       <a class="dropdown-item" href="/app/fund/select/3">오랜된순</a>
-      
+      <form action = "/app/fund/select/{{select_drop}}" method="post">
+        <input  style="display:inline-block" placeholder="검색할 단어를 입력해주세요" type="text" name="search_word">
+        <input  style="display:inline-block" value ="검색" type="submit" name="search">
+      </form>
       {% for item in info %}  
   
       <div class="card mb-3" style="max-width: 840px;margin:auto;">

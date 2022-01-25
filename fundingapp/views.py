@@ -13,12 +13,21 @@ from django.views import View
 from django.core.exceptions import PermissionDenied
 import datetime
 from django.core.paginator import Paginator
-
+from django.views.decorators.csrf import csrf_exempt
+from config import settings
+@csrf_exempt
 def select(request, select_drop):
 
     now_page = int(request.GET.get('page', 1))
-
     data = FundingBoard.objects.all()
+
+    if request.method =="POST":
+        print(request.POST.get("search_word"))
+        search_word = request.POST.get("search_word", 0)
+        print(search_word)
+        data = FundingBoard.objects.filter(title__contains = search_word)
+
+
     result = []
     for d in data:
         result.append({
@@ -45,7 +54,7 @@ def select(request, select_drop):
             "end_date" : d.end_date
             
         })
-    
+    print(result)
     # 최신순
     if select_drop == 1:
         result = sorted(result, key = lambda x: -x["board_id"])
@@ -68,7 +77,7 @@ def select(request, select_drop):
     if end_page > p.num_pages:
         end_page = p.num_pages
 
-    print(select_drop)
+
 
     return render(
         request,
@@ -81,8 +90,7 @@ def select(request, select_drop):
             
         }
     )
-from django.views.decorators.csrf import csrf_exempt
-from config import settings
+
 
 @csrf_exempt
 def detail(request, board_id):
