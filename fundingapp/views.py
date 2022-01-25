@@ -39,9 +39,9 @@ def select(request):
             "regi_date" : d.regi_date,
             "start_date" : d.start_date,
             "end_date" : d.end_date
-
+            
         })
-
+    
 
     
     return render(
@@ -49,6 +49,7 @@ def select(request):
         'fund_view/main.html',
         {
             "data" : result,
+            
         }
     )
 from django.views.decorators.csrf import csrf_exempt
@@ -57,8 +58,25 @@ from config import settings
 @csrf_exempt
 def detail(request, board_id):
     data = FundingBoard.objects.get(board_id=board_id)
+    current_user = request.session.get('user',0)
     filepath = data.file_name
     if request.method =="GET":
+        percent = int(data.fund_total_price / data.fund_goal_price * 100)
+
+        # if percent < 20:
+        #     percent_mark = 0
+        # elif percent < 40:
+        #     percent_mark = 1
+            
+        # elif percent < 60:
+        #     percent_mark = 2
+            
+        # elif percent < 80:
+        #     percent_mark = 3
+        # else:
+        #     percent_mark = 4
+            
+
         result = [{
                 "board_id" : data.board_id,
                 "user_id" : data.user_id,
@@ -75,12 +93,21 @@ def detail(request, board_id):
                 "func_c_price" : data.func_c_price,
                 "fund_goal_price" : data.fund_goal_price,
                 "fund_total_price" : data.fund_total_price,
-                "percent" : int(data.fund_total_price / data.fund_goal_price * 100),
+                "percent" : percent,
                 "regi_date" : data.regi_date,
                 "start_date" : data.start_date,
-                "end_date" : data.end_date
+                "end_date" : data.end_date,
+                # "percent_mark" : percent_mark
+
             }]
-        return render(request,'fund_view/fund_detail.html', {"data" : result,})
+
+
+        return render(request,
+        'fund_view/fund_detail.html', 
+        {
+            "data" : result,
+            "current_user" : current_user
+        })
     if request.method == 'POST':
         try:
             # 현재는 root 아이디로 들어왔다고 가정하고 진행
@@ -164,9 +191,7 @@ class Create1(View):
         request.session['category'] = request.POST['category']
         request.session['language'] = request.POST['language']
         request.session['target'] = request.POST['target']
-        request.session['eqA'] = request.POST['eqA']
-        request.session['eqB'] = request.POST['eqB']
-        request.session['eqC'] = request.POST['eqC']
+
         
         upload_file = request.FILES.get('file',"")
         if len(upload_file) !=0: 
@@ -222,9 +247,9 @@ class Create3(View):
             FDB.language_text = request.session['language']
             FDB.target = request.session['target']
             
-            FDB.func_a_price = request.session['eqA']
-            FDB.func_b_price = request.session['eqB']
-            FDB.func_c_price = request.session['eqC']
+            FDB.func_a_price = request.POST['eqA']
+            FDB.func_b_price = request.POST['eqB']
+            FDB.func_c_price = request.POST['eqC']
 
             FDB.file_name = request.session['imgefile']
             FDB.intro = request.session['intro']
