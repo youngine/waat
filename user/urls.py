@@ -11,4 +11,5 @@ urlpatterns = [
     path('signup/', views.signup,name='signup'),
     path('usercheck/', views.usercheck,name='usercheck'),
     path('pwchange/', views.pwchange,name='pwchange'),
+    path('myfunding/', views.myfunding, name='myfunding'),
 ]
