@@ -16,5 +16,38 @@
             </div>
         </div>
     </section>
-    {% include 'card.html' %}
+    <!-- {% include 'card.html' %} -->
+    <div class="row mx-5">
+    <!-- 카드 내용입니다. -->
+    {% for item in result %}
+
+        <div class="col-md-3">
+            <div class="card mb-4 product-wap rounded-0">
+                <div class="card rounded-0">
+                    <a href="/app/fund/detail/{{item.board_id}}" class="h3 text-decoration-none">
+                    <img class="card-img rounded-0 img-fluid" src='{% static "assets/img/shop_02.jpg"%}' style="height:300px; width:330px">
+                    </a>
+                </div>
+                <div class="card-body">
+                    {{ item.title }}
+                    <!-- <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                        <li>M/L/X/XL</li>
+                    </ul>
+                    <ul class="list-unstyled d-flex justify-content-center mb-1">
+                        <li>
+                            <i class="text-warning fa fa-star"></i>
+                            <i class="text-warning fa fa-star"></i>
+                            <i class="text-warning fa fa-star"></i>
+                            <i class="text-muted fa fa-star"></i>
+                            <i class="text-muted fa fa-star"></i>
+                        </li>
+                    </ul> -->
+                    <p class="text-center mb-0">펀딩 {{item.percent}}% 진행 중</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+
     {%endblock content%}

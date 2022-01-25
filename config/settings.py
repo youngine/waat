@@ -113,7 +113,8 @@ DATABASES = {
 }
 DATABASE_ROUTERS = [
     'fundingapp.router.DBRouter',
-    'user.router.DBRouter'
+    'user.router.DBRouter',
+    'app.router.DBRouter'
 ]
 
 
