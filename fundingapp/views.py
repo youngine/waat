@@ -62,7 +62,7 @@ def detail(request, board_id):
     current_user = request.session.get('user',0)
     filepath = data.file_name
     if request.method =="GET":
-        # percent = int(data.fund_total_price / data.fund_goal_price * 100)
+        percent = int(data.fund_total_price / data.fund_goal_price * 100)
 
         # if percent < 20:
         #     percent_mark = 0
@@ -98,7 +98,7 @@ def detail(request, board_id):
                 "regi_date" : data.regi_date,
                 "start_date" : data.start_date,
                 "end_date" : data.end_date,
-                "percent_mark" : percent_mark
+                # "percent_mark" : percent_mark
 
             }]
 
