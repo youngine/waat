@@ -19,39 +19,23 @@
     <form action="/app/fund/create3/" method="POST">
         {% csrf_token %}
         <div class=wrapper>
-            <p class= "developContent_text" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">주요 개발 내용</p>
-            <input class = developContent  style="display:inline-block;margin;" type="textarea" name="developContent">
+            <p class= "developContent_text" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">펀딩 목표 금액</p>
+            <input class = developTarget placeholder="목표 금액을 입력해주세요." style="display:inline-block;margin;" type="textarea" name="goal_money">
         </div>
         <div class=wrapper>
-            <p class= "developContent_text" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">월별 수행 일정</p>
-            <table class="table developPlan" style="display:inline-block" >
-                {% comment %} <thead>
-                    <tr>
-                        <th>월별</th>
-                        <th>추진내용</th>
-                     </tr>
-                <thead> {% endcomment %}
-                {% comment %} <tbody>
-                    <tr style="margin:0rem 0rem">
-                        <td>1개월</td>
-                        <td><input type="text" name="p1" size="80" style="width:80%; border: 0;"></td>
-                    </tr>
-                    <tr>
-                        <td>2개월</td>
-                        <td><input type="text" name="p2" size="50" style="width:80%; border: 0;"></td>
-                    </tr>
-                    <tr>
-                        <td>3개월</td>
-                        <td><input type="text" name="p3" size="50" style="width:80%; border: 0;"></td>
-                    </tr>
-                    <tr>
-                        <td>4개월</td>
-                        <td><input type="text" name="p4" size="50" style="width:80%; border: 0;"></td>
-                    </tr>
-                </tbody> {% endcomment %}
-            </table>
+            <label class= "developContent_text" style="margin:0rem 1rem;font-family: 'NanumSquareEB';">프로젝트 시작일</label>
+                <input style="margin:0rem 2.5rem" type="date" name="start_date" value= "2022-12-01">
+            <label class= "developContent_text" style="margin:0rem 1rem;font-family: 'NanumSquareEB';">프로젝트 종료일</label>
+                <input style="margin:0rem 0rem" type="date" name="end_date" value="2022-12-31">
+        </div>
+        <div class=wrapper>
+            <p class= "developContent_text" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">주요 개발 내용</p>
+            <textarea class = developContent  placeholder="개발 내용에 대해서 입력해주세요." style="display:inline-block;margin;" name="developContent"> </textarea>
         </div>
         
+
+
+
         <div style="margin:3rem 0rem"></div>
         <div >
             <input class= "before_btn_color" style="display:inline-block" method="POST" type="submit" name="before" value="이전">

@@ -47,6 +47,7 @@
                     <p class="card-text"> 목표 금액 : {{item.fund_goal_price}}</p>
                     <p class="card-text"> 펀딩 금액 : {{ item.fund_total_price }}</p>
                     <p class="card-text"> 달성률 : {{item.percent}} % </p>
+                    
 
                     <form action="" method="post">
                       <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
@@ -62,11 +63,20 @@
                           value="3">
                         <label class="btn btn-outline-primary" for="btncheck3">기능 3 {{item.func_c_price}}원</label>
                       </div>
-
                       <button type="submit" class="btn btn-secondary">펀딩하기</button>
                     </form>
+
+<!-- <input style = "display : none;" value = "{{item.func_c_price}}" name = "test"></input>
+꿀팀 종원님의 꿀팀 꿀오브더 팁 -->
+
+
                     <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    펀딩하기
+                      펀딩하기
+
+                
+
+
+
                   </button>
                   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
