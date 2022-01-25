@@ -62,6 +62,22 @@ def detail(request, board_id):
     current_user = request.session.get('user',0)
     filepath = data.file_name
     if request.method =="GET":
+        # percent = int(data.fund_total_price / data.fund_goal_price * 100)
+
+        # if percent < 20:
+        #     percent_mark = 0
+        # elif percent < 40:
+        #     percent_mark = 1
+            
+        # elif percent < 60:
+        #     percent_mark = 2
+            
+        # elif percent < 80:
+        #     percent_mark = 3
+        # else:
+        #     percent_mark = 4
+            
+
         result = [{
                 "board_id" : data.board_id,
                 "user_id" : data.user_id,
@@ -78,11 +94,15 @@ def detail(request, board_id):
                 "func_c_price" : data.func_c_price,
                 "fund_goal_price" : data.fund_goal_price,
                 "fund_total_price" : data.fund_total_price,
-                "percent" : int(data.fund_total_price / data.fund_goal_price * 100),
+                "percent" : percent,
                 "regi_date" : data.regi_date,
                 "start_date" : data.start_date,
-                "end_date" : data.end_date
+                "end_date" : data.end_date,
+                "percent_mark" : percent_mark
+
             }]
+
+
         return render(request,
         'fund_view/fund_detail.html', 
         {
