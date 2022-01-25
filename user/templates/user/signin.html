@@ -1,9 +1,7 @@
-<!DOCTYPE html>
- <html lang="ko">
-    {% include 'head.html' %}
-    <body class="text-center">
-      {% include 'header.html' %} 
-    <form method = "post" class="form-signin" action="{% url 'user:signin' %}">
+{% extends "no_footer_base.html" %}
+{% load static %}
+{% block content %}
+    <form method = "post" class="form-signin text-center" action="{% url 'user:signin' %}">
       {% csrf_token %}
     {% if messages %}
         <div class="alert alert-danger" role="alert">
@@ -31,5 +29,4 @@
       <button class="btn btn-outline-success" type="submit">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
-  </body>
-</html>
+{%endblock content%}
