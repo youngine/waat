@@ -17,9 +17,9 @@
               Dropdown
             </button>
             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-              <li><a class="dropdown-item" href="#">인기순</a></li>
-              <li><a class="dropdown-item" href="#">최신순</a></li>
-              <li><a class="dropdown-item" href="#">오랜된순</a></li>
+              <li><a class="dropdown-item" href="/app/fund/select/1">최신순</a></li>
+              <li><a class="dropdown-item" href="/app/fund/select/2">인기순</a></li>
+              <li><a class="dropdown-item" href="/app/fund/select/3">오랜된순</a></li>
             </ul>
           </div>
     </div>
@@ -32,9 +32,9 @@
     {% for item in data %}
 
 
-        <a href="/app/fund/detail/{{item.board_id}}" style = "text-decoration: none; color : black;">
-            
-                        <div class="card mb-3" style="max-width: 840px;margin:auto;">
+    
+    <div class="card mb-3" style="max-width: 840px;margin:auto;">
+                          <a href="/app/fund/detail/{{item.board_id}}" style = "text-decoration: none; color : black;">
               {% comment %} <div>
                 <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
               </div> {% endcomment %}
@@ -50,10 +50,10 @@
                     <p class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.intro}}</p>
 
                     <div class="mb-2">
-                      <span class="badge badge-primary"style="font-family:NanumSquareR;"># 파이썬</span>
-                      <span class="badge badge-secondary"style="font-family:NanumSquareR;"># 자바</span>
-                      <span class="badge badge-success"style="font-family:NanumSquareR;"># 인공지능</span>
-                      <span class="badge badge-danger"style="font-family:NanumSquareR;"># 중소기업</span>
+                      <span class="badge badge-primary"style="font-family:NanumSquareR;"># {{item.language_text}}</span>
+                      <span class="badge badge-secondary"style="font-family:NanumSquareR;"># {{item.target}}</span>
+                      <span class="badge badge-success"style="font-family:NanumSquareR;"># {{item.category}}</span>
+                      {% comment %} <span class="badge badge-danger"style="font-family:NanumSquareR;"># 중소기업</span> {% endcomment %}
                     </div>
 
 
@@ -82,8 +82,8 @@
                   </div>
                 </div>
               </div>
+            </a>
             </div>
-        </a>
 
 
     {% endfor %}

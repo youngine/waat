@@ -1,8 +1,8 @@
 import re,os
 from django.forms import forms
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import FundingBoard, User1, JoinFund
+from django.http import HttpRequest, HttpResponse
+from .models import FundingBoard, User1, JoinFund,JoinProject
 from django.views.generic import FormView
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse, reverse_lazy
@@ -14,7 +14,10 @@ from django.core.exceptions import PermissionDenied
 import datetime
 
 
-def select(request):
+def select(request, select_drop):
+
+
+
     data = FundingBoard.objects.all()
     result = []
     for d in data:
@@ -31,6 +34,7 @@ def select(request):
             "object_text" : d.object_text,
             "develop_content" : d.develop_content,
             "func_a_price" : d.func_a_price,
+            "language_text" : d.language_text,
             "func_b_price" : d.func_b_price,
             "func_c_price" : d.func_c_price,
             "fund_goal_price" : d.fund_goal_price,
@@ -42,7 +46,17 @@ def select(request):
             
         })
     
+    # 최신순
+    if select_drop == 1:
+        result = sorted(result, key = lambda x: -x["board_id"])
 
+    # 인기순
+    elif select_drop == 2:
+        result = sorted(result, key = lambda x: -x["percent"])
+
+    # 오래된 순
+    else:
+        result = sorted(result, key = lambda x: x["board_id"])
     
     return render(
         request,
@@ -87,6 +101,7 @@ def detail(request, board_id):
                 "file_name" : data.file_name,
                 "background_text" : data.background_text,
                 "object_text" : data.object_text,
+                "language_text" : data.language_text,
                 "develop_content" : data.develop_content,
                 "func_a_price" : data.func_a_price,
                 "func_b_price" : data.func_b_price,
@@ -124,7 +139,7 @@ def detail(request, board_id):
             # 아무것도 선택을 안한상태
             if len(selected) == 0:
                 # 첫 페이지 혹은 selelct 이거는 정해야할듯?
-                return HttpResponseRedirect(reverse('fundingapp:select'))
+                return HttpResponseRedirect('/app/fund/select/1')
             else:
                 for i in selected:
                     if i == "1":
@@ -149,11 +164,12 @@ def detail(request, board_id):
             # data : 현재 선택 된 게시물 정보
             data.fund_total_price += total_price
             data.save()
-            return HttpResponseRedirect(reverse('fundingapp:select'))
+            return HttpResponseRedirect('/app/fund/select/1')
 
         if request.POST.get('btn_delete') == "btn_delete":
             # foreign key 삭제 해야함...
             join_db = JoinFund.objects.filter(board_id = board_id).delete()
+            join_project_db = JoinProject.objects.filter(board_id=board_id).delete()
             data.delete()
             return HttpResponseRedirect(reverse('app:funding_main'))
 
@@ -164,6 +180,62 @@ def detail(request, board_id):
                                         kwargs={'page_num': page_num,
                                                 'board_id': page_num+1,
                                         }))
+
+        if request.POST.get('btn_concat') == "btn_concat":
+
+            user = User1.objects.get(user_id = request.session['user'])
+            return render(
+                request,
+                'fund_view/contact.html',
+                {
+                    "user_name" : user.user_name,
+                    "user_email" : user.user_email
+                }
+
+            )
+
+@csrf_exempt
+def contact(request, board_id):
+
+    
+    if request.method == 'POST':
+        # 데이터가 들어왔으니 저장해주자.
+
+        # 만약 이미 신청한 사람이라면 안된다고 출력해주자.
+        check_id = JoinProject.objects.filter(board_id = board_id)
+
+        for i in check_id:
+            if i.user_id ==  request.session['user']:
+                print("이미 했음")
+                return HttpResponseRedirect(reverse('app:funding_main'))
+
+        data = JoinProject()
+        data.board_id = board_id
+        data.user_id = request.session['user']
+        data.user_name = request.POST['name']
+        data.user_email = request.POST['email']
+        data.subject = request.POST['subject']
+        data.message = request.POST['message']
+
+        data.save()
+
+        # 저장했으니 메인페이지로 보내주자.
+        return HttpResponseRedirect(reverse('app:funding_main'))
+    
+    # 여기로 오는 경우 처음들어온 경우다.
+
+    user = User1.objects.get(user_id = request.session['user'])
+    return render(
+        request,
+        'fund_view/contact.html',
+        {
+            "user_name" : user.user_name,
+            "user_email" : user.user_email
+        }
+
+    )
+
+
 
 def download(request,file_path):
     print(file_path)

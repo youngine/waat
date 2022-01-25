@@ -61,3 +61,19 @@ class JoinFund(models.Model):
         app_label = 'fundingapp'
         managed = False
 
+
+class JoinProject(models.Model):
+    id = IntegerField(primary_key=True, auto_created=True)
+    user_id = CharField(max_length=30)
+    board_id = IntegerField()
+    user_name = CharField(max_length=30)
+    user_email = CharField(max_length=50)
+    subject = CharField(max_length=255)
+    message = TextField()
+
+
+    
+    class Meta:
+        db_table = 'JoinProject'
+        app_label = 'fundingapp'
+        managed = False
