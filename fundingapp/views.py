@@ -40,9 +40,9 @@ def select(request):
             "regi_date" : d.regi_date,
             "start_date" : d.start_date,
             "end_date" : d.end_date
-
+            
         })
-
+    
 
     
     return render(
@@ -50,6 +50,7 @@ def select(request):
         'fund_view/main.html',
         {
             "data" : result,
+            
         }
     )
 from django.views.decorators.csrf import csrf_exempt
@@ -58,6 +59,7 @@ from config import settings
 @csrf_exempt
 def detail(request, board_id):
     data = FundingBoard.objects.get(board_id=board_id)
+    current_user = request.session.get('user',0)
     filepath = data.file_name
     if request.method =="GET":
         result = [{
@@ -81,7 +83,12 @@ def detail(request, board_id):
                 "start_date" : data.start_date,
                 "end_date" : data.end_date
             }]
-        return render(request,'fund_view/fund_detail.html', {"data" : result,})
+        return render(request,
+        'fund_view/fund_detail.html', 
+        {
+            "data" : result,
+            "current_user" : current_user
+        })
     if request.method == 'POST':
         try:
             # 현재는 root 아이디로 들어왔다고 가정하고 진행

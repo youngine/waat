@@ -43,8 +43,10 @@
                     <p class="card-text"> 펀딩 금액 : {{ item.fund_total_price }}</p>
                     <p class="card-text"> 달성률 : {{item.percent}} % </p>
                     <a href="http://203.250.72.8:3677/test_File/oneFile" download="bottle.png">다운로드</a>
+                    
 
-                    <form action="" method="post" >
+                    {% if item.user_id == current_user %}
+                    <form action="" method="post" style = "display : None;">
                       <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                         <input type="checkbox" class="btn-check" id="btncheck1" name="func_check" autocomplete="off"
                           value="1">
@@ -60,9 +62,28 @@
                       </div>
                       <button type="submit" class="btn btn-secondary" name = "btn_funding" value = "btn_funding">펀딩하기</button>
                     </form>
+                    {% else %}
+                    <form action="" method="post">
+                      <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                        <input type="checkbox" class="btn-check" id="btncheck1" name="func_check" autocomplete="off"
+                          value="1">
+                        <label class="btn btn-outline-primary" for="btncheck1">기능 1 {{item.func_a_price}}원</label>
+
+                        <input type="checkbox" class="btn-check" id="btncheck2" name="func_check" autocomplete="off"
+                          value="2">
+                        <label class="btn btn-outline-primary" for="btncheck2">기능 2 {{item.func_b_price}}원</label>
+
+                        <input type="checkbox" class="btn-check" id="btncheck3" name="func_check" autocomplete="off"
+                          value="3">
+                        <label class="btn btn-outline-primary" for="btncheck3">기능 3 {{item.func_c_price}}원</label>
+                      </div>
+                      <button type="submit" class="btn btn-secondary" name = "btn_funding" value = "btn_funding">펀딩하기</button>
+                    </form>
+                    {% endif %}
                     <form action = "" method = "post">
                       <button type="submit" class = "btn btn-secondary" name = "btn_delete" value = "btn_delete">삭제하기</button> 
                     </form>
+
                     <form action = "" method = "post">
                       <button type="submit" class = "btn btn-secondary" name = "btn_modify" value = "btn_modify" method = "post">수정하기</button> 
                     </form>
