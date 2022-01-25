@@ -106,3 +106,6 @@ def pwchange(request):
             return HttpResponseRedirect(reverse('user:signin'))   
 
     return render(request,'user/pwchange.html')
+
+def myfunding(request):
+    return render(request,'user/myfunding.html')
