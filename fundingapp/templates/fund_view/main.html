@@ -2,7 +2,6 @@
 {% load static %}
 
 
-
 {% block content %}
 
 
@@ -28,7 +27,8 @@
 
                 <div class="col-md-4">
 
-                    <img src='/static/{{item.board_id}}.jpg' class="img-fluid rounded-start" alt="...">
+                    {% comment %} <img src='/static/{{item.board_id}}.jpg' class="img-fluid rounded-start" alt="..."> {% endcomment %}
+                    <img src={{item.file_name}}' class="img-fluid rounded-start" alt="...">
 
                 </div>
 

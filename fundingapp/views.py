@@ -24,6 +24,7 @@ def select(request):
             "user_id" : d.user_id,
             "title" : d.title,
             "content" : d.intro	,
+            "file_name" : "/media/img/2022year.jpg",
             "fund_goal_price" : d.fund_goal_price,
             "fund_total_price" : d.fund_total_price,
             "percent" : int(d.fund_total_price / d.fund_goal_price * 100)
