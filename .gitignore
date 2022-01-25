@@ -250,3 +250,4 @@ db.sqlite3
 secrets.json
 Pipfile
 Pipfile.lock
+.vscode

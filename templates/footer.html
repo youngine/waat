@@ -1,103 +1,235 @@
 {%load static%}
-    <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer">
-        <div class="container">
-            <div class="row">
+<!-- Start Footer -->
+<footer class="bg-dark" id="tempaltemo_footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 pt-5">
+        <h2 class="h2 text-success border-bottom pb-3 border-light logo">
+          WAT Developer
+        </h2>
+      </div>
+    </div>
 
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Zay Shop</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li>
-                            <i class="fas fa-map-marker-alt fa-fw"></i>
-                            123 Consectetur at ligula 10660
-                        </li>
-                        <li>
-                            <i class="fa fa-phone fa-fw"></i>
-                            <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
-                        </li>
-                    </ul>
-                </div>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 mx-3">
+          <div class="card user-card">
+            <div class="card-block">
+              <div class="user-image">
+                <img
+                  src='{% static "assets/img/jongwon.png" %}'
+                  class="img-radius"
+                  alt="User-Profile-Image"
+                />
+              </div>
+              <h6
+                style="font-family: NanumSquareR"
+                class="f-w-600 m-t-25 m-b-10"
+              >
+                김종원
+              </h6>
 
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Home</a></li>
-                        <li><a class="text-decoration-none" href="#">About Us</a></li>
-                        <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
-                        <li><a class="text-decoration-none" href="#">FAQs</a></li>
-                        <li><a class="text-decoration-none" href="#">Contact</a></li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="row text-light mb-4">
-                <div class="col-12 mb-3">
-                    <div class="w-100 my-3 border-top border-light"></div>
-                </div>
-                <div class="col-auto me-auto">
-                    <ul class="list-inline text-left footer-icons">
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
-                        </li>
-                    </ul>
+              <p style="font-family: NanumSquareR" class="m-t-15 text-muted">
+                KT AIVLE 1기
+              </p>
+              <hr />
+              <div class="row justify-content-center user-social-link">
+                <div class="col-auto">
+                  <a href="#!"><i class="fa fa-facebook text-facebook"></i></a>
                 </div>
                 <div class="col-auto">
-                    <label class="sr-only" for="subscribeEmail">Email address</label>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
-                        <div class="input-group-text btn-success text-light">Subscribe</div>
-                    </div>
+                  <a href="https://github.com/JONWON2"
+                    ><i class="fa fa-github text-github"></i
+                  ></a>
                 </div>
+                <div class="col-auto">
+                  <a href="#!"><i class="fa fa-dribbble text-dribbble"></i></a>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
 
-        <div class="w-100 bg-black py-3">
-            <div class="container">
-                <div class="row pt-2">
-                    <div class="col-12">
-                        <p class="text-left text-light">
-                            Copyright &copy; 2021 Company Name 
-                            | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
-                        </p>
-                    </div>
+        <div class="col-md-2 mx-3">
+          <div class="card user-card">
+            <div class="card-block">
+              <div class="user-image">
+                <img
+                  src='{% static "assets/img/minjin.png" %}'
+                  class="img-radius"
+                  alt="User-Profile-Image"
+                />
+              </div>
+              <h6
+                style="font-family: NanumSquareR"
+                class="f-w-600 m-t-25 m-b-10"
+              >
+                신민진
+              </h6>
+
+              <p style="font-family: NanumSquareR" class="m-t-15 text-muted">
+                KT AIVLE 1기
+              </p>
+              <hr />
+              <div class="row justify-content-center user-social-link">
+                <div class="col-auto">
+                  <a href="#!"><i class="fa fa-facebook text-facebook"></i></a>
                 </div>
+                <div class="col-auto">
+                  <a href="https://github.com/Shinminjin"
+                    ><i class="fa fa-github text-github"></i
+                  ></a>
+                </div>
+                <div class="col-auto">
+                  <a href="#!"><i class="fa fa-dribbble text-dribbble"></i></a>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
 
-    </footer>
-    <!-- End Footer -->
+        <div class="col-md-2 mx-3">
+          <div class="card user-card">
+            <div class="card-block">
+              <div class="user-image">
+                <img
+                  src='{% static "assets/img/sungwoo.png" %}'
+                  class="img-radius"
+                  alt="User-Profile-Image"
+                />
+              </div>
+              <h6
+                style="font-family: NanumSquareR"
+                class="f-w-600 m-t-25 m-b-10"
+              >
+                장성우
+              </h6>
 
-    <!-- Start Script -->
-    <script src='{% static "assets/js/jquery-1.11.0.min.js" %}'></script>
-    <script src='{% static "assets/js/jquery-migrate-1.2.1.min.js" %}'></script>
-    <script src='{% static "assets/js/bootstrap.bundle.min.js" %}'></script>
-    <script src='{% static "assets/js/templatemo.js" %}'></script>
-    <script src='{% static "assets/js/custom.js" %}'></script>
-    <!-- End Script -->
+              <p style="font-family: NanumSquareR" class="m-t-15 text-muted">
+                KT AIVLE 1기
+              </p>
+              <hr />
+              <div class="row justify-content-center user-social-link">
+                <div class="col-auto">
+                  <a href="#!"><i class="fa fa-facebook text-facebook"></i></a>
+                </div>
+                <div class="col-auto">
+                  <a href="https://github.com/CastleRain"
+                    ><i class="fa fa-github text-github"></i
+                  ></a>
+                </div>
+                <div class="col-auto">
+                  <a href="#!"><i class="fa fa-dribbble text-dribbble"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2 mx-3">
+          <div class="card user-card">
+            <div class="card-block">
+              <div class="user-image">
+                <img
+                  src='{% static "assets/img/yeongin.png" %}'
+                  class="img-radius"
+                  alt="User-Profile-Image"
+                />
+              </div>
+              <h6
+                style="font-family: NanumSquareR"
+                class="f-w-600 m-t-25 m-b-10"
+              >
+                장영인
+              </h6>
+
+              <p style="font-family: NanumSquareR" class="m-t-15 text-muted">
+                KT AIVLE 1기
+              </p>
+              <hr />
+              <div class="row justify-content-center user-social-link">
+                <div class="col-auto">
+                  <a href="#!"><i class="fa fa-facebook text-facebook"></i></a>
+                </div>
+                <div class="col-auto">
+                  <a href="https://github.com/youngine"
+                    ><i class="fa fa-github text-github"></i
+                  ></a>
+                </div>
+                <div class="col-auto">
+                  <a href="#!"><i class="fa fa-dribbble text-dribbble"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2 mx-3">
+          <div class="card user-card">
+            <div class="card-block">
+              <div class="user-image">
+                <img
+                  src='{% static "assets/img/sangeun.png" %}'
+                  class="img-radius"
+                  alt="User-Profile-Image"
+                />
+              </div>
+              <h6
+                style="font-family: NanumSquareR"
+                class="f-w-600 m-t-25 m-b-10"
+              >
+                조상은
+              </h6>
+
+              <p style="font-family: NanumSquareR" class="m-t-15 text-muted">
+                KT AIVLE 1기
+              </p>
+              <hr />
+              <div class="row justify-content-center user-social-link">
+                <div class="col-auto">
+                  <a href="#!"><i class="fa fa-facebook text-facebook"></i></a>
+                </div>
+                <div class="col-auto">
+                  <a href="https://github.com/sejoe-dct"
+                    ><i class="fa fa-github text-github"></i
+                  ></a>
+                </div>
+                <div class="col-auto">
+                  <a href="#!"><i class="fa fa-dribbble text-dribbble"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="w-100 bg-black py-3">
+    <div class="container">
+      <div class="row pt-2">
+        <div class="col-12">
+          <p class="text-left text-light" style="font-family: NanumSquareR">
+            Copyright &copy;
+            <a rel="sponsored" href="https://github.com/youngine/waat" target="_blank"
+              >WAT-Repository</a
+            >
+             |  Designed by 2022 KT AIVLE 부산 경남 1반 4조 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- End Footer -->
+
+<!-- Start Script -->
+<script src='{% static "assets/js/jquery-1.11.0.min.js" %}'></script>
+<script src='{% static "assets/js/jquery-migrate-1.2.1.min.js" %}'></script>
+<script src='{% static "assets/js/bootstrap.bundle.min.js" %}'></script>
+<script src='{% static "assets/js/templatemo.js" %}'></script>
+<script src='{% static "assets/js/custom.js" %}'></script>
+<!-- End Script -->
