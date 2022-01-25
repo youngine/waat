@@ -53,6 +53,13 @@
                       </div>
                       <button type="submit" class="btn btn-secondary" name = "btn_funding" value = "btn_funding">펀딩하기</button>
                     </form>
+                    <form action = "" method = "post">
+                      <button type="submit" class = "btn btn-secondary" name = "btn_delete" value = "btn_delete">삭제하기</button> 
+                    </form>
+
+                    <form action = "" method = "post">
+                      <button type="submit" class = "btn btn-secondary" name = "btn_modify" value = "btn_modify" method = "post">수정하기</button> 
+                    </form>
                     {% else %}
                     <form action="" method="post">
                       <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
@@ -71,13 +78,9 @@
                       <button type="submit" class="btn btn-secondary" name = "btn_funding" value = "btn_funding">펀딩하기</button>
                     </form>
                     {% endif %}
-                    <form action = "" method = "post">
-                      <button type="submit" class = "btn btn-secondary" name = "btn_delete" value = "btn_delete">삭제하기</button> 
-                    </form>
 
-                    <form action = "" method = "post">
-                      <button type="submit" class = "btn btn-secondary" name = "btn_modify" value = "btn_modify" method = "post">수정하기</button> 
-                    </form>
+                    
+
 
 <!-- <input style = "display : none;" value = "{{item.func_c_price}}" name = "test"></input>
 꿀팀 종원님의 꿀팀 꿀오브더 팁 -->
