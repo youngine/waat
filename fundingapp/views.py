@@ -40,7 +40,11 @@ def select(request):
             "regi_date" : d.regi_date,
             "start_date" : d.start_date,
             "end_date" : d.end_date
+
         })
+
+
+    
     return render(
         request,
         'fund_view/main.html',
@@ -134,6 +138,15 @@ def detail(request, board_id):
             "end_date" : d.end_date
              
         })
+
+    # 수정 클릭
+
+
+    # 삭제 클릭
+
+    
+
+
 
     return render(
         request,
