@@ -1,21 +1,16 @@
 {% extends "base.html" %}
-
-
 {% load static %}
-
 {% block content %}
+ <link href='{% static "assets/css/fundingcard.css"%}' rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 <div>
   <div style="margin:3rem 0rem"></div>
   <div>
     <h2 class=text-success style="font-family: 'NanumSquareEB'; text-align:center;">
-      펀딩 진행 중</h2>
-    <div style="margin:2rem 0rem; text-align:center;">
-      {% comment %} <div style="margin:2rem 0rem; text-align:center;">
-        <div class=create_bar_color style="display:inline-block"></div>
-        <div class=create_bar_blank style="display:inline-block"></div>
-        <div class=create_bar_blank style="display:inline-block"></div>
-        <div> {% endcomment %}
-        </div>
+      펀딩 진행 중
+    </h2>
+
         <div style="margin:3rem 0rem"></div>
 
         <div>
@@ -25,57 +20,115 @@
 
             <div class="card mb-3" style="max-width: 840px;margin:auto;">
 
-              <div>
+              {% comment %} <div>
                 <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
-              </div>
+              </div> {% endcomment %}
 
               <div class="row g-0">
 
                 <div class="col-md-4">
-
-                  <img src='/{{item.file_name}}' class="img-fluid rounded-start" alt="...">
-
+                  <img src='/{{item.file_name}}' class="fudndimg img-fluid rounded-start" alt="...">
                 </div>
 
                 <div class="col-md-8">
 
                   <div class="card-body">
+                    <div class="circle " style="font-family:NanumSquareR; float:right;">{{item.percent}}%</div>
+                    <h4 class="card-title mt-0" style="font-family:NanumSquareR;">{{item.title}}</h4>
+                    <p class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.intro}}</p>
 
-                    <h5 class="card-title">{{item.title}}</h5>
+                    <div class="mb-2">
+                      <span class="badge badge-primary"style="font-family:NanumSquareR;"># 파이썬</span>
+                      <span class="badge badge-secondary"style="font-family:NanumSquareR;"># 자바</span>
+                      <span class="badge badge-success"style="font-family:NanumSquareR;"># 인공지능</span>
+                      <span class="badge badge-danger"style="font-family:NanumSquareR;"># 중소기업</span>
+                    </div>
 
-                    <p class="card-text"> {{item.intro}}</p>
-                    <p class="card-text"> 목표 금액 : {{item.fund_goal_price}}</p>
-                    <p class="card-text"> 펀딩 금액 : {{ item.fund_total_price }}</p>
-                    <p class="card-text"> 달성률 : {{item.percent}} % </p>
-                    
+                     <form action="" method="post" class="mb-2">
+                        <button style="float:right;" type="submit" class="btn btn-outline-success mx-1" >
+                          <div style="font-family:NanumSquareR;">펀딩하기<div>
+                        </button>
 
-                    <form action="" method="post">
-                      <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                        <input type="checkbox" class="btn-check" id="btncheck1" name="func_check" autocomplete="off"
-                          value="1">
-                        <label class="btn btn-outline-primary" for="btncheck1">기능 1 {{item.func_a_price}}원</label>
+                        <div class="d-grid gap-2">
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                              
+                              <input type="checkbox" class="btn-check" id="btncheck1" name="func_check" autocomplete="off"
+                                value="1">
+                              <label class="btn btn-outline-primary" for="btncheck1" style="font-family:NanumSquareR;">
+                                기능 1
+                              </label>
 
-                        <input type="checkbox" class="btn-check" id="btncheck2" name="func_check" autocomplete="off"
-                          value="2">
-                        <label class="btn btn-outline-primary" for="btncheck2">기능 2 {{item.func_b_price}}원</label>
+                              <input type="checkbox" class="btn-check" id="btncheck2" name="func_check" autocomplete="off"
+                                value="2">
+                              <label class="btn btn-outline-primary" for="btncheck2" style="font-family:NanumSquareR;">
+                                기능 2
+                              </label>
 
-                        <input type="checkbox" class="btn-check" id="btncheck3" name="func_check" autocomplete="off"
-                          value="3">
-                        <label class="btn btn-outline-primary" for="btncheck3">기능 3 {{item.func_c_price}}원</label>
-                      </div>
-                      <button type="submit" class="btn btn-secondary">펀딩하기</button>
+                              <input type="checkbox" class="btn-check" id="btncheck3" name="func_check" autocomplete="off"
+                                value="3">
+                              <label class="btn btn-outline-primary" for="btncheck3" style="font-family:NanumSquareR;">
+                                기능 3
+                              </label>
+                            
+                            </div>
+                        </div>
                     </form>
 
-<!-- <input style = "display : none;" value = "{{item.func_c_price}}" name = "test"></input>
-꿀팀 종원님의 꿀팀 꿀오브더 팁 -->
+                    <div class="d-grid gap-2 mb-3">
+                      <button type="button" class="btn btn-secondary btn-lg btn-block">
+                      image download
+                      </button>
+                    </div>
+
+                  <div class="accordion" id="accordionExample">
+
+                      <div class="accordion-item" >
+                        <h2 class="accordion-header" id="headingOne" style="font-family: 'NanumSquareEB'; text-align:center;">
+                          <button  class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            프로그램 소개글
+                          </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            {{item.background_text}}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo" style="font-family: 'NanumSquareEB'; text-align:center;">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            프로그램 기획배경
+                          </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            {{item.develop_content}}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree" style="font-family: 'NanumSquareEB'; text-align:center;"> 
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            프로그램 목적
+                          </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            {{item.object_text}}
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  <!-- <input style = "display : none;" value = "{{item.func_c_price}}" name = "test"></input>
+                  꿀팀 종원님의 꿀팀 꿀오브더 팁 -->
 
 
-                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                      펀딩하기
-
-                
-
-
+                <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                  펀딩하기
 
                   </button>
                   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -96,10 +149,6 @@
                     </div>
                   </div> -->
 
-
-
-
-
                   </div>
                 </div>
               </div>
@@ -108,8 +157,7 @@
           {% endfor %}
         </div>
       </div>
-
     </div>
-  </div>
+</div>
 </div>
 {%endblock content%}
