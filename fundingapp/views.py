@@ -49,35 +49,52 @@ def select(request):
         }
     )
 from django.views.decorators.csrf import csrf_exempt
+from config import settings
 
 @csrf_exempt
 def detail(request, board_id):
-
-    # 현재는 root 아이디로 들어왔다고 가정하고 진행
+    data = FundingBoard.objects.get(board_id=board_id)
+    filepath = data.file_name
+    if request.method =="GET":
+        result = [{
+                "board_id" : data.board_id,
+                "user_id" : data.user_id,
+                "title" : data.title,
+                "category" : data.category,
+                "target" : data.target,
+                "intro" : data.intro,
+                "file_name" : data.file_name,
+                "background_text" : data.background_text,
+                "object_text" : data.object_text,
+                "develop_content" : data.develop_content,
+                "func_a_price" : data.func_a_price,
+                "func_b_price" : data.func_b_price,
+                "func_c_price" : data.func_c_price,
+                "fund_goal_price" : data.fund_goal_price,
+                "fund_total_price" : data.fund_total_price,
+                "percent" : int(data.fund_total_price / data.fund_goal_price * 100),
+                "regi_date" : data.regi_date,
+                "start_date" : data.start_date,
+                "end_date" : data.end_date
+            }]
+        return render(request,'fund_view/fund_detail.html', {"data" : result,})
     if request.method == 'POST':
-        
-        
         try:
+            # 현재는 root 아이디로 들어왔다고 가정하고 진행
             user_name = request.session['user']
         except KeyError as k:
-
             request.session['detail_funding'] = (True, board_id)
             return HttpResponseRedirect(reverse('user:signin'))
 
-        # selected : 현재 선택 된 펀딩 목록 (1~3)
         selected = request.POST.getlist('func_check')
-
         data = FundingBoard.objects.get(board_id=board_id)
 
         total_price = 0
         result_list = []
         # 아무것도 선택을 안한상태
         if len(selected) == 0:
-
             # 첫 페이지 혹은 selelct 이거는 정해야할듯?
             return HttpResponseRedirect(reverse('fundingapp:select'))
-
-
         else:
             for i in selected:
                 if i == "1":
@@ -90,7 +107,6 @@ def detail(request, board_id):
                     result_list.append("3")
                     total_price += data.func_c_price
 
-        # for i in fund_data:
         join_db = JoinFund()
         # 유저 이름
         join_db.user_id = user_name
@@ -101,47 +117,107 @@ def detail(request, board_id):
         join_db.save()
 
         # data : 현재 선택 된 게시물 정보
-        # data = FundingBoard.objects.get(board_id=board_id)
         data.fund_total_price += total_price
         data.save()
-
         return HttpResponseRedirect(reverse('fundingapp:select'))
+
+
+
+    
+
+
+
+
+# @csrf_exempt
+# def detail(request, board_id):
+#     # 현재는 root 아이디로 들어왔다고 가정하고 진행
+#     if request.method == 'POST':
+#         try:
+#             user_name = request.session['user']
+#         except KeyError as k:
+#             request.session['detail_funding'] = (True, board_id)
+#             return HttpResponseRedirect(reverse('user:signin'))
         
-    data = FundingBoard.objects.filter(board_id=board_id)
+#         # data = FundingBoard.objects.get(board_id=board_id)
+#         # filepath = str(settings.BASE_DIR) + ('/media/%s' % uploadFile.file.name)
+#         # filename = os.path.basename(filepath)
 
-    result = []      
+#         # with open(filepath, 'rb') as f:
+#         #     response = HttpResponse(f, content_type='application/octet-stream')
+#         #     response['Content-Disposition'] = 'attachment; filename=%s' % filename
+#         #     return response
+#         # selected : 현재 선택 된 펀딩 목록 (1~3)
+#         selected = request.POST.getlist('func_check')
+#         data = FundingBoard.objects.get(board_id=board_id)
 
-    for d in data:
-        result.append({
-            "board_id" : d.board_id,
-            "user_id" : d.user_id,
-            "title" : d.title,
-            "category" : d.category,
-            "target" : d.target,
-            "intro" : d.intro,
-            "file_name" : d.file_name,
-            "background_text" : d.background_text,
-            "object_text" : d.object_text,
-            "develop_content" : d.develop_content,
-            "func_a_price" : d.func_a_price,
-            "func_b_price" : d.func_b_price,
-            "func_c_price" : d.func_c_price,
-            "fund_goal_price" : d.fund_goal_price,
-            "fund_total_price" : d.fund_total_price,
-            "percent" : int(d.fund_total_price / d.fund_goal_price * 100),
-            "regi_date" : d.regi_date,
-            "start_date" : d.start_date,
-            "end_date" : d.end_date
+#         total_price = 0
+#         result_list = []
+#         # 아무것도 선택을 안한상태
+#         if len(selected) == 0:
+#             # 첫 페이지 혹은 selelct 이거는 정해야할듯?
+#             return HttpResponseRedirect(reverse('fundingapp:select'))
+
+#         else:
+#             for i in selected:
+#                 if i == "1":
+#                     result_list.append("1")
+#                     total_price += data.func_a_price
+#                 elif i == "2":
+#                     result_list.append("2")
+#                     total_price += data.func_b_price
+#                 elif i == "3":
+#                     result_list.append("3")
+#                     total_price += data.func_c_price
+
+#         # for i in fund_data:
+#         join_db = JoinFund()
+#         # 유저 이름
+#         join_db.user_id = user_name
+#         join_db.board_id = board_id
+#         join_db.fund_price = total_price
+#         join_db.fund_join_list = result_list
+        
+#         join_db.save()
+
+#         # data : 현재 선택 된 게시물 정보
+#         data.fund_total_price += total_price
+#         data.save()
+#         return HttpResponseRedirect(reverse('fundingapp:select'))
+        
+#     data = FundingBoard.objects.get(board_id=board_id)
+#     filepath = data.file_name
+
+#     print(data.title)
+#     result = [{
+#             "board_id" : data.board_id,
+#             "user_id" : data.user_id,
+#             "title" : data.title,
+#             "category" : data.category,
+#             "target" : data.target,
+#             "intro" : data.intro,
+#             "file_name" : data.file_name,
+#             "background_text" : data.background_text,
+#             "object_text" : data.object_text,
+#             "develop_content" : data.develop_content,
+#             "func_a_price" : data.func_a_price,
+#             "func_b_price" : data.func_b_price,
+#             "func_c_price" : data.func_c_price,
+#             "fund_goal_price" : data.fund_goal_price,
+#             "fund_total_price" : data.fund_total_price,
+#             "percent" : int(data.fund_total_price / data.fund_goal_price * 100),
+#             "regi_date" : data.regi_date,
+#             "start_date" : data.start_date,
+#             "end_date" : data.end_date
              
-        })
+#         }]
 
-    return render(
-        request,
-        'fund_view/fund_detail.html',
-        {
-            "data" : result,
-        }
-    )
+#     return render(
+#         request,
+#         'fund_view/fund_detail.html',
+#         {
+#             "data" : result,
+#         }
+#     )
 
 ### 참고 소스 엄청 드러움.... 리팩토링 해야하는데.... DB부터 데이터 입력 가능한지 테스트 후 리팩토링 해야한다. 안쓰는 코드 다량 많음. 더미 코드 많다는 뜻임 -> 종원
 class Create1(View):
