@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "no_footer_base.html" %}
 {% load static %}
 
 {% block content %}
@@ -7,11 +7,12 @@
 
 
 <div>
-    <div style="margin:3rem 0rem"></div>
         <div>
-            <h2 class= text-success style="font-family: 'NanumSquareEB'; text-align:center;">
-                펀딩 참여</h2>
-        <div style="margin:2rem 0rem; text-align:center;">
+      
+            <h2 class= "text-success mt-5 mb-4" style="font-family: 'NanumSquareEB'; text-align:center;">
+                펀딩 참여
+            </h2>
+        <div style="text-align:center;">
           <div class="btn-group" role="group">
             <button syle="float:right" id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               Dropdown
@@ -24,11 +25,7 @@
           </div>
     </div>
     
-    
-    <div style="margin:3rem 0rem"></div>
-
-    <div>
-
+    <div class="p-5">
     {% for item in data %}
 
 
@@ -89,6 +86,4 @@
     {% endfor %}
     </div>
 </div>
-<div style="margin:10rem 0rem"></div>
-
 {%endblock content%}

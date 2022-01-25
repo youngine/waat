@@ -178,7 +178,7 @@ def detail(request, board_id):
             page_num=1
             return HttpResponseRedirect(reverse('fundingapp:allViewPage', 
                                         kwargs={'page_num': page_num,
-                                                'board_id': page_num+1,
+                                                'board_id': board_id,
                                         }))
 
         if request.POST.get('btn_concat') == "btn_concat":
@@ -264,7 +264,6 @@ class Create1(View):
         request.session['language'] = request.POST['language']
         request.session['target'] = request.POST['target']
 
-        
         upload_file = request.FILES.get('file',"")
         if len(upload_file) !=0: 
             path = os.path.join("media/img/",upload_file.name)        
@@ -272,7 +271,7 @@ class Create1(View):
                 file.write(upload_file.read())
                 for chunk in upload_file.chunks():
                     file.write(chunk)
-            print("저장위치 : ",path)
+            # print("저장위치 : ",path)
             request.session['imgefile'] = path
         else:
             request.session['imgefile'] = ""
@@ -352,22 +351,56 @@ class Create3(View):
 
 
 class AllViewPage(View):
-    FDB = FundingBoard()
+    FDB = FundingBoard
     def get(self, request, *args, **kwargs):
         page_num = kwargs['page_num']
         board_id = kwargs['board_id']
-
-        # data = self.FDB
-
-        return render(request, 'fundingapp/view_All_modify.html',{"data": board_id}) 
+        
+        DB_data = self.FDB.objects.get(board_id=board_id)
+        print(DB_data.end_date)
+        if page_num ==1:
+            file_name = DB_data.file_name.split("/img/")[-1]
+            return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id, "DB_data":DB_data , "file_name" : file_name})
+        elif page_num ==3:
+            start_date = str(DB_data.start_date)
+            end_date = str(DB_data.end_date)
+            return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id,"DB_data":DB_data,"start_date": start_date,"end_date":end_date}) 
+        else:
+            return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id,"DB_data":DB_data}) 
 
 
     def post(self, request, *args, **kwargs):
-        page_num = kwargs['page_num']
         board_id = kwargs['board_id']
+        page_num = kwargs['page_num']
 
-
+        DB_data = self.FDB.objects.get(board_id=board_id)
+        if page_num !=1:
+            if request.POST.get("next",0) =="다음":
+                DB_data.intro = request.POST['intro']
+                DB_data.background_text = request.POST['background']
+                DB_data.object_text = request.POST['objects']
+                DB_data.save()
+                page_num +=1
+            if request.POST.get("before",0) =="이전":
+                page_num -=1 
+            if request.POST.get("finsh",0) =="완료":
+                DB_data.fund_goal_price = request.POST['goal_money'] 
+                DB_data.func_a_price = request.POST['eqA']
+                DB_data.func_b_price = request.POST['eqB']
+                DB_data.func_c_price = request.POST['eqC']
+                DB_data.develop_content = request.POST['developContent']
+                DB_data.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
+                DB_data.save()
+                return HttpResponseRedirect(reverse('app:funding_main'))
+        else:
+            DB_data.title = request.POST['title']
+            DB_data.category = request.POST['category']
+            DB_data.language_text =  request.POST['language']
+            DB_data.target = request.POST['target']
+            DB_data.save()
+            page_num +=1
         return HttpResponseRedirect(reverse('fundingapp:allViewPage', 
                                         kwargs={'page_num': page_num,
-                                                'board_id': page_num+1,
+                                                'board_id': board_id,
                                         }))
+

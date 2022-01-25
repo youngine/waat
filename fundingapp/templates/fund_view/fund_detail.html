@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "no_footer_base.html" %}
 {% load static %}
 {% block content %}
- <link href='{% static "assets/css/fundingcard.css"%}' rel="stylesheet" />
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+<link href='{% static "assets/css/fundingcard.css"%}' rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <div>
   <div style="margin:3rem 0rem"></div>
   <div>
@@ -52,6 +52,22 @@
                       <span class="badge badge-success"style="font-family:NanumSquareR;"># {{item.category}}</span>
                       {% comment %} <span class="badge badge-danger"style="font-family:NanumSquareR;"># 중소기업</span> {% endcomment %}
                     </div>
+
+                    {% comment %} <div style="margin:2rem 0rem; text-align:center;"> {% endcomment %}
+                    <div class="percent">
+                      <div class= "percent_bar_color " style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      
+                      <p style = "float:right" class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.fund_goal_price}}원 까지
+                      <div style="margin:1rem 0rem"></div>
+
+                    </div>
+
+                    <div>
+                      {% comment %} <div style="margin:3rem 0rem"></div> {% endcomment %}
 
                     {% comment %} {% if item.user_id == current_user %} {% endcomment %}
 

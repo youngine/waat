@@ -10,5 +10,28 @@
  background:#59ab6e;
  font:normal 11px/50px "나눔고딕", "돋움", "굴림";
  color:#fff;
- text-align:center;
+ text-align:center; 
 }
+
+.percent_bar_color{
+    top: 210px;
+    left: 501px;
+    width: 75px;
+    height: 13px;
+    background: #59ab6e 0% 0% no-repeat padding-box;
+    border: 1px solid #C3DB80;
+    border-radius: 7px;
+    opacity: 1;
+}
+.percent_bar_blank{
+    top: 210px;
+    left: 625px;
+    width: 75px;
+    height: 13px;
+    background: #E9E9E9 0% 0% no-repeat padding-box;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    opacity: 1;
+}
+
+
