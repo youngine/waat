@@ -16,7 +16,7 @@
         <div>
           {% for item in data %}
 
-          <a href="#" style="text-decoration: none; color : black;">
+          <!-- <a href="#" style="text-decoration: none; color : black;"> -->
 
             <div class="card mb-3" style="max-width: 840px;margin:auto;">
 
@@ -28,7 +28,7 @@
 
                 <div class="col-md-4">
 
-                  <img src='/static/{{item.board_id}}.jpg' class="img-fluid rounded-start" alt="...">
+                  <img src='/{{item.file_name}}' class="img-fluid rounded-start" alt="...">
 
                 </div>
 
@@ -99,7 +99,7 @@
                 </div>
               </div>
             </div>
-          </a>
+          <!-- </a> -->
           {% endfor %}
         </div>
       </div>
