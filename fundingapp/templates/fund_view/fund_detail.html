@@ -16,8 +16,6 @@
         <div>
           {% for item in data %}
 
-          <!-- <a href="#" style="text-decoration: none; color : black;"> -->
-
             <div class="card mb-3" style="max-width: 840px;margin:auto;">
               {% comment %} <div>
                 <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
@@ -56,7 +54,7 @@
                     {% comment %} {% else %} {% endcomment %}
                     <form action="" method="post" class="mb-2">
 
-                      <button style="float:right;" type="button" class="btn btn-outline-success position-relative mx-1"> 
+                      <button style="float:right;" type="submit" class="btn btn-outline-success position-relative mx-1" name = "btn_funding", value = "btn_funding"> 
                         <div>
                         펀딩하기
                         </div>
@@ -64,6 +62,7 @@
                           D-9
                           <span class="visually-hidden">unread messages</span>
                         </span>
+
                       </button>
                       
 
@@ -179,3 +178,38 @@
 </div>
 </div>
 {%endblock content%}
+
+
+          <!-- <div>
+            {% if item.percent_mark == 0 %}
+            <i style="color: gray; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: gray; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: gray; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: gray; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            {% elif item.percent_mark == 1 %}
+            
+            <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: gray; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: gray; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: gray; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            {% elif item.percent_mark == 2 %}
+            
+            <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: gray; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: gray; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            {% elif item.percent_mark == 3 %}
+            
+            <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: gray; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            {% else %}
+            <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
+            {% endif %}
+
+          </div> -->
+          <!-- <a href="#" style="text-decoration: none; color : black;"> -->
