@@ -42,6 +42,22 @@
                       <span class="badge badge-danger"style="font-family:NanumSquareR;"># 중소기업</span>
                     </div>
 
+                    {% comment %} <div style="margin:2rem 0rem; text-align:center;"> {% endcomment %}
+                    <div class="percent">
+                      <div class= "percent_bar_color " style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      
+                      <p style = "float:right" class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.fund_goal_price}}원 까지
+                      <div style="margin:1rem 0rem"></div>
+
+                    </div>
+
+                    <div>
+                      {% comment %} <div style="margin:3rem 0rem"></div> {% endcomment %}
+
                     {% comment %} {% if item.user_id == current_user %} {% endcomment %}
 
                     {% comment %} <form action = "" method = "post">
