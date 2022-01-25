@@ -36,7 +36,7 @@
                     
                     <a href="/{{item.file_name}}" download="다운로드.png"><button name ="download_button" value="True" method="POST">파일 다운로드</button></a>
 
-                    <form action="" method="post">
+                    <form action="" method="post" >
                       <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                         <input type="checkbox" class="btn-check" id="btncheck1" name="func_check" autocomplete="off"
                           value="1">
@@ -50,7 +50,13 @@
                           value="3">
                         <label class="btn btn-outline-primary" for="btncheck3">기능 3 {{item.func_c_price}}원</label>
                       </div>
-                      <button type="submit" class="btn btn-secondary">펀딩하기</button>
+                      <button type="submit" class="btn btn-secondary" name = "btn_funding" value = "btn_funding">펀딩하기</button>
+                    </form>
+                    <form action = "" method = "post">
+                      <button type="submit" class = "btn btn-secondary" name = "btn_delete" value = "btn_delete">삭제하기</button> 
+                    </form>
+                    <form action = "" method = "post">
+                      <button type="submit" class = "btn btn-secondary" name = "btn_modify" value = "btn_modify" method = "post">수정하기</button> 
                     </form>
 
 <!-- <input style = "display : none;" value = "{{item.func_c_price}}" name = "test"></input>

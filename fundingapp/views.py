@@ -40,7 +40,11 @@ def select(request):
             "regi_date" : d.regi_date,
             "start_date" : d.start_date,
             "end_date" : d.end_date
+
         })
+
+
+    
     return render(
         request,
         'fund_view/main.html',
@@ -85,48 +89,52 @@ def detail(request, board_id):
         except KeyError as k:
             request.session['detail_funding'] = (True, board_id)
             return HttpResponseRedirect(reverse('user:signin'))
-        if request.POST.get('download_button',False) =="True":
-            print("버튼 누름")
-        else:
-            print("뭐징?")
+        if request.POST.get('btn_funding') == "btn_funding":
+            selected = request.POST.getlist('func_check')
+            data = FundingBoard.objects.get(board_id=board_id)
 
-        
+            total_price = 0
+            result_list = []
+            # 아무것도 선택을 안한상태
+            if len(selected) == 0:
+                # 첫 페이지 혹은 selelct 이거는 정해야할듯?
+                return HttpResponseRedirect(reverse('fundingapp:select'))
+            else:
+                for i in selected:
+                    if i == "1":
+                        result_list.append("1")
+                        total_price += data.func_a_price
+                    elif i == "2":
+                        result_list.append("2")
+                        total_price += data.func_b_price
+                    elif i == "3":
+                        result_list.append("3")
+                        total_price += data.func_c_price
 
-        selected = request.POST.getlist('func_check')
-        data = FundingBoard.objects.get(board_id=board_id)
+            join_db = JoinFund()
+            # 유저 이름
+            join_db.user_id = user_name
+            join_db.board_id = board_id
+            join_db.fund_price = total_price
+            join_db.fund_join_list = result_list
+            
+            join_db.save()
 
-        total_price = 0
-        result_list = []
-        # 아무것도 선택을 안한상태
-        if len(selected) == 0:
-            # 첫 페이지 혹은 selelct 이거는 정해야할듯?
+            # data : 현재 선택 된 게시물 정보
+            data.fund_total_price += total_price
+            data.save()
             return HttpResponseRedirect(reverse('fundingapp:select'))
-        else:
-            for i in selected:
-                if i == "1":
-                    result_list.append("1")
-                    total_price += data.func_a_price
-                elif i == "2":
-                    result_list.append("2")
-                    total_price += data.func_b_price
-                elif i == "3":
-                    result_list.append("3")
-                    total_price += data.func_c_price
 
-        join_db = JoinFund()
-        # 유저 이름
-        join_db.user_id = user_name
-        join_db.board_id = board_id
-        join_db.fund_price = total_price
-        join_db.fund_join_list = result_list
-        
-        join_db.save()
+        if request.POST.get('btn_delete') == "btn_delete":
+            # foreign key 삭제 해야함...
+            join_db = JoinFund.objects.filter(board_id = board_id).delete()
+            data.delete()
+            return HttpResponseRedirect(reverse('app:funding_main'))
 
-        # data : 현재 선택 된 게시물 정보
-        data.fund_total_price += total_price
-        data.save()
-        return HttpResponseRedirect(reverse('fundingapp:select'))
+        # 이거 펀딩 기능별 가격이 바뀌면,,,, 이전 가격으로 진행이된다. 이벤트라 생각하자
+        if request.POST.get('btn_modify') == "btn_modify":
 
+            pass
 
 def download(request,file_path):
     print(file_path)
@@ -136,10 +144,6 @@ def download(request,file_path):
         response['Content-Disposition'] = f'attachment; filename={"다운로드 이미지."+formating}'
         print(response['Content-Disposition'])
         return response
-
-    
-
-
 
 
 ### 참고 소스 엄청 드러움.... 리팩토링 해야하는데.... DB부터 데이터 입력 가능한지 테스트 후 리팩토링 해야한다. 안쓰는 코드 다량 많음. 더미 코드 많다는 뜻임 -> 종원
