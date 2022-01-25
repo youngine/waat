@@ -10,7 +10,6 @@ from .saveData import DataContent
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from django.views import View  
-from django.shortcuts import redirect, render  
 from django.core.exceptions import PermissionDenied
 import datetime
 
@@ -133,8 +132,11 @@ def detail(request, board_id):
 
         # 이거 펀딩 기능별 가격이 바뀌면,,,, 이전 가격으로 진행이된다. 이벤트라 생각하자
         if request.POST.get('btn_modify') == "btn_modify":
-
-            pass
+            page_num=1
+            return HttpResponseRedirect(reverse('fundingapp:allViewPage', 
+                                        kwargs={'page_num': page_num,
+                                                'board_id': page_num+1,
+                                        }))
 
 def download(request,file_path):
     print(file_path)
@@ -250,3 +252,25 @@ class Create3(View):
         if request.POST.get("before",0) =="이전":
             request.session['step1_complete'] = True
             return HttpResponseRedirect(reverse('fundingapp:create2'))
+
+
+class AllViewPage(View):
+    FDB = FundingBoard()
+    def get(self, request, *args, **kwargs):
+        page_num = kwargs['page_num']
+        board_id = kwargs['board_id']
+
+        # data = self.FDB
+
+        return render(request, 'fundingapp/view_All_modify.html',{"data": board_id}) 
+
+
+    def post(self, request, *args, **kwargs):
+        page_num = kwargs['page_num']
+        board_id = kwargs['board_id']
+
+
+        return HttpResponseRedirect(reverse('fundingapp:allViewPage', 
+                                        kwargs={'page_num': page_num,
+                                                'board_id': page_num+1,
+                                        }))
