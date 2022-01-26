@@ -24,10 +24,10 @@ def funding_join(request):
 def assemble(request):
     return render(request, 'app/contact.html') 
 
-# 404에러가 뜨면 그냥 홈페이지로 가도록 만들었음
-def page_not_found_page(request, exception):
+# # 404에러가 뜨면 그냥 홈페이지로 가도록 만들었음
+# def page_not_found_page(request, exception):
 
-    return render(request, 'app/index.html', status=404)
+#     return render(request, 'app/index.html', status=404)
 
 
 
