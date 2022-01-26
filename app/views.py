@@ -35,7 +35,9 @@ def funding_main(request):
             "board_id" : d.board_id,
             "file_name" : d.file_name,
             "title" : d.title,
-            "percent" :  int(d.fund_total_price / d.fund_goal_price * 100)
+            "percent" :  int(d.fund_total_price / d.fund_goal_price * 100),
+            "intro" : d.intro,
+            "total_funding" : d.fund_total_price,
         })
 
 

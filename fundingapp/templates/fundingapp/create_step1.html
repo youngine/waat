@@ -19,21 +19,23 @@
             {% csrf_token %}
             <div class=wrapper>
                 <p class= "create_input_text_boxSize" style="display:inline-block;font-family: 'NanumSquareEB';">주제</p>
-                <input class = create_input_box  style="display:inline-block" placeholder="타이틀을 작성해주세요." type="text" name="title" value={{DB_data.title}}>
+                <input class = create_input_box  style="display:inline-block" placeholder="타이틀을 작성해주세요." type="text" name="title" value="{{DB_data.title}}">
             </div>
             <div class=wrapper>
                 <p class= "create_input_text_boxSize" style="display:inline-block;font-family: 'NanumSquareEB';">카테고리 유형</p>
-                <select class = create_input_box style="display:inline-block" name = "category" value={{DB_data.category}}>
-                    <option value = "Web"> Web </option>
-                    <option value = "Application"> Application </option>
-                    <option value = "Game"> Game </option>
+                <select class = create_input_box style="display:inline-block" name = "category" >
+                    <option value = {{DB_data.category}} selected disabled> {{DB_data.category}} </option>
+                    <option value = "Web" > Web </option>
+                    <option value = "Application" > Application </option>
+                    <option value = "Game" > Game </option>
                     <option value = "Crawling"> Crawling </option>
                 </select>
                 
             </div>
             <div class=wrapper>
                 <p class= "create_input_text_boxSize" style="display:inline-block;font-family: 'NanumSquareEB';">언어 선택</p>
-                <select class = create_input_box style="display:inline-block" name = "language" value={{DB_data.language}} >
+                <select class = create_input_box style="display:inline-block" name = "language"  >
+                    <option value= {{DB_data.language_text}} selected disabled> {{DB_data.language_text}} </option>
                     <option value = "Python"> Python </option>
                     <option value = "Java"> Java </option>
                     <option value = "C"> C Language </option>
@@ -46,7 +48,8 @@
             </div>
             <div class=wrapper>
                 <p class= "create_input_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">타겟층</p>
-                <select class = create_input_box style="display:inline-block" name = "target" value={{DB_data.target}}>
+                <select class = create_input_box style="display:inline-block" name = "target" >
+                    <option value= {{DB_data.target}} selected disabled> {{DB_data.target}} </option>
                     <option value = "10대"> 10대 </option>
                     <option value = "20대"> 20대 </option>
                     <option value = "30대"> 30대 </option>

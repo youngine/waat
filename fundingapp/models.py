@@ -12,10 +12,11 @@ class FundingBoard(models.Model):
     language_text = CharField(max_length=30, null=True)
     target = CharField(max_length=30, null=True)
     intro = TextField(null=True)
-    file_name = CharField(max_length=30, null=True)
-    background_text = CharField(max_length=200, null=True)
-    object_text = CharField(max_length = 200, null=True)
-    develop_content = CharField(max_length=200, null=True)
+    file_name = TextField()
+    background_text = TextField()
+    object_text = TextField()
+    develop_content = TextField()
+    func_text = TextField()
     func_a_price = IntegerField()
     func_b_price = IntegerField()
     func_c_price = IntegerField()
@@ -25,6 +26,8 @@ class FundingBoard(models.Model):
     start_date = DateField()
     end_date = DateField()
 
+    front_crew = IntegerField()
+    back_crew = IntegerField()
     
     class Meta:
         db_table = 'FundingBoard'
@@ -70,6 +73,7 @@ class JoinProject(models.Model):
     user_email = CharField(max_length=50)
     subject = CharField(max_length=255)
     message = TextField()
+    check_crew = IntegerField()
 
 
     

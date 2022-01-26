@@ -129,8 +129,9 @@ def myfunding(request):
             "board_id" : data.board_id,
             "title" : data.title,
             "file_name" : data.file_name,
-            "fund_total" : join_dic[data.board_id]
-
+            "fund_total" : join_dic[data.board_id],
+            "intro" : data.intro,
+            "percent" : int(data.fund_total_price / data.fund_goal_price * 100),
         })
             
 
@@ -151,7 +152,10 @@ def myboarding(request):
         result.append({
             "board_id" : d.board_id,
             "title" : d.title,
-            "file_name" : d.file_name
+            "file_name" : d.file_name,
+            "intro" : d.intro,
+            "total_funding" : d.fund_total_price,
+            "percent" : int(d.fund_total_price / d.fund_goal_price * 100),
 
         })
 

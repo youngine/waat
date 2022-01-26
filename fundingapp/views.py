@@ -115,8 +115,14 @@ def detail(request, board_id):
         d_day = (data.end_date - data.start_date).days
         if d_day < 0:
             d_day = 0
-            
+        
+        # crew_sum = 현재 남은 수
+        crew_sum = data.front_crew + data.back_crew
 
+        # 원래 남은 crew수를 구해야함.
+        join_pro = JoinProject.objects.filter(board_id = board_id).count()
+        print(crew_sum)
+        all_crew_sum = crew_sum + join_pro
         result = [{
                 "board_id" : data.board_id,
                 "user_id" : data.user_id,
@@ -139,7 +145,11 @@ def detail(request, board_id):
                 "start_date" : data.start_date,
                 "end_date" : data.end_date,
                 "percent_mark" : percent_mark,
-                "d_day" : d_day
+                "d_day" : d_day,
+                "func_text" : data.func_text,
+                "join_pro" : join_pro,
+                "all_crew_sum" : all_crew_sum,
+                "crew_sum" : crew_sum,
 
             }]
  
@@ -209,14 +219,15 @@ def detail(request, board_id):
                                         }))
 
         if request.POST.get('btn_concat') == "btn_concat":
-
+            print(data.user_id)
             user = User1.objects.get(user_id = request.session['user'])
             return render(
                 request,
                 'fund_view/contact.html',
                 {
                     "user_name" : user.user_name,
-                    "user_email" : user.user_email
+                    "user_email" : user.user_email,
+                    "board_user_name" : data.user_id
                 }
 
             )
@@ -230,13 +241,21 @@ def contact(request, board_id):
 
         # 만약 이미 신청한 사람이라면 안된다고 출력해주자.
         check_id = JoinProject.objects.filter(board_id = board_id)
-
+        data = JoinProject()
+        ck = -1
         for i in check_id:
             if i.user_id ==  request.session['user']:
-                print("이미 했음")
                 return HttpResponseRedirect(reverse('app:funding_main'))
+        chk_dev_text = request.POST.get('chk_dev',0)
 
-        data = JoinProject()
+        if "radio_front" == chk_dev_text:
+            data.check_crew = 0
+        elif "radio_back" == chk_dev_text:
+            data.check_crew = 1
+        else:
+            return HttpResponseRedirect(reverse('app:funding_main'))
+        
+        
         data.board_id = board_id
         data.user_id = request.session['user']
         data.user_name = request.POST['name']
@@ -246,10 +265,20 @@ def contact(request, board_id):
 
         data.save()
 
+
+        board = FundingBoard.objects.get(board_id = board_id)
+        if data.check_crew == 0:
+            board.front_crew -= 1
+
+        if data.check_crew == 1:
+            board.back_crew -= 1
+
+        board.save()
         # 저장했으니 메인페이지로 보내주자.
         return HttpResponseRedirect(reverse('app:funding_main'))
     
     # 여기로 오는 경우 처음들어온 경우다.
+    data = FundingBoard.objects.get(board_id=board_id)
 
     user = User1.objects.get(user_id = request.session['user'])
     return render(
@@ -257,7 +286,11 @@ def contact(request, board_id):
         'fund_view/contact.html',
         {
             "user_name" : user.user_name,
-            "user_email" : user.user_email
+            "user_email" : user.user_email,
+            "board_user_name" : data.user_id,
+            "board_title" : data.title,
+            "front_crew" : data.front_crew,
+            "back_crew" : data.back_crew,
         }
 
     )
@@ -298,7 +331,6 @@ class Create1(View):
                 file.write(upload_file.read())
                 for chunk in upload_file.chunks():
                     file.write(chunk)
-            # print("저장위치 : ",path)
             request.session['imgefile'] = path
         else:
             request.session['imgefile'] = ""
@@ -345,16 +377,17 @@ class Create3(View):
             FDB.language_text = request.session['language']
             FDB.target = request.session['target']
             
-            FDB.func_a_price = request.POST['eqA']
-            FDB.func_b_price = request.POST['eqB']
-            FDB.func_c_price = request.POST['eqC']
+            FDB.func_a_price = request.POST.get('eqA',0)
+            FDB.func_b_price = request.POST.get('eqB',0)
+            FDB.func_c_price = request.POST.get('eqC',0)
 
             FDB.file_name = request.session['imgefile']
             FDB.intro = request.session['intro']
             FDB.background_text = request.session['background']
             FDB.object_text = request.session['objects']
             FDB.develop_content = request.POST['developContent']
-            FDB.fund_goal_price = request.POST['goal_money']
+            FDB.fund_goal_price = request.POST.get('goal_money',0)
+            FDB.func_text = request.POST['func_text']
 
             FDB.fund_total_price = 0
             FDB.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
@@ -368,8 +401,15 @@ class Create3(View):
             FDB.save()
 
             # 세션에 저장된거 삭제
-            # del request.session['intro']
-            # del request.session['title']
+            del request.session['intro']
+            del request.session['background']
+            del request.session['objects']
+            
+            del request.session['title']
+            del request.session['category']
+            del request.session['language']
+            del request.session['target']
+            del request.session['imgefile']
 
             return HttpResponseRedirect(reverse('app:funding_main'))
         if request.POST.get("before",0) =="이전":
@@ -384,10 +424,9 @@ class AllViewPage(View):
         board_id = kwargs['board_id']
         
         DB_data = self.FDB.objects.get(board_id=board_id)
-        print(DB_data.end_date)
         if page_num ==1:
             file_name = DB_data.file_name.split("/img/")[-1]
-            return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id, "DB_data":DB_data , "file_name" : file_name})
+            return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id, "DB_data":DB_data , "file_name" : file_name })
         elif page_num ==3:
             start_date = str(DB_data.start_date)
             end_date = str(DB_data.end_date)
@@ -403,27 +442,27 @@ class AllViewPage(View):
         DB_data = self.FDB.objects.get(board_id=board_id)
         if page_num !=1:
             if request.POST.get("next",0) =="다음":
-                DB_data.intro = request.POST['intro']
-                DB_data.background_text = request.POST['background']
-                DB_data.object_text = request.POST['objects']
+                DB_data.intro = request.POST.get('intro',DB_data.intro)
+                DB_data.background_text = request.POST.get('background',DB_data.background_text)
+                DB_data.object_text = request.POST.get('objects',DB_data.object_text)
                 DB_data.save()
                 page_num +=1
             if request.POST.get("before",0) =="이전":
                 page_num -=1 
             if request.POST.get("finsh",0) =="완료":
-                DB_data.fund_goal_price = request.POST['goal_money'] 
-                DB_data.func_a_price = request.POST['eqA']
-                DB_data.func_b_price = request.POST['eqB']
-                DB_data.func_c_price = request.POST['eqC']
-                DB_data.develop_content = request.POST['developContent']
+                DB_data.fund_goal_price = request.POST.get('goal_money', DB_data.fund_goal_price)
+                DB_data.func_a_price = request.POST.get('eqA', DB_data.func_a_price)
+                DB_data.func_b_price = request.POST.get('eqB', DB_data.func_b_price)
+                DB_data.func_c_prce = request.POST.get('eqC', DB_data.func_c_price)
+                DB_data.develop_content = request.POST.get('developContent',DB_data.develop_content)
                 DB_data.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
                 DB_data.save()
                 return HttpResponseRedirect(reverse('app:funding_main'))
         else:
-            DB_data.title = request.POST['title']
-            DB_data.category = request.POST['category']
-            DB_data.language_text =  request.POST['language']
-            DB_data.target = request.POST['target']
+            DB_data.title = request.POST.get('title',DB_data.title)
+            DB_data.category = request.POST.get('category',DB_data.category)
+            DB_data.language_text = request.POST.get('language',DB_data.language_text )
+            DB_data.target = request.POST.get('target',DB_data.target)
             DB_data.save()
             page_num +=1
         return HttpResponseRedirect(reverse('fundingapp:allViewPage', 
