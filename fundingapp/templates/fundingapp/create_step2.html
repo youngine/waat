@@ -20,7 +20,7 @@
             {% csrf_token %}
             <div class=wrapper>
                 <p class= "create_input_big_box" style="display:inline-block;font-family: 'NanumSquareEB';">프로젝트 소개글</p>
-                <input class = intro_box  style="display:inline-block" type="text" name="intro"  value={{DB_data.intro}} >
+                <input class = intro_box  style="display:inline-block" type="text" name="intro"  value="{{DB_data.intro}}" >
             </div>
             <div class=wrapper>
                 <p class= "create_input_big_box" style="display:inline-block;font-family: 'NanumSquareEB';">프로젝트 기획배경</p>

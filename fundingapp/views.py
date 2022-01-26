@@ -12,7 +12,7 @@ from django.shortcuts import render,redirect
 from django.views import View  
 from django.core.exceptions import PermissionDenied
 import datetime
-
+from PIL import Image
 
 def select(request, select_drop):
 
@@ -271,7 +271,6 @@ class Create1(View):
                 file.write(upload_file.read())
                 for chunk in upload_file.chunks():
                     file.write(chunk)
-            # print("저장위치 : ",path)
             request.session['imgefile'] = path
         else:
             request.session['imgefile'] = ""
@@ -340,9 +339,19 @@ class Create3(View):
             
             FDB.save()
 
+            image = Image.open(request.session['imgefile'])
+            image_width, image_height = image.size
+
             # 세션에 저장된거 삭제
-            # del request.session['intro']
-            # del request.session['title']
+            del request.session['intro']
+            del request.session['background']
+            del request.session['objects']
+            
+            del request.session['title']
+            del request.session['category']
+            del request.session['language']
+            del request.session['target']
+            del request.session['imgefile']
 
             return HttpResponseRedirect(reverse('app:funding_main'))
         if request.POST.get("before",0) =="이전":
@@ -357,10 +366,9 @@ class AllViewPage(View):
         board_id = kwargs['board_id']
         
         DB_data = self.FDB.objects.get(board_id=board_id)
-        print(DB_data.end_date)
         if page_num ==1:
             file_name = DB_data.file_name.split("/img/")[-1]
-            return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id, "DB_data":DB_data , "file_name" : file_name})
+            return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id, "DB_data":DB_data , "file_name" : file_name })
         elif page_num ==3:
             start_date = str(DB_data.start_date)
             end_date = str(DB_data.end_date)
@@ -376,27 +384,27 @@ class AllViewPage(View):
         DB_data = self.FDB.objects.get(board_id=board_id)
         if page_num !=1:
             if request.POST.get("next",0) =="다음":
-                DB_data.intro = request.POST['intro']
-                DB_data.background_text = request.POST['background']
-                DB_data.object_text = request.POST['objects']
+                DB_data.intro = request.POST.get('intro',DB_data.intro)
+                DB_data.background_text = request.POST.get('background',DB_data.background_text)
+                DB_data.object_text = request.POST.get('objects',DB_data.object_text)
                 DB_data.save()
                 page_num +=1
             if request.POST.get("before",0) =="이전":
                 page_num -=1 
             if request.POST.get("finsh",0) =="완료":
-                DB_data.fund_goal_price = request.POST['goal_money'] 
-                DB_data.func_a_price = request.POST['eqA']
-                DB_data.func_b_price = request.POST['eqB']
-                DB_data.func_c_price = request.POST['eqC']
-                DB_data.develop_content = request.POST['developContent']
+                DB_data.fund_goal_price = request.POST.get('goal_money', DB_data.fund_goal_price)
+                DB_data.func_a_price = request.POST.get('eqA', DB_data.func_a_price)
+                DB_data.func_b_price = request.POST.get('eqB', DB_data.func_b_price)
+                DB_data.func_c_prce = request.POST.get('eqC', DB_data.func_c_price)
+                DB_data.develop_content = request.POST.get('developContent',DB_data.develop_content)
                 DB_data.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
                 DB_data.save()
                 return HttpResponseRedirect(reverse('app:funding_main'))
         else:
-            DB_data.title = request.POST['title']
-            DB_data.category = request.POST['category']
-            DB_data.language_text =  request.POST['language']
-            DB_data.target = request.POST['target']
+            DB_data.title = request.POST.get('title',DB_data.title)
+            DB_data.category = request.POST.get('category',DB_data.category)
+            DB_data.language_text = request.POST.get('language',DB_data.language_text )
+            DB_data.target = request.POST.get('target',DB_data.target)
             DB_data.save()
             page_num +=1
         return HttpResponseRedirect(reverse('fundingapp:allViewPage', 
