@@ -12,13 +12,22 @@ from django.shortcuts import render,redirect
 from django.views import View  
 from django.core.exceptions import PermissionDenied
 import datetime
-
-
+from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
+from config import settings
+@csrf_exempt
 def select(request, select_drop):
 
-
-
+    now_page = int(request.GET.get('page', 1))
     data = FundingBoard.objects.all()
+
+    if request.method =="POST":
+
+        search_word = request.POST.get("search_word", 0)
+
+        data = FundingBoard.objects.filter(title__contains = search_word)
+
+
     result = []
     for d in data:
         result.append({
@@ -45,7 +54,7 @@ def select(request, select_drop):
             "end_date" : d.end_date
             
         })
-    
+    print(result)
     # 최신순
     if select_drop == 1:
         result = sorted(result, key = lambda x: -x["board_id"])
@@ -58,16 +67,30 @@ def select(request, select_drop):
     else:
         result = sorted(result, key = lambda x: x["board_id"])
     
+    page_num = 5
+    p = Paginator(result, page_num)
+
+    info = p.page(now_page)
+
+    start_page = (now_page - 1) // 10 * 10 + 1
+    end_page = start_page + 9
+    if end_page > p.num_pages:
+        end_page = p.num_pages
+
+
+
     return render(
         request,
         'fund_view/main.html',
         {
             "data" : result,
+            "select_drop" : select_drop,
+            "info" : info,
+            'page_range' : range(start_page, end_page + 1)
             
         }
     )
-from django.views.decorators.csrf import csrf_exempt
-from config import settings
+
 
 @csrf_exempt
 def detail(request, board_id):
@@ -76,19 +99,22 @@ def detail(request, board_id):
     filepath = data.file_name
     if request.method =="GET":
         percent = int(data.fund_total_price / data.fund_goal_price * 100)
+        
+        # percent_n : 퍼센트 바 올라가는 갯수
+        # percent_stan : 퍼센트 기준 값
 
-        # if percent < 20:
-        #     percent_mark = 0
-        # elif percent < 40:
-        #     percent_mark = 1
-            
-        # elif percent < 60:
-        #     percent_mark = 2
-            
-        # elif percent < 80:
-        #     percent_mark = 3
-        # else:
-        #     percent_mark = 4
+        percent_n = 5
+        percent_stan = 100
+        percent_mark = int(percent / (percent_stan / (percent_n+1)))
+
+        
+        if percent_mark > percent_n:
+            percent_mark = percent_n
+
+        # 펀딩 남은 기간 확인, d_day가 끝난 경우(음수인 경우 0으로 표시)
+        d_day = (data.end_date - data.start_date).days
+        if d_day < 0:
+            d_day = 0
             
 
         result = [{
@@ -112,10 +138,11 @@ def detail(request, board_id):
                 "regi_date" : data.regi_date,
                 "start_date" : data.start_date,
                 "end_date" : data.end_date,
-                # "percent_mark" : percent_mark
+                "percent_mark" : percent_mark,
+                "d_day" : d_day
 
             }]
-
+ 
 
         return render(request,
         'fund_view/fund_detail.html', 

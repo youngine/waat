@@ -12,4 +12,6 @@ urlpatterns = [
     path('usercheck/', views.usercheck,name='usercheck'),
     path('pwchange/', views.pwchange,name='pwchange'),
     path('myfunding/', views.myfunding, name='myfunding'),
+    path('myboarding/', views.myboarding, name='myboarding'),
+
 ]
