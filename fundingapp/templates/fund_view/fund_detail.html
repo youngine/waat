@@ -30,9 +30,11 @@
                   <button class="btn btn-outline-success" type="submit" name = "btn_delete" value = "btn_delete">삭제</button>
                 </form>
                 {% else %}
+                {% if item.crew_sum != 0 %}
                 <a href = "/app/fund/contact/{{item.board_id}}">
-                  <button class="btn btn-outline-success me-md-2" type="submit">팀원모집</button>
+                  <button class="btn btn-outline-success me-md-2" type="submit">팀원모집 {{item.join_pro}} / {{item.all_crew_sum}}</button>
                 </a>
+                {% endif %}
                 {% endif %}
               </div>
               <div class="row g-0">

@@ -115,8 +115,14 @@ def detail(request, board_id):
         d_day = (data.end_date - data.start_date).days
         if d_day < 0:
             d_day = 0
-            
+        
+        # crew_sum = 현재 남은 수
+        crew_sum = data.front_crew + data.back_crew
 
+        # 원래 남은 crew수를 구해야함.
+        join_pro = JoinProject.objects.filter(board_id = board_id).count()
+        print(crew_sum)
+        all_crew_sum = crew_sum + join_pro
         result = [{
                 "board_id" : data.board_id,
                 "user_id" : data.user_id,
@@ -140,7 +146,10 @@ def detail(request, board_id):
                 "end_date" : data.end_date,
                 "percent_mark" : percent_mark,
                 "d_day" : d_day,
-                "func_text" : data.func_text
+                "func_text" : data.func_text,
+                "join_pro" : join_pro,
+                "all_crew_sum" : all_crew_sum,
+                "crew_sum" : crew_sum,
 
             }]
  
@@ -210,14 +219,15 @@ def detail(request, board_id):
                                         }))
 
         if request.POST.get('btn_concat') == "btn_concat":
-
+            print(data.user_id)
             user = User1.objects.get(user_id = request.session['user'])
             return render(
                 request,
                 'fund_view/contact.html',
                 {
                     "user_name" : user.user_name,
-                    "user_email" : user.user_email
+                    "user_email" : user.user_email,
+                    "board_user_name" : data.user_id
                 }
 
             )
@@ -231,13 +241,21 @@ def contact(request, board_id):
 
         # 만약 이미 신청한 사람이라면 안된다고 출력해주자.
         check_id = JoinProject.objects.filter(board_id = board_id)
-
+        data = JoinProject()
+        ck = -1
         for i in check_id:
             if i.user_id ==  request.session['user']:
-                print("이미 했음")
                 return HttpResponseRedirect(reverse('app:funding_main'))
+        chk_dev_text = request.POST.get('chk_dev',0)
 
-        data = JoinProject()
+        if "radio_front" == chk_dev_text:
+            data.check_crew = 0
+        elif "radio_back" == chk_dev_text:
+            data.check_crew = 1
+        else:
+            return HttpResponseRedirect(reverse('app:funding_main'))
+        
+        
         data.board_id = board_id
         data.user_id = request.session['user']
         data.user_name = request.POST['name']
@@ -247,10 +265,20 @@ def contact(request, board_id):
 
         data.save()
 
+
+        board = FundingBoard.objects.get(board_id = board_id)
+        if data.check_crew == 0:
+            board.front_crew -= 1
+
+        if data.check_crew == 1:
+            board.back_crew -= 1
+
+        board.save()
         # 저장했으니 메인페이지로 보내주자.
         return HttpResponseRedirect(reverse('app:funding_main'))
     
     # 여기로 오는 경우 처음들어온 경우다.
+    data = FundingBoard.objects.get(board_id=board_id)
 
     user = User1.objects.get(user_id = request.session['user'])
     return render(
@@ -258,7 +286,11 @@ def contact(request, board_id):
         'fund_view/contact.html',
         {
             "user_name" : user.user_name,
-            "user_email" : user.user_email
+            "user_email" : user.user_email,
+            "board_user_name" : data.user_id,
+            "board_title" : data.title,
+            "front_crew" : data.front_crew,
+            "back_crew" : data.back_crew,
         }
 
     )
@@ -475,3 +507,6 @@ class ADDTeams(View):
 
             
             return HttpResponseRedirect(reverse('app:funding_main'))
+## 이거 누구꺼지요?          
+def step1(request):
+    return render(request, 'fundingapp/step1.html')

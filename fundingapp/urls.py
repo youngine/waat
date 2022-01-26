@@ -22,5 +22,6 @@ urlpatterns = [
     path('ADDTeam/', ADDTeams.as_view(),name='ADDTeam'),
     # path('AllViewPage/<int:board_id>/<int:page_num>/',AllViewPage.as_view(),name="modify")
     # path('AllViewPage/',AllViewPage.as_view(),name="AllViewPage")
+    path('step1/', views.step1, name='step1'),
 
 ]
