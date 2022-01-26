@@ -1,120 +1,167 @@
 {% extends 'no_footer_base.html' %}
 {% load static %} 
 
-
 {% block content %}
+
 <div>
-    <div style="margin:3rem 0rem"></div>
-        <div>
-            <h2 class= text-success style="font-family: 'NanumSquareEB'; text-align:center;">
-                신청서</h2>
-        <div style="margin:2rem 0rem; text-align:center;">
-            <div class= create_bar_color style="display:inline-block"></div>
-            <div class= create_bar_color style="display:inline-block"></div>
-            <div class= create_bar_color style="display:inline-block"></div>
-        <div>
-            <div style="margin:3rem 0rem"></div>
+    <h2 class= "text-success mt-5 mb-5" style="font-family: 'NanumSquareEB'; text-align:center;"> 신청서</h2>
+
+    <div class="text-center">
+        <div class= create_bar_color style="display:inline-block"></div>
+        <div class= create_bar_color style="display:inline-block"></div>
+        <div class= create_bar_color style="display:inline-block"></div>
     </div>
-    {% if page_num %}
-        <form action="/app/fund/allViewPage/{{page_num}}/{{board_id}}/" method="POST">
-            {% csrf_token %}
-            <div class=wrapper>
-                <p class= "developContent_text" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">펀딩 목표 금액</p>
-                <input class = developTarget placeholder="목표 금액을 입력해주세요." type="number" style="display:inline-block;" name="goal_money" value={{DB_data.fund_goal_price}}>
-            </div>
-            <div class=wrapper>
-                <p class= "create_input_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">기능별 가격</p>
-                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">A 기능</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqA" placeholder="숫자만 입력" value={{DB_data.func_a_price}}>
-                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">B 기능</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqB" placeholder="숫자만 입력" value={{DB_data.func_b_price}}>
-                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">C 기능</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqC" placeholder="숫자만 입력" value={{DB_data.func_c_price}}>
-            </div>
+{% if page_num %}
+ <form class="was-validated p-4" action="/app/fund/allViewPage/{{page_num}}/{{board_id}}/" method="POST">
+     {% csrf_token %}
+    <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+    <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">펀딩 목표금액</label>
+    <input type="number" style="font-family:NanumSquareR;" class="form-control is-invalid" id="validationTextarea" name="goal_money" value={{DB_data.fund_goal_price}} placeholder="목표금액을 입력해주세요" required>
+  </div>
 
-            <!-- 여기도 바꿔야합니다 밑에꺼 그대로 한거라 아마 데이터는 못가져옵니다.  -->
-            <div class=wrapper>
-                <p class= "create_input_text_boxSize" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">기능별 설명</p>
-                <textarea class = func_text  placeholder="기능 별 가격 및 설명을 적어주세요" style="display:inline-block;" name="func_text"> </textarea>
-            </div>
+  <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+    <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">기능별 가격</label>
+    <div class="container">
+      <div class="row">
 
-            <!-- <div class=wrapper>
-                <p class= "create_input_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">원하는 팀원 수 입력</p>
-                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">FrontEnd</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="FrontEnd" placeholder="숫자만 입력" value = 0>
-                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">BackEnd</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="BackEnd" placeholder="숫자만 입력" value = 0>
-            </div> -->
+          <div class="col">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">A 기능</span>
+              <input type="number" class="form-control" id="validationTooltipUsername" name="eqA" value={{DB_data.func_a_price}} aria-describedby="validationTooltipUsernamePrepend" required>
+            </div>
+          </div>
 
-            <div class=wrapper>
-                <label class= "developContent_text" style="margin:0rem 1rem;font-family: 'NanumSquareEB';">프로젝트 시작일</label>
-                    <input style="margin:0rem 2.5rem" type="text" name="start_date" value={{start_date}} disabled>
-                <label class= "developContent_text" style="margin:0rem 1rem;font-family: 'NanumSquareEB';">프로젝트 종료일</label>
-                    <input style="margin:0rem 0rem" type="text" name="end_date" value={{end_date}} disabled>
-            </div>
-            <div class=wrapper>
-                <p class= "developContent_text" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">주요 개발 내용</p>
-                <textarea class = developContent  placeholder="개발 내용에 대해서 입력해주세요." style="display:inline-block;" name="developContent">{{DB_data.develop_content}} </textarea>
-            </div>
-            <div style="margin:3rem 0rem"></div>
-            <div >
-                <input class= "before_btn_color" style="display:inline-block" method="POST" type="submit" name="before" value="이전">
-                <input class= "next_btn_color" style="display:inline-block" method="POST" type="submit" name="finsh" value="완료">
-            </div>
-        </form>
-    {% else %}
-        <form action="/app/fund/create3/" method="POST">
-            {% csrf_token %}
-            <div class=wrapper>
-                <p class= "developContent_text" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">펀딩 목표 금액</p>
-                <input class = developTarget placeholder="목표 금액을 입력해주세요." type="number" style="display:inline-block;" name="goal_money">
-            </div>
-            <div class=wrapper>
-                <p class= "create_input_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">기능별 가격</p>
-                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">A 기능</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqA" placeholder="숫자만 입력" value = 0>
-                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">B 기능</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqB" placeholder="숫자만 입력" value = 0>
-                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">C 기능</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqC" placeholder="숫자만 입력" value = 0>
-            </div>
+          <div class="col">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">B 기능</span>
+              <input type="number" class="form-control" id="validationTooltipUsername"name="eqB" value={{DB_data.func_b_price}} aria-describedby="validationTooltipUsernamePrepend" required>
+            </div>          
+          </div>
 
-            <div class=wrapper>
-                <p class= "create_input_text_boxSize" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">기능별 설명</p>
-                <textarea class = func_text  placeholder="기능 별 가격 및 설명을 적어주세요" style="display:inline-block;" name="func_text"> </textarea>
-            </div>
+          <div class="col">
+          <div class="input-group has-validation">
+            <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">C 기능</span>
+            <input type="number" class="form-control" id="validationTooltipUsername" name="eqC" value={{DB_data.func_c_price}} aria-describedby="validationTooltipUsernamePrepend" required>
+          </div>
+        </div>
 
-            <!-- <div class=wrapper>
-                <p class= "create_input_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">원하는 팀원 수 입력</p>
-                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">FrontEnd</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="FrontEnd" placeholder="숫자만 입력" value = 0>
-                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">BackEnd</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="BackEnd" placeholder="숫자만 입력" value = 0>
-            </div> -->
+      </div>
+    </div>
+  </div>
 
-            <div class=wrapper>
-                <label class= "developContent_text" style="margin:0rem 1rem;font-family: 'NanumSquareEB';">프로젝트 시작일</label>
-                    <input id='currentDate' style="margin:0rem 2.5rem" type="date" name="start_date" >
-                <label class= "developContent_text" style="margin:0rem 1rem;font-family: 'NanumSquareEB';">프로젝트 종료일</label>
-                    <input style="margin:0rem 0rem" type="date" name="end_date" required>
+  <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+    <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">프로젝트 기간</label>
+    <div class="container">
+      <div class="row">
 
+          <div class="col">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">프로젝트 시작일</span>
+              <input type="date" class="form-control" id="validationTooltipUsername"  name="start_date" value={{start_date}} aria-describedby="validationTooltipUsernamePrepend" required>
             </div>
-            <div class=wrapper>
-                <p class= "developContent_text" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">주요 개발 내용</p>
-                <textarea class = developContent  placeholder="개발 내용에 대해서 입력해주세요." style="display:inline-block;" name="developContent"> </textarea>
-            </div>
-            <div style="margin:3rem 0rem"></div>
-            <div >
-                <input class= "before_btn_color" style="display:inline-block" method="POST" type="submit" name="before" value="이전">
-                <input class= "next_btn_color" style="display:inline-block" method="POST" type="submit" name="finsh" value="완료">
-            </div>
-        </form>
-    {% endif%}
+          </div>
 
-    <div style="margin:3rem 0rem"></div>
-</div>
+          <div class="col">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">프로젝트 종료일</span>
+              <input type="date" class="form-control" id="validationTooltipUsername"  name="end_date" value={{end_date}} aria-describedby="validationTooltipUsernamePrepend" required>
+            </div>          
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+     <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+        <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">주요 개발내용</label>
+        <textarea class="form-control is-invalid" id="validationTextarea" name="developContent" placeholder="Required example textarea" required>{{DB_data.develop_content}}</textarea>
+    </div>
+
+    <div class="mb-5 col-md-7 mt-5 text-center" style="float: none; margin:0 auto;">
+        <input class="btn btn-success mx-3" style="font-family:NanumSquareR;"  method="POST" type="submit" name="before" value="이전">
+        <input class="btn btn-success" style="font-family:NanumSquareR;"  method="POST" type="submit" name="finsh" value="완료">
+    </div>
+
+</form>
+
+ {% else %}
+
+ <form class="was-validated p-4" action="/app/fund/create3/" method="POST" enctype="multipart/form-data">
+     {% csrf_token %}
+    <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+    <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">펀딩 목표금액</label>
+    <input type="number" style="font-family:NanumSquareR;" class="form-control is-invalid" id="validationTextarea" name="goal_money"  placeholder="목표금액을 입력해주세요" required>
+  </div>
+
+  <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+    <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">기능별 가격</label>
+    <div class="container">
+      <div class="row">
+
+          <div class="col">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">A 기능</span>
+              <input type="number" class="form-control" id="validationTooltipUsername" name="eqA" aria-describedby="validationTooltipUsernamePrepend" required>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">B 기능</span>
+              <input type="number" class="form-control" id="validationTooltipUsername"name="eqB"  aria-describedby="validationTooltipUsernamePrepend" required>
+            </div>          
+          </div>
+
+          <div class="col">
+          <div class="input-group has-validation">
+            <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">C 기능</span>
+            <input type="number" class="form-control" id="validationTooltipUsername" name="eqC" aria-describedby="validationTooltipUsernamePrepend" required>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+    <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">프로젝트 기간</label>
+    <div class="container">
+      <div class="row">
+
+          <div class="col">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">프로젝트 시작일</span>
+              <input type="date" class="form-control" id="validationTooltipUsername"  name="start_date" aria-describedby="validationTooltipUsernamePrepend" required>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">프로젝트 종료일</span>
+              <input type="date" class="form-control" id="validationTooltipUsername"  name="end_date" aria-describedby="validationTooltipUsernamePrepend" required>
+            </div>          
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+     <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+        <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">주요 개발내용</label>
+        <textarea class="form-control is-invalid" id="validationTextarea" name="developContent" placeholder="Required example textarea" required></textarea>
+    </div>
+
+    <div class="mb-5 col-md-7 mt-5 text-center" style="float: none; margin:0 auto;">
+        <input class="btn btn-success mx-3" style="font-family:NanumSquareR;"  method="POST" type="submit" name="before" value="이전">
+        <input class="btn btn-success" style="font-family:NanumSquareR;"  method="POST" type="submit" name="finsh" value="완료">
+    </div>
+
+</form>
+
+{% endif%}
+
 <script>
-    document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
-  </script>
-{% endblock %}
+  document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+</script>
 
+{%endblock content%}
