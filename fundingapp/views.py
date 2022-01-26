@@ -358,26 +358,34 @@ class Create3(View):
             FDB.func_text = request.POST['func_text']
 
             FDB.fund_total_price = 0
-            FDB.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
+            request.session['regi_date'] = datetime.datetime.now().strftime ("%Y-%m-%d")
+            FDB.regi_date = request.session['regi_date'] 
 
             # FDB.start_date = datetime.datetime.strptime(request.POST['start_date'], "%Y-%m-%d")
             FDB.start_date =request.POST['start_date']
             FDB.end_date =request.POST['end_date']
 
             # FDB.end_date = datetime.datetime.strptime(request.POST['end_date'], "%Y-%m-%d")
-            
+            FDB.front_crew = 0
+            FDB.back_crew = 0
+
             FDB.save()
+
+            print(request.session['regi_date'])
 
             # 세션에 저장된거 삭제
             del request.session['intro']
             del request.session['background']
             del request.session['objects']
             
-            del request.session['title']
+            # del request.session['title']
             del request.session['category']
             del request.session['language']
             del request.session['target']
             del request.session['imgefile']
+
+            if request.POST.get("checkAddTeams",0) =="체크":
+                return HttpResponseRedirect(reverse('fundingapp:ADDTeam'))
 
             return HttpResponseRedirect(reverse('app:funding_main'))
         if request.POST.get("before",0) =="이전":
@@ -441,6 +449,29 @@ class AllViewPage(View):
 
 class ADDTeams(View):
     def get(self, request, *args, **kwargs):
-        pass
+        regi = request.session['regi_date']
+        title = request.session['title']
+        user_id = request.session['user']
+        print(regi,title,user_id)
+
+        return render(request,'fundingapp/addTeam.html',{'regi':regi,'title':title,'user_id':user_id})
+
     def post(self, request, *args, **kwargs):
-        pass
+        if request.POST.get("TeamFinsh",0) =="팀원모집":
+            regi = request.session['regi_date']
+            title = request.session['title']
+            user_id = request.session['user']
+            
+            sqlQ = FundingBoard.objects.filter(regi_date = regi, title = title, user_id = user_id)
+            # print(sqlQ[0].board_id)
+            FB = FundingBoard.objects.get(board_id = sqlQ[0].board_id)
+            print(FB)
+            print(request.POST.get("FrontEnd",0))
+            print(request.POST.get("BackEnd",0))
+            print("-----")
+            FB.front_crew = request.POST.get("FrontEnd",0)
+            FB.back_crew = request.POST.get("BackEnd",0)
+            FB.save()
+
+            
+            return HttpResponseRedirect(reverse('app:funding_main'))
