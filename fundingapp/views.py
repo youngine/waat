@@ -54,7 +54,7 @@ def select(request, select_drop):
             "end_date" : d.end_date
             
         })
-    print(result)
+
     # 최신순
     if select_drop == 1:
         result = sorted(result, key = lambda x: -x["board_id"])
@@ -121,7 +121,7 @@ def detail(request, board_id):
 
         # 원래 남은 crew수를 구해야함.
         join_pro = JoinProject.objects.filter(board_id = board_id).count()
-        print(crew_sum)
+
         all_crew_sum = crew_sum + join_pro
         result = [{
                 "board_id" : data.board_id,
@@ -219,7 +219,7 @@ def detail(request, board_id):
                                         }))
 
         if request.POST.get('btn_concat') == "btn_concat":
-            print(data.user_id)
+
             user = User1.objects.get(user_id = request.session['user'])
             return render(
                 request,
@@ -298,12 +298,12 @@ def contact(request, board_id):
 
 
 def download(request,file_path):
-    print(file_path)
+
     formating = file_path.split(".")[-1]
     with open(file_path, 'rb') as f:
         response = HttpResponse(f, content_type='application/octet-stream')
         response['Content-Disposition'] = f'attachment; filename={"다운로드 이미지."+formating}'
-        print(response['Content-Disposition'])
+
         return response
 
 
@@ -352,7 +352,7 @@ class Create2(View):
 
             return HttpResponseRedirect(reverse('fundingapp:create3'))
         if request.POST.get("before",0) =="이전":
-            print(request.session['title'])
+
             return HttpResponseRedirect(reverse('fundingapp:create1'))
 
 class Create3(View):
@@ -403,7 +403,7 @@ class Create3(View):
 
             FDB.save()
 
-            print(request.session['regi_date'])
+
 
             # 세션에 저장된거 삭제
             del request.session['intro']
@@ -484,7 +484,7 @@ class ADDTeams(View):
         regi = request.session['regi_date']
         title = request.session['title']
         user_id = request.session['user']
-        print(regi,title,user_id)
+
 
         return render(request,'fundingapp/addTeam.html',{'regi':regi,'title':title,'user_id':user_id})
 
@@ -495,12 +495,9 @@ class ADDTeams(View):
             user_id = request.session['user']
             
             sqlQ = FundingBoard.objects.filter(regi_date = regi, title = title, user_id = user_id)
-            # print(sqlQ[0].board_id)
+
             FB = FundingBoard.objects.get(board_id = sqlQ[0].board_id)
-            print(FB)
-            print(request.POST.get("FrontEnd",0))
-            print(request.POST.get("BackEnd",0))
-            print("-----")
+
             FB.front_crew = request.POST.get("FrontEnd",0)
             FB.back_crew = request.POST.get("BackEnd",0)
             FB.save()
