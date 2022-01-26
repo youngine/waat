@@ -34,4 +34,11 @@
     opacity: 1;
 }
 
-
+.funding_main_bar_color{
+    width: 500px;
+    height: 3px;
+    background: #59ab6e 0% 0% no-repeat padding-box;
+    border: 1px solid #59ab6e;
+    border-radius: 7px;
+    opacity: 1;
+}
