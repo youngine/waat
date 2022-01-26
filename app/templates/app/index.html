@@ -14,27 +14,46 @@
             </div>
         </div>
     </section>
-    <div style="margin:3rem auto; text-align:center;"> 
-        <div class="row mx-5 mb-5">
-        {% for item in result %}
-            <div class="col-md-3">
-                <div class="card mb-4 product-wap rounded-0">
-                    <div class="card rounded-0 mb-0">
-                        <a href="/app/fund/detail/{{item.board_id}}" class="h3 text-decoration-none">
-                        <img class="card-img rounded-0 img-fluid" src='/{{item.file_name}}' style="height:300px; width:330px">
-                        </a>
-                    </div>
+    <main>
+    <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+            {% for item in result %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <!-- 이미지위치 -->
+                    <img src='/{{item.file_name}}' class="card-img-top h-50" alt="...">
+                    <!-- 현재 펀딩률 -->
+                    <div class="label-top shadow-sm fs-6" style="font-family:NanumSquareR;">현재 펀딩률: {{item.percent}}%</div>
                     <div class="card-body">
-                        <h4 class= " text-center mb-2" style="font-family:NanumSquareR;"> 
-                            {{ item.title }}
-                        </h4>
-                        <p class="text-center mb-0" style="font-family:NanumSquareR;">
-                            펀딩 {{item.percent}}% 진행 중
-                        </p>
+                          <!-- 펀딩 타이틀 -->
+                        <div class="clearfix mb-1"> 
+                            <span class="float-start badge rounded-pill bg-success mb-2" style="font-family:NanumSquareR;">
+                               {{item.title}}
+                            </span>
+                        </div>
+                         <!-- 내 게시물 현재 펀딩된 금액 -->
+                         <div class="clearfix mb-3"> 
+                            <div> 
+                                <span class="float-start badge rounded-pill bg-primary" style="font-family:NanumSquareR;">
+                                    현재 펀딩된 금액: {{item.fund_total}} 원
+                                </span>
+                            </div> 
+                        </div>
+                        <!-- 펀딩설명 -->
+                        <h5 class="card-title" style="font-family:NanumSquareR;">
+                            {{item.intro}}
+                        </h5>
+                        <!-- 내가 올린 펀딩확인 버튼 -->
+                        <div class="d-grid gap-2 my-4"> 
+                            <a href="/app/fund/detail/{{item.board_id}}" class="btn btn-warning" style="font-family:NanumSquareR;">
+                                펀딩 구경가기
+                            </a> 
+                        </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
+</main>
     {%endblock content%}

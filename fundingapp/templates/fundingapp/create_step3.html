@@ -31,6 +31,21 @@
                 <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">C 기능</p>
                 <input class = create_choice_box  style="display:inline-block;" type="number" name="eqC" placeholder="숫자만 입력" value={{DB_data.func_c_price}}>
             </div>
+
+            <!-- 여기도 바꿔야합니다 밑에꺼 그대로 한거라 아마 데이터는 못가져옵니다.  -->
+            <div class=wrapper>
+                <p class= "create_input_text_boxSize" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">기능별 설명</p>
+                <textarea class = func_text  placeholder="기능 별 가격 및 설명을 적어주세요" style="display:inline-block;" name="func_text"> </textarea>
+            </div>
+
+            <!-- <div class=wrapper>
+                <p class= "create_input_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">원하는 팀원 수 입력</p>
+                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">FrontEnd</p>
+                <input class = create_choice_box  style="display:inline-block;" type="number" name="FrontEnd" placeholder="숫자만 입력" value = 0>
+                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">BackEnd</p>
+                <input class = create_choice_box  style="display:inline-block;" type="number" name="BackEnd" placeholder="숫자만 입력" value = 0>
+            </div> -->
+
             <div class=wrapper>
                 <label class= "developContent_text" style="margin:0rem 1rem;font-family: 'NanumSquareEB';">프로젝트 시작일</label>
                     <input style="margin:0rem 2.5rem" type="text" name="start_date" value={{start_date}} disabled>
@@ -57,12 +72,26 @@
             <div class=wrapper>
                 <p class= "create_input_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">기능별 가격</p>
                 <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">A 기능</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqA" placeholder="숫자만 입력">
+                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqA" placeholder="숫자만 입력" value = 0>
                 <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">B 기능</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqB" placeholder="숫자만 입력">
+                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqB" placeholder="숫자만 입력" value = 0>
                 <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">C 기능</p>
-                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqC" placeholder="숫자만 입력">
+                <input class = create_choice_box  style="display:inline-block;" type="number" name="eqC" placeholder="숫자만 입력" value = 0>
             </div>
+
+            <div class=wrapper>
+                <p class= "create_input_text_boxSize" style="display:inline-block;margin:0rem 1rem;font-family: 'NanumSquareEB';">기능별 설명</p>
+                <textarea class = func_text  placeholder="기능 별 가격 및 설명을 적어주세요" style="display:inline-block;" name="func_text"> </textarea>
+            </div>
+
+            <!-- <div class=wrapper>
+                <p class= "create_input_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">원하는 팀원 수 입력</p>
+                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">FrontEnd</p>
+                <input class = create_choice_box  style="display:inline-block;" type="number" name="FrontEnd" placeholder="숫자만 입력" value = 0>
+                <p class= "create_choice_text_boxSize " style="display:inline-block;font-family: 'NanumSquareEB';">BackEnd</p>
+                <input class = create_choice_box  style="display:inline-block;" type="number" name="BackEnd" placeholder="숫자만 입력" value = 0>
+            </div> -->
+
             <div class=wrapper>
                 <label class= "developContent_text" style="margin:0rem 1rem;font-family: 'NanumSquareEB';">프로젝트 시작일</label>
                     <input id='currentDate' style="margin:0rem 2.5rem" type="date" name="start_date" >
