@@ -64,13 +64,14 @@
 
   <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
     <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">기획 이미지</label>
-    <input type="file" class="form-control" aria-label="file example" name="file" value={{DB_data.file_name}} disabled required>
+    <input type="text" class="form-control" aria-label="file example" name="file" value={{DB_data.file_name}} disabled required>
     {% comment %} <div class="invalid-feedback" style="font-family:NanumSquareR;">펀딩 기획 이미지를 첨부해주세요</div> {% endcomment %}
   </div>
-  
-  <div class="mb-5 col-md-7" style="float: none; margin:0 auto;">
+
+  <div class="mb-5 col-md-7 mt-5 text-center" style="float: none; margin:0 auto;">
     <button class="btn btn-success" type="submit" method="POST" >다음</button>
   </div>
+  
 </form>
 </div>
 
