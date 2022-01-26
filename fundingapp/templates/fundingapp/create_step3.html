@@ -82,14 +82,21 @@
         <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">주요 개발내용</label>
         <textarea class="form-control is-invalid" id="validationTextarea" name="developContent" placeholder="Required example textarea" required>{{DB_data.develop_content}}</textarea>
     </div>
-
-      <div class="mb-3 col-md-7 text-center" style="float: none; margin:0 auto;">
-      <input class="form-check-input" type="checkbox" name="checkAddTeams" value="체크" id="flexCheckChecked">
-      <label class="form-check-label" for="flexCheckChecked" style="font-family:NanumSquareR;">
-        팀원 모집도 같이 진행하고 싶으면 체크해주세요.
-      </label>
-    </div>
-
+    {% if checkTeamsFlag %}
+        <div class="mb-3 col-md-7 text-center" style="float: none; margin:0 auto;">
+        <input class="form-check-input" type="checkbox" name="checkAddTeams" value="체크" id="flexCheckChecked" checked>
+        <label class="form-check-label" for="flexCheckChecked" style="font-family:NanumSquareR;">
+            팀원 모집도 같이 진행하고 싶으면 체크해주세요.
+        </label>
+        </div>
+    {% else %}
+        <div class="mb-3 col-md-7 text-center" style="float: none; margin:0 auto;">
+            <input class="form-check-input" type="checkbox" name="checkAddTeams" value="체크" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked" style="font-family:NanumSquareR;">
+            팀원 모집도 같이 진행하고 싶으면 체크해주세요.
+            </label>
+        </div>
+    {% endif%}
     <div class="mb-5 col-md-7 mt-5 text-center" style="float: none; margin:0 auto;">
         <input class="btn btn-success mx-3" style="font-family:NanumSquareR;"  method="POST" type="submit" name="before" value="이전">
         <input class="btn btn-success" style="font-family:NanumSquareR;"  method="POST" type="submit" name="finsh" value="완료">
