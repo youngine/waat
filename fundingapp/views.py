@@ -558,13 +558,11 @@ class ADDTeams(View):
                 FB = FundingBoard.objects.get(board_id = sqlQ[0].board_id)
                 del request.session['title']
                 del request.session['regi_date']
+                # print("오이이ㅣ이잉1111")
             FB.front_crew = request.POST.get("FrontEnd",0)
             FB.back_crew = request.POST.get("BackEnd",0)
             FB.save()
-
+            #print("오이이ㅣ이잉22222")
+            print(request.POST.get("FrontEnd", 0))
             return HttpResponseRedirect(reverse('app:funding_main'))
 
-
-## 이거 누구꺼지요?          
-def step1(request):
-    return render(request, 'fundingapp/step1.html')
