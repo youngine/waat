@@ -16,7 +16,7 @@ class FundingBoard(models.Model):
     background_text = TextField()
     object_text = TextField()
     develop_content = TextField()
-    # func_text = TextField()
+    func_text = TextField()
     func_a_price = IntegerField()
     func_b_price = IntegerField()
     func_c_price = IntegerField()
@@ -71,6 +71,7 @@ class JoinProject(models.Model):
     user_email = CharField(max_length=50)
     subject = CharField(max_length=255)
     message = TextField()
+    check_crew = IntegerField()
 
 
     

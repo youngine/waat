@@ -139,7 +139,8 @@ def detail(request, board_id):
                 "start_date" : data.start_date,
                 "end_date" : data.end_date,
                 "percent_mark" : percent_mark,
-                "d_day" : d_day
+                "d_day" : d_day,
+                "func_text" : data.func_text
 
             }]
  
@@ -344,16 +345,17 @@ class Create3(View):
             FDB.language_text = request.session['language']
             FDB.target = request.session['target']
             
-            FDB.func_a_price = request.POST['eqA']
-            FDB.func_b_price = request.POST['eqB']
-            FDB.func_c_price = request.POST['eqC']
+            FDB.func_a_price = request.POST.get('eqA',0)
+            FDB.func_b_price = request.POST.get('eqB',0)
+            FDB.func_c_price = request.POST.get('eqC',0)
 
             FDB.file_name = request.session['imgefile']
             FDB.intro = request.session['intro']
             FDB.background_text = request.session['background']
             FDB.object_text = request.session['objects']
             FDB.develop_content = request.POST['developContent']
-            FDB.fund_goal_price = request.POST['goal_money']
+            FDB.fund_goal_price = request.POST.get('goal_money',0)
+            FDB.func_text = request.POST['func_text']
 
             FDB.fund_total_price = 0
             FDB.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
