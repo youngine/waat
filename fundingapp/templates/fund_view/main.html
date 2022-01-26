@@ -12,26 +12,37 @@
     <h2 class= "text-success mt-5 mb-4" style="font-family: 'NanumSquareEB'; text-align:center;">
         펀딩 참여
     </h2>
-    <!-- <div style="text-align:center;">
-      <div class="btn-group" role="group">
-        <button syle="float:right" id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          정렬 순서
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-          <li><a class="dropdown-item" href="/app/fund/select/1">최신순</a></li>
-          <li><a class="dropdown-item" href="/app/fund/select/2">인기순</a></li>
-          <li><a class="dropdown-item" href="/app/fund/select/3">오랜된순</a></li>
-        </ul>
-      </div>
-    </div> -->
     
-      <a class="dropdown-item" href="/app/fund/select/1">최신순</a>
+     <div style="text-align:center;">
+      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <form action = "/app/fund/select/{{select_drop}}" method="post">
+          <input  style="display:inline-block" placeholder="검색할 단어를 입력해주세요" type="text" name="search_word">
+          <input  style="display:inline-block" class="btn btn-success btn-primary ml-1 mr-2" value ="검색" type="submit" name="search">
+        </form>
+        {% comment %} <div class="btn-group" role="group">
+          <button syle="float:right" id="btnGroupDrop1" type="button" class="btn btn-success btn-primary dropdown-toggle ml-2" data-bs-toggle="dropdown" aria-expanded="false">
+            정렬 순서
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <li><a class="dropdown-item" href="/app/fund/select/1">최신순</a></li>
+            <li><a class="dropdown-item" href="/app/fund/select/2">인기순</a></li>
+            <li><a class="dropdown-item" href="/app/fund/select/3">오랜된순</a></li>
+          </ul>
+        </div>{% endcomment %}
+      </div> 
+      <a class="btn btn-outline-success btn-sm me-md-2" type="button" href="/app/fund/select/1">최신순</a>
+      <a class="btn btn-outline-success btn-sm me-md-2" type="button" href="/app/fund/select/2">인기순</a>
+      <a class="btn btn-outline-success btn-sm me-md-2" type="button" href="/app/fund/select/3">오랜된순</a>
+      <div style="margin:3rem 0rem"></div>
+
+    </div>
+  
+      {% comment %} <a class="dropdown-item" href="/app/fund/select/1">최신순</a>
       <a class="dropdown-item" href="/app/fund/select/2">인기순</a>
-      <a class="dropdown-item" href="/app/fund/select/3">오랜된순</a>
-      <form action = "/app/fund/select/{{select_drop}}" method="post">
-        <input  style="display:inline-block" placeholder="검색할 단어를 입력해주세요" type="text" name="search_word">
-        <input  style="display:inline-block" value ="검색" type="submit" name="search">
-      </form>
+      <a class="dropdown-item" href="/app/fund/select/3">오랜된순</a> {% endcomment %}
+
+      
+     
       {% for item in info %}  
   
       <div class="card mb-3" style="max-width: 840px;margin:auto;">
@@ -50,9 +61,63 @@
                   <span class="badge badge-secondary"style="font-family:NanumSquareR;"># {{item.target}}</span>
                   <span class="badge badge-success"style="font-family:NanumSquareR;"># {{item.category}}</span>
                 </div>
-                <p class="card-text mb-1"style="font-family:NanumSquareR;"> 작성일자 : {{item.regi_date}}</p>
+
+                {% comment %} <div style="margin:1rem 0rem"></div>
+                <div class= funding_main_bar_color style="display:inline-block"></div>
+                <div style="margin:0.5rem 0rem"></div> {% endcomment %}
+
+                <div class="percent">
+                  {% if item.percent_mark == 0 %}
+                  <div class= "percent_bar_blank " style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  {% elif item.percent_mark == 1 %}
+                  <div class= "percent_bar_color " style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  {% elif item.percent_mark == 2 %}
+                  <div class= "percent_bar_color " style="display:inline-block"></div>
+                  <div class= percent_bar_color style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  {% elif item.percent_mark == 3 %}
+                  <div class= "percent_bar_color " style="display:inline-block"></div>
+                  <div class= percent_bar_color style="display:inline-block"></div>
+                  <div class= percent_bar_color style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  {% elif item.percent_mark == 4 %}
+                  <div class= "percent_bar_color " style="display:inline-block"></div>
+                  <div class= percent_bar_color style="display:inline-block"></div>
+                  <div class= percent_bar_color style="display:inline-block"></div>
+                  <div class= percent_bar_color style="display:inline-block"></div>
+                  <div class= percent_bar_blank style="display:inline-block"></div>
+                  {% else %}
+                  <div class= "percent_bar_color " style="display:inline-block"></div>
+                  <div class= percent_bar_color style="display:inline-block"></div>
+                  <div class= percent_bar_color style="display:inline-block"></div>
+                  <div class= percent_bar_color style="display:inline-block"></div>
+                  <div class= percent_bar_color style="display:inline-block"></div>
+                  {% endif %}
+                  {% comment %} <p style = "float:right" class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.fund_goal_price}}원 까지 {% endcomment %}
+                  <div style="margin:1rem 0rem"></div>
+
+                </div>
+
+
+                
+                <h2 class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.start_date}} - {{item.end_date}}
+                <div style="float:right" class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.d_day}}남음</div>
+                </h2>
+                
+                {% comment %} <p class="card-text mb-1"style="font-family:NanumSquareR;"> 작성일자 : {{item.regi_date}}</p>
                 <p class="card-text mb-1"style="font-family:NanumSquareR;"> 펀딩 시작 : {{item.start_date}}</p>  
-                <p class="card-text mb-1"style="font-family:NanumSquareR;"> 펀딩 마감 : {{item.end_date}}</p>      
+                <p class="card-text mb-1"style="font-family:NanumSquareR;"> 펀딩 마감 : {{item.end_date}}</p>       {% endcomment %}
               </div>
             </div>
           </div>
@@ -60,22 +125,46 @@
       </div>   
       {% endfor %}
     
-    <div class="p-5">
-    <div style='text-align:center;'>
-      <ul class='pagination'>
+      {% comment %} <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">4</a></li>
+          <li class="page-item"><a class="page-link" href="#">5</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav> {% endcomment %}
+
+    
+      <div class="p-5">
+        <div style="text-align:center">
+      <ul class='pagination justify-content-center'>
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
         {% for i in page_range %}
-        <li>
-          <a href='/app/fund/select/{{ select_drop}}?page={{ i }}'>
+        <li class="page-item">
+          <a class="page-link" href='/app/fund/select/{{ select_drop}}?page={{ i }}'>
             {{ i }}
           </a>
         </li>
         {% endfor %}
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
       </ul>
+      </div>
     </div>
-
-
-
-  </div>
 </div>
 
 {%endblock content%}
