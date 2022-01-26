@@ -28,8 +28,44 @@ def select(request, select_drop):
         data = FundingBoard.objects.filter(title__contains = search_word)
 
 
+
+    
+
+
     result = []
     for d in data:
+
+        percent = int(d.fund_total_price / d.fund_goal_price * 100)
+    
+        # percent_n : 퍼센트 바 올라가는 갯수
+        # percent_stan : 퍼센트 기준 값
+
+        percent_n = 5
+        percent_stan = 100
+        percent_mark = int(percent / (percent_stan / (percent_n+1)))
+
+        
+        if percent_mark > percent_n:
+            percent_mark = percent_n
+
+        # 펀딩 남은 기간 확인, d_day가 끝난 경우(음수인 경우 0으로 표시)
+        d_day = (d.end_date - d.start_date).days
+        if d_day < 0:
+            d_day = 0
+        
+        # 펀딩 참여 명수 구하기
+
+        join_user = JoinFund.objects.filter(board_id = d.board_id)
+
+        # 중복값 빼야함
+
+        join_user_count = []
+        for jo in join_user:
+            join_user_count.append(jo.user_id)
+        join_user_count = len(set(join_user_count))
+
+
+
         result.append({
 
             "board_id" : d.board_id,
@@ -51,7 +87,10 @@ def select(request, select_drop):
             "percent" : int(d.fund_total_price / d.fund_goal_price * 100),
             "regi_date" : d.regi_date,
             "start_date" : d.start_date,
-            "end_date" : d.end_date
+            "end_date" : d.end_date,
+            "percent_mark" : percent_mark,
+            "d_day" : d_day,
+            "join_user_count" : join_user_count
             
         })
 
