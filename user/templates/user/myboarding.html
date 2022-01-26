@@ -14,7 +14,7 @@
                     <!-- 이미지위치 -->
                     <img src='/{{item.file_name}}' class="card-img-top h-50" alt="...">
                     <!-- 현재 펀딩률 -->
-                    <div class="label-top shadow-sm fs-6" style="font-family:NanumSquareR;">현재 펀딩률: </div>
+                    <div class="label-top shadow-sm fs-6" style="font-family:NanumSquareR;">현재 펀딩률 : {{item.percent}}%</div>
                     <div class="card-body">
                         <div class="clearfix mb-3"> 
                             <!-- 펀딩 타이틀 -->
@@ -24,13 +24,13 @@
                             <!-- 내 게시문 현재 펀딩된 금액 -->
                             <div> 
                                 <span class="float-start badge rounded-pill bg-primary mx-2" style="font-family:NanumSquareR;">
-                                    현재 펀딩된 금액: {{item.fund_total}}원
+                                    현재 펀딩된 금액: {{item.total_funding}}원
                                 </span>
                             </div> 
                         </div>
                         <!-- 펀딩설명 -->
                         <h5 class="card-title" style="font-family:NanumSquareR;">
-                            여기다 설명을 적어주시면 될것 같아요 여기다 설명을 적어주시면 될것 같아요
+                            {{item.intro}}
                         </h5>
                         <!-- 내가 올린 펀딩확인 버튼 -->
                         <div class="d-grid gap-2 my-4"> 

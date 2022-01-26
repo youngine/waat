@@ -14,7 +14,7 @@
                     <!-- 이미지위치 -->
                     <img src='/{{item.file_name}}' class="card-img-top h-50" alt="...">
                     <!-- 현재 펀딩률 -->
-                    <div class="label-top shadow-sm fs-6" style="font-family:NanumSquareR;">현재 펀딩률: </div>
+                    <div class="label-top shadow-sm fs-6" style="font-family:NanumSquareR;">현재 펀딩률 : {{item.percent}}%</div>
                     <div class="card-body">
                         <div class="clearfix mb-3"> 
                             <!-- 펀딩 타이틀 -->
@@ -28,7 +28,7 @@
                         </div>
                         <!-- 펀딩설명 -->
                         <h5 class="card-title" style="font-family:NanumSquareR;">
-                            여기다 설명을 적어주시면 될것 같아요 여기다 설명을 적어주시면 될것 같아요
+                            {{item.intro}}
                         </h5>
                         <!-- 펀딩확인 버튼 -->
                         <div class="d-grid gap-2 my-4"> 

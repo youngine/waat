@@ -16,7 +16,7 @@ class FundingBoard(models.Model):
     background_text = TextField()
     object_text = TextField()
     develop_content = TextField()
-    func_text = TextField()
+    # func_text = TextField()
     func_a_price = IntegerField()
     func_b_price = IntegerField()
     func_c_price = IntegerField()
