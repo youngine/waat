@@ -1,9 +1,10 @@
+from email.policy import default
 from django.shortcuts import render,redirect
 from .models import  User_info, FundingBoard,  JoinFund,JoinProject
 from django.contrib import messages
 from django.http import  HttpResponseRedirect
 from django.urls import reverse
-
+from collections import defaultdict
 def signin(request):
     if request.method =='POST':
         username = request.POST.get('username')
@@ -113,11 +114,13 @@ def myfunding(request):
     join_fund = JoinFund.objects.filter(user_id = request.session.get('user'))
 
     join_board_id = []
-
+    join_dic = defaultdict(int)
     for j in join_fund:
         join_board_id.append(j.board_id)
+        join_dic[j.board_id] += j.fund_price
     join_board_id = list(set(join_board_id))
     result = []
+    
 
     for i in join_board_id:
         data = FundingBoard.objects.get(board_id = i)
@@ -125,11 +128,12 @@ def myfunding(request):
         result.append({
             "board_id" : data.board_id,
             "title" : data.title,
-            "file_name" : data.file_name
+            "file_name" : data.file_name,
+            "fund_total" : join_dic[data.board_id]
 
         })
             
-    print(result)
+
 
 
     return render(request,
