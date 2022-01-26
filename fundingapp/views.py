@@ -436,3 +436,5 @@ class AllViewPage(View):
                                                 'board_id': board_id,
                                         }))
 
+def step1(request):
+    return render(request, 'fundingapp/step1.html')
