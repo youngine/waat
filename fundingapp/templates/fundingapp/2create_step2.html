@@ -1,0 +1,69 @@
+{% extends 'no_footer_base.html' %}
+{% load static %} 
+
+
+{% block content %}
+<div>
+    <div style="margin:3rem 0rem"></div>
+        <div>
+            <h2 class= text-success style="font-family: 'NanumSquareEB'; text-align:center;">
+                신청서</h2>
+        <div style="margin:2rem 0rem; text-align:center;">
+            <div class= create_bar_color style="display:inline-block"></div>
+            <div class= create_bar_color style="display:inline-block"></div>
+            <div class= create_bar_blank style="display:inline-block"></div>
+        <div>
+            <div style="margin:3rem 0rem"></div>
+    </div>
+    {% if page_num %}
+        <form action="/app/fund/allViewPage/{{page_num}}/{{board_id}}/" method="POST">
+            {% csrf_token %}
+            <div class=wrapper>
+                <p class= "create_input_big_box" style="display:inline-block;font-family: 'NanumSquareEB';">프로젝트 소개글</p>
+                <input class = intro_box  style="display:inline-block" type="text" name="intro"  value="{{DB_data.intro}}" >
+            </div>
+            <div class=wrapper>
+                <p class= "create_input_big_box" style="display:inline-block;font-family: 'NanumSquareEB';">프로젝트 기획배경</p>
+                <textarea class = create_input_baground_box  style="display:inline-block" name="background" >{{DB_data.background_text}} </textarea>
+            </div>
+            <div class=wrapper>
+                <p class= "create_input_big_box" style="display:inline-block;font-family: 'NanumSquareEB';">프로젝트 목적</p>
+                <textarea class = create_input_object_box  style="display:inline-block" name="objects" >{{DB_data.object_text}} </textarea>
+                {% comment %} <input class = create_input_object_box  style="display:inline-block" type="tetextareaxt" name="objects"> {% endcomment %}
+            </div>
+            <div style="margin:3rem 0rem"></div>
+            <div style ="text-align:center;">
+                <input class= "before_btn_color" style="display:inline-block" method="POST" type="submit" name="before" value="이전">
+                <input class= "next_btn_color" style="display:inline-block" method="POST" type="submit" name="next" value="다음">
+            </div>
+        </form>
+    {% else %}
+        <form action="/app/fund/create2/" method="POST">
+            {% csrf_token %}
+            <div class=wrapper>
+                <p class= "create_input_big_box" style="display:inline-block;font-family: 'NanumSquareEB';">프로젝트 소개글</p>
+                <input class = intro_box  style="display:inline-block" type="text" name="intro">
+            </div>
+            <div class=wrapper>
+                <p class= "create_input_big_box" style="display:inline-block;font-family: 'NanumSquareEB';">프로젝트 기획배경</p>
+                <textarea class = create_input_baground_box  style="display:inline-block" name="background" > </textarea>
+                
+                {% comment %} <input class = create_input_baground_box  style="display:inline-block" type="textarea" name="background"> {% endcomment %}
+            </div>
+            <div class=wrapper>
+                <p class= "create_input_big_box" style="display:inline-block;font-family: 'NanumSquareEB';">프로젝트 목적</p>
+                <textarea class = create_input_object_box  style="display:inline-block" name="objects"> </textarea>
+                {% comment %} <input class = create_input_object_box  style="display:inline-block" type="tetextareaxt" name="objects"> {% endcomment %}
+            </div>
+            <div style="margin:3rem 0rem"></div>
+            <div style ="text-align:center;">
+                <input class= "before_btn_color" style="display:inline-block" method="POST" type="submit" name="before" value="이전">
+                <input class= "next_btn_color" style="display:inline-block" method="POST" type="submit" name="next" value="다음">
+            </div>
+        </form>
+    {% endif%}
+    <div style="margin:3rem 0rem"></div>
+</div>
+
+{% endblock %}
+
