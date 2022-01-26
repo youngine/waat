@@ -18,6 +18,8 @@ urlpatterns = [
     path('download/<str:file_path>', views.download, name='download'),
     path('allViewPage/<int:page_num>/<int:board_id>/',AllViewPage.as_view(), name="allViewPage"),
 
+
+    # path('ADDTeam/', ADDTeams.as_view(),name='ADDTeam'),
     # path('AllViewPage/<int:board_id>/<int:page_num>/',AllViewPage.as_view(),name="modify")
     # path('AllViewPage/',AllViewPage.as_view(),name="AllViewPage")
 

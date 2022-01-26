@@ -438,3 +438,9 @@ class AllViewPage(View):
                                                 'board_id': board_id,
                                         }))
 
+
+class ADDTeams(View):
+    def get(self, request, *args, **kwargs):
+        pass
+    def post(self, request, *args, **kwargs):
+        pass
