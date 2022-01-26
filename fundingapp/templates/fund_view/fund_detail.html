@@ -54,13 +54,47 @@
                     </div>
 
                     {% comment %} <div style="margin:2rem 0rem; text-align:center;"> {% endcomment %}
+
+                    {% comment %} 별찍기 느낌... 이거 while문이 안되는듯? 뭔가 방법을 찾으면 동적으로 가능할 것 같은데,, 노가다로 가야겠다.. {% endcomment %}
+                    
                     <div class="percent">
+                      {% if item.percent_mark == 0 %}
+                      <div class= "percent_bar_blank " style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      {% elif item.percent_mark == 1 %}
+                      <div class= "percent_bar_color " style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      {% elif item.percent_mark == 2 %}
+                      <div class= "percent_bar_color " style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      {% elif item.percent_mark == 3 %}
                       <div class= "percent_bar_color " style="display:inline-block"></div>
                       <div class= percent_bar_color style="display:inline-block"></div>
                       <div class= percent_bar_color style="display:inline-block"></div>
                       <div class= percent_bar_blank style="display:inline-block"></div>
                       <div class= percent_bar_blank style="display:inline-block"></div>
-                      
+                      {% elif item.percent_mark == 4 %}
+                      <div class= "percent_bar_color " style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      <div class= percent_bar_blank style="display:inline-block"></div>
+                      {% else %}
+                      <div class= "percent_bar_color " style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      <div class= percent_bar_color style="display:inline-block"></div>
+                      {% endif %}
                       <p style = "float:right" class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.fund_goal_price}}원 까지
                       <div style="margin:1rem 0rem"></div>
 
@@ -87,7 +121,7 @@
                         펀딩하기
                         </div>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                          D-9
+                          D-{{item.d_day}}
                           <span class="visually-hidden">unread messages</span>
                         </span>
 
