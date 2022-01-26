@@ -30,16 +30,16 @@
                         <li class="nav-item">
                             <a class="nav-link" style="font-family: 'NanumSquareEB';margin: 0rem 2.4rem;" a href="/app/fund/select/1">펀딩참여</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" style="font-family: 'NanumSquareEB';margin: 0rem 2.4rem;" a href="{% url 'app:assemble' %}">게시판</a>
-                        </li>
+                        </li> -->
                     </ul>
                 
                 </div>
                 <div class="navbar align-self-center d-flex">
                     {% if request.session.user %}
                         {{ request.session.user }}님 반갑습니다.    
-                        <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" a href="{% url 'user:usercheck' %}"> 마이페이지 </a>
+                        <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" a href="{% url 'user:myfunding' %}"> 마이페이지 </a>
                         <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" id = "signout" a href="{% url 'user:signout' %}"> 로그아웃 </a>
                     {%else%}
                         <a style="font-family:NanumSquareR; text-decoration-line : none;margin:0rem 1rem;" a href="{% url 'user:signin' %}"> 로그인 </a>

@@ -22,9 +22,9 @@ def select(request, select_drop):
     data = FundingBoard.objects.all()
 
     if request.method =="POST":
-        print(request.POST.get("search_word"))
+
         search_word = request.POST.get("search_word", 0)
-        print(search_word)
+
         data = FundingBoard.objects.filter(title__contains = search_word)
 
 
