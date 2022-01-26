@@ -228,3 +228,12 @@
     opacity: 1;
 }
 
+.explanBox{
+    top: 275px;
+    left: 344px;
+    width: 799px;
+    height: 59px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+}

@@ -25,10 +25,11 @@ class FundingBoard(models.Model):
     regi_date = DateField()
     start_date = DateField()
     end_date = DateField()
-
     front_crew = IntegerField()
     back_crew = IntegerField()
     
+
+
     class Meta:
         db_table = 'FundingBoard'
         app_label = 'fundingapp'

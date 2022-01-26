@@ -54,7 +54,7 @@ def select(request, select_drop):
             "end_date" : d.end_date
             
         })
-    print(result)
+
     # 최신순
     if select_drop == 1:
         result = sorted(result, key = lambda x: -x["board_id"])
@@ -121,7 +121,7 @@ def detail(request, board_id):
 
         # 원래 남은 crew수를 구해야함.
         join_pro = JoinProject.objects.filter(board_id = board_id).count()
-        print(crew_sum)
+
         all_crew_sum = crew_sum + join_pro
         result = [{
                 "board_id" : data.board_id,
@@ -219,7 +219,7 @@ def detail(request, board_id):
                                         }))
 
         if request.POST.get('btn_concat') == "btn_concat":
-            print(data.user_id)
+
             user = User1.objects.get(user_id = request.session['user'])
             return render(
                 request,
@@ -298,12 +298,12 @@ def contact(request, board_id):
 
 
 def download(request,file_path):
-    print(file_path)
+
     formating = file_path.split(".")[-1]
     with open(file_path, 'rb') as f:
         response = HttpResponse(f, content_type='application/octet-stream')
         response['Content-Disposition'] = f'attachment; filename={"다운로드 이미지."+formating}'
-        print(response['Content-Disposition'])
+
         return response
 
 
@@ -352,7 +352,7 @@ class Create2(View):
 
             return HttpResponseRedirect(reverse('fundingapp:create3'))
         if request.POST.get("before",0) =="이전":
-            print(request.session['title'])
+
             return HttpResponseRedirect(reverse('fundingapp:create1'))
 
 class Create3(View):
@@ -390,26 +390,34 @@ class Create3(View):
             FDB.func_text = request.POST['func_text']
 
             FDB.fund_total_price = 0
-            FDB.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
+            request.session['regi_date'] = datetime.datetime.now().strftime ("%Y-%m-%d")
+            FDB.regi_date = request.session['regi_date'] 
 
             # FDB.start_date = datetime.datetime.strptime(request.POST['start_date'], "%Y-%m-%d")
             FDB.start_date =request.POST['start_date']
             FDB.end_date =request.POST['end_date']
 
             # FDB.end_date = datetime.datetime.strptime(request.POST['end_date'], "%Y-%m-%d")
-            
+            FDB.front_crew = 0
+            FDB.back_crew = 0
+
             FDB.save()
+
+
 
             # 세션에 저장된거 삭제
             del request.session['intro']
             del request.session['background']
             del request.session['objects']
             
-            del request.session['title']
+            # del request.session['title']
             del request.session['category']
             del request.session['language']
             del request.session['target']
             del request.session['imgefile']
+
+            if request.POST.get("checkAddTeams",0) =="체크":
+                return HttpResponseRedirect(reverse('fundingapp:ADDTeam'))
 
             return HttpResponseRedirect(reverse('app:funding_main'))
         if request.POST.get("before",0) =="이전":
@@ -470,3 +478,32 @@ class AllViewPage(View):
                                                 'board_id': board_id,
                                         }))
 
+
+class ADDTeams(View):
+    def get(self, request, *args, **kwargs):
+        regi = request.session['regi_date']
+        title = request.session['title']
+        user_id = request.session['user']
+
+
+        return render(request,'fundingapp/addTeam.html',{'regi':regi,'title':title,'user_id':user_id})
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get("TeamFinsh",0) =="팀원모집":
+            regi = request.session['regi_date']
+            title = request.session['title']
+            user_id = request.session['user']
+            
+            sqlQ = FundingBoard.objects.filter(regi_date = regi, title = title, user_id = user_id)
+
+            FB = FundingBoard.objects.get(board_id = sqlQ[0].board_id)
+
+            FB.front_crew = request.POST.get("FrontEnd",0)
+            FB.back_crew = request.POST.get("BackEnd",0)
+            FB.save()
+
+            
+            return HttpResponseRedirect(reverse('app:funding_main'))
+## 이거 누구꺼지요?          
+def step1(request):
+    return render(request, 'fundingapp/step1.html')

@@ -39,6 +39,7 @@ def funding_main(request):
             "intro" : d.intro,
             "total_funding" : d.fund_total_price,
         })
+        
 
 
     return render(request, 
