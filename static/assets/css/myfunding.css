@@ -51,13 +51,13 @@ h2 {
 
 .label-top {
     position: absolute;
-    background-color: #8bc34a;
+    background-color: #59ab6e;
     color: #fff;
     top: 8px;
     right: 8px;
     padding: 5px 10px 5px 10px;
-    font-size: .7rem;
-    font-weight: 600;
+    font-size: 3px;
+    font-weight: 500;
     border-radius: 3px;
     text-transform: uppercase
 }
