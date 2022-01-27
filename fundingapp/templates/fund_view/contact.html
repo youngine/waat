@@ -24,10 +24,10 @@
     <!-- Start Content Page -->
     <div class="container-fluid bg-light py-5">
         <div class="col-md-6 m-auto text-center">
-            <h1 class="h1">Contact Us</h1>
+            <h1 class="h1">{{board_user_name}}님의 팀원 모집</h1>
             <p>
-                Proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                Lorem ipsum dolor sit amet.
+                 '{{board_title}}' 게시물의 팀원 모집입니다.
+                 확인 후 작성해주세요.
             </p>
         </div>
     </div>
@@ -39,15 +39,44 @@
             <div class="row py-5">
                 <form action = "" class="col-md-9 m-auto" method="post" role="form">
                     <div class="row">
+
+
                         <div class="form-group col-md-6 mb-3">
                             <label for="inputname">이름</label>
                             <input type="text" class="form-control mt-1" id="name" name="name" placeholder="name" value = '{{ user_name }}'>
                         </div>
+
                         <div class="form-group col-md-6 mb-3">
                             <label for="inputemail">이메일</label>
                             <input type="email" class="form-control mt-1" id="email" name="email" placeholder="Email" value = '{{ user_email }}'>
                         </div>
                     </div>
+                    
+                    <!-- front back 둘 다 있는경우 -->
+                    {% if front_crew != 0 and back_crew != 0 %}
+                    <div class="mb-3">
+                        <label for="inputname"> 지원 분야 (남은 팀원 수) </label>
+                        <div>
+                        Front ({{front_crew}})  <input type="radio" name="chk_dev" value="radio_front" > &nbsp; &nbsp;                     
+                        BackEnd ({{back_crew}}) <input type="radio" name="chk_dev" value="radio_back">
+                        </div>
+                    </div>
+                    {% elif front_crew == 0 and back_crew != 0 %}
+                    <div class="mb-3">
+                        <label for="inputname"> 지원 분야 (남은 팀원 수) </label>
+                        <div>                 
+                        BackEnd ({{back_crew}}) <input type="radio" name="chk_dev" value="radio_back">
+                        </div>
+                    </div>
+                    {% elif front_crew != 0 and back_crew == 0 %}
+                    <div class="mb-3">
+                        <label for="inputname"> 지원 분야 (남은 팀원 수) </label>
+                        <div>                 
+                        Front ({{front_crew}})  <input type="radio" name="chk_dev" value="radio_front" >
+                        </div>
+                    </div>
+                    {% endif %}
+
                     <div class="mb-3">
                         <label for="inputsubject">제목</label>
                         <input type="text" class="form-control mt-1" id="subject" name="subject" placeholder="Subject">

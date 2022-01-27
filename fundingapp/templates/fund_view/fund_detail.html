@@ -16,24 +16,31 @@
         <div>
           {% for item in data %}
 
-            <div class="card mb-3" style="max-width: 840px;margin:auto;">
+            <div class="card mb-3" style="max-width: 840px; margin:auto;">
               {% comment %} <div>
                 <i style="color: #F6FF01; margin : 1rem 1rem;" class="fas fa-star fa-1x"></i>
-              </div> {% endcomment %}
-              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                {% if item.user_id == current_user %}
+              </div> {% endcomment %}              
 
+              <div class="wrt_btn_head">
+                <p style="float:left; margin:0.5rem 0rem;  font-family: 'NanumSquareEB';" class= "user_name ml-2" > 
+                  작성자 : <strong>{{item.user_id}}</strong></p>
+                <div class="d-md-flex justify-content-md-end">  
+                {% if item.user_id == current_user %}
                 <form action = "" method = "post">
-                  <button class="btn btn-outline-success me-md-2" type="submit" name = "btn_modify" value = "btn_modify">수정</button>
+                  <button style="margin:0.5rem 0rem;" class="btn btn-outline-success me-md-2 d-md-flex justify-content-md-end" type="submit" name = "btn_modify" value = "btn_modify">수정</button>
                 </form>
                 <form action = "" method = "post">
-                  <button class="btn btn-outline-success" type="submit" name = "btn_delete" value = "btn_delete">삭제</button>
+                  <button style="margin:0.5rem 0rem;" class="btn btn-outline-success mr-2" type="submit" name = "btn_delete" value = "btn_delete">삭제</button>
                 </form>
                 {% else %}
+                {% if item.crew_sum != 0 %}
                 <a href = "/app/fund/contact/{{item.board_id}}">
-                  <button class="btn btn-outline-success me-md-2" type="submit">팀원모집</button>
+
+                  <button style="margin:0.5rem 0rem; float:right; display:inline-block;" class="btn btn-outline-success mr-2" type="submit">팀원모집 {{item.join_pro}} / {{item.all_crew_sum}}</button>
                 </a>
                 {% endif %}
+                {% endif %}
+              
               </div>
               <div class="row g-0">
                 <div class="col-md-4">
@@ -56,8 +63,22 @@
                     {% comment %} <div style="margin:2rem 0rem; text-align:center;"> {% endcomment %}
 
                     {% comment %} 별찍기 느낌... 이거 while문이 안되는듯? 뭔가 방법을 찾으면 동적으로 가능할 것 같은데,, 노가다로 가야겠다.. {% endcomment %}
-                    
-                    <div class="percent">
+                    <div class= "price">
+                      <span class="card-text " style="float: left; font-family:NanumSquareR;"> {{item.fund_total_price}}원 </span>
+                      <span class="card-text " style="float: right; font-family:NanumSquareR;"> {{item.fund_goal_price}}까지</span>
+                    </div>
+                  </div>
+                  <div style="margin:1rem rem"></div>
+                  <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{item.percent}}%;" aria-valuenow="{{item.percent}}" aria-valuemin="0" aria-valuemax="100"></div>
+
+                  </div>
+                   
+
+                    {% comment %} <div class= funding_main_bar_color style="display:inline-block"></div>{% endcomment %}
+                    <div style="margin:1rem 0rem"></div> 
+                   
+                    {% comment %} <div class="percent">
                       {% if item.percent_mark == 0 %}
                       <div class= "percent_bar_blank " style="display:inline-block"></div>
                       <div class= percent_bar_blank style="display:inline-block"></div>
@@ -98,7 +119,7 @@
                       <p style = "float:right" class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.fund_goal_price}}원 까지
                       <div style="margin:1rem 0rem"></div>
 
-                    </div>
+                    </div> {% endcomment %}
 
                     <div>
                       {% comment %} <div style="margin:3rem 0rem"></div> {% endcomment %}
@@ -116,7 +137,7 @@
                     {% if item.user_id != current_user %}
                     <form action="" method="post" class="mb-2">
 
-                      <button style="float:right;" type="submit" class="btn btn-outline-success position-relative mx-1" name = "btn_funding", value = "btn_funding"> 
+                      <button style="float:right;" type="submit" class="btn btn-success position-relative mx-1" name = "btn_funding", value = "btn_funding"> 
                         <div>
                         펀딩하기
                         </div>
@@ -131,25 +152,26 @@
                       {% comment %} <button style="float:right;" type="submit" class="btn btn-outline-success mx-1" >
                         <div style="font-family:NanumSquareR;">펀딩하기<div>
                       </button> {% endcomment %}
+                      
 
                       <div class="d-grid gap-2">
                           <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                             
                             <input type="checkbox" class="btn-check" id="btncheck1" name="func_check" autocomplete="off"
                               value="1">
-                            <label class="btn btn-outline-primary" for="btncheck1" style="font-family:NanumSquareR;">
+                            <label class="btn btn-outline-success " for="btncheck1" style="font-family:NanumSquareR;">
                               기능 1
                             </label>
 
                             <input type="checkbox" class="btn-check" id="btncheck2" name="func_check" autocomplete="off"
                               value="2">
-                            <label class="btn btn-outline-primary" for="btncheck2" style="font-family:NanumSquareR;">
+                            <label class="btn btn-outline-success " for="btncheck2" style="font-family:NanumSquareR;">
                               기능 2
                             </label>
 
                             <input type="checkbox" class="btn-check" id="btncheck3" name="func_check" autocomplete="off"
                               value="3">
-                            <label class="btn btn-outline-primary" for="btncheck3" style="font-family:NanumSquareR;">
+                            <label class="btn btn-outline-success" for="btncheck3" style="font-family:NanumSquareR;">
                               기능 3
                             </label>
                           
@@ -163,7 +185,7 @@
                     
                   <div class="d-grid gap-2 mb-3">
                     <a href="/{{item.file_name}}" download="다운로드.png">
-                      <button type="button" class="btn btn-secondary btn-lg btn-block" name ="download_button" value="True" method="POST">
+                      <button type="button" class="btn btn-secondary btn-lg btn-block btn-sm" name ="download_button" value="True" method="POST">
                       image download
                       </button>
                     </a>

@@ -1,0 +1,77 @@
+{% extends 'no_footer_base.html' %}
+{% load static %} 
+
+{% block content %}
+
+<div>
+    <h2 class= "text-success mt-5 mb-4" style="font-family: 'NanumSquareEB'; text-align:center;"> 팀원 지원 요청서</h2>
+
+    <div class="text-center">
+        <div class= create_bar_color style="display:inline-block"></div>
+    </div>
+
+    {%if board_id%}
+
+      <form action="/app/fund/ADDTeam/" method="POST" class="p-5">
+      {% csrf_token %}
+      
+      <div class="col-md-4 mb-2" style="float: none; margin:0 auto;">      
+        <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">원하는 팀원 수 입력</label>
+      </div>
+
+      <div class="col-md-4 mb-3 " style="float: none; margin:0 auto;">
+        <div class="input-group has-validation">
+          <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">FrontEnd</span>
+          <input type="number" class="form-control" id="validationTooltipUsername"  name="FrontEnd" value = {{fc}} aria-describedby="validationTooltipUsernamePrepend" required>
+        </div>
+      </div>
+
+      <div class="col-md-4" style="float: none; margin:0 auto;">
+        <div class="input-group has-validation">
+          <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">BackEnd</span>
+          <input type="number" class="form-control" id="validationTooltipUsername"  name="BackEnd"  value = {{bc}} aria-describedby="validationTooltipUsernamePrepend"  required>
+        </div>          
+      </div>
+      </div>
+
+      <div class="mb-5 col-md-7 mt-5 text-center" style="float: none; margin:0 auto;">
+          <input class="btn btn-success mx-3" style="font-family:NanumSquareR;"  method="POST" type="submit" name="TeamFinsh" value="팀원모집">
+      </div>
+
+    <div class="p-5"></div>
+  </div>
+
+{%else%}
+
+<form action="/app/fund/ADDTeam/" method="POST" class="p-5">
+      {% csrf_token %}
+
+      <div class="col-md-4 mb-2" style="float: none; margin:0 auto;">      
+        <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">원하는 팀원 수 입력</label>
+      </div>
+
+      <div class="col-md-4 mb-3 " style="float: none; margin:0 auto;">
+        <div class="input-group has-validation">
+          <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">FrontEnd</span>
+          <input type="number" class="form-control" id="validationTooltipUsername"  name="FrontEnd" value = 1 aria-describedby="validationTooltipUsernamePrepend" required>
+        </div>
+      </div>
+
+      <div class="col-md-4" style="float: none; margin:0 auto;">
+        <div class="input-group has-validation">
+          <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">BackEnd</span>
+          <input type="number" class="form-control" id="validationTooltipUsername"  name="BackEnd"  value = 1 aria-describedby="validationTooltipUsernamePrepend"  required>
+        </div>          
+      </div>
+      </div>
+
+      <div class="mb-5 col-md-7 mt-5 text-center" style="float: none; margin:0 auto;">
+          <input class="btn btn-success mx-3" style="font-family:NanumSquareR;"  method="POST" type="submit" name="TeamFinsh" value="팀원모집">
+      </div>
+
+    <div class="p-5"></div>
+
+  </div>
+{%endif%}
+
+{%endblock content%}
