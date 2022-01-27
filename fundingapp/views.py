@@ -449,9 +449,10 @@ class Create3(View):
             board.start_date = request.POST['start_date']
             board.end_date = request.POST['end_date']
             board.save()
-
             request.session['start_date'] = request.POST['start_date']
             request.session['end_date'] = request.POST['end_date']
+
+
 
             # 생성된 board_id를 가져와야한다. user_id, title, start_date, end_date를 비교하자. 여기까지 같으면 어쩔수없긴하다..
 
@@ -521,15 +522,9 @@ class AllViewPage(View):
             crew_data = FundingBoardCrew.objects.get(board_id = board_id)
             fc = crew_data.front_crew
             bc = crew_data.back_crew
-            print(fc)
-            print(bc)
-
 
             price_data = FundingBoardPrice.objects.get(board_id = board_id)
-            print(price_data.func_a_price)
-            print(price_data.func_b_price)
-            print(price_data.func_c_price)
-            print(price_data.fund_goal_price)
+
 
             result = {
                 "board_id" : DB_data.board_id,
@@ -594,7 +589,8 @@ class AllViewPage(View):
                 DB_data.func_c_prce = request.POST.get('eqC', price.func_c_price)
                 DB_data.develop_content = request.POST.get('developContent',DB_data.develop_content)
                 DB_data.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
-
+                DB_data.start_date = request.POST.get('start_date', DB_data.start_date)
+                DB_data.end_date = request.POST.get('end_date', DB_data.end_date)
                 DB_data.save()
                 if request.POST.get("checkAddTeams") =="체크":
                     request.session['board_id'] = board_id
