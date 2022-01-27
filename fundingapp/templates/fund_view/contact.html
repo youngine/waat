@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %} 
+
+{% block content %}
+<link href='{% static "assets/css/fundingcard.css"%}' rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Start Contact -->
+        <div class="p-5">
+        <div class="card h-120 col-md-9 p-5 shadow-sm" style="float: none; margin:0 auto;">
+
+        <div class="col-md-6 m-auto text-center" >
+            <h1 class="h1 text-success" style="font-family:NanumSquareR;">" {{board_user_name}}님의 팀원 모집 "</h1>
+            <p style="font-family:NanumSquareR;" class="mt-2">
+                 '{{board_title}}' 게시물의 팀원 모집입니다.
+                 확인 후 작성해주세요.
+            </p>
+        </div>
+
+            <div class="row py-5">
+                <form action = "" class="col-md-9 m-auto" method="post" role="form">
+                    <div class="row">
+                        <div class="form-group col-md-6 mb-5">
+                            <label for="inputname"  style="font-family:NanumSquareR;">이름</label>
+                            <input type="text" class="form-control mt-1" id="name" name="name" placeholder="name" value = '{{ user_name }}' required>
+                        </div>
+
+                        <div class="form-group col-md-6 mb-5">
+                            <label for="inputemail"  style="font-family:NanumSquareR;">이메일</label>
+                            <input type="email" class="form-control mt-1" id="email" name="email" placeholder="Email" value = '{{ user_email }}' required> 
+                        </div>
+                    </div>
+                    
+                    <!-- front back 둘 다 있는경우 -->
+                    {% if front_crew != 0 and back_crew != 0 %}
+                    <div class="mb-5">
+                        <label for="inputname" style="font-family:NanumSquareR;" class="mb-3"> 지원 분야 (남은 팀원 수) </label>
+                        <div>
+                        Front ({{front_crew}})  <input type="radio" name="chk_dev"  class="form-check-input mx-2" value="radio_front" >
+                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;                    
+                        BackEnd ({{back_crew}}) <input type="radio" name="chk_dev" class="form-check-input  mx-2" value="radio_back">
+                        </div>
+                    </div>
+                    {% elif front_crew == 0 and back_crew != 0 %}
+                    <div class="mb-5">
+                        <label for="inputname"  style="font-family:NanumSquareR;" class="mb-2"> 지원 분야 (남은 팀원 수) </label>
+                        <div>                 
+                        BackEnd ({{back_crew}}) <input type="radio" name="chk_dev"  class="form-check-input  mx-2" value="radio_back">
+                        </div>
+                    </div>
+                    {% elif front_crew != 0 and back_crew == 0 %}
+                    <div class="mb-5">
+                        <label for="inputname"  style="font-family:NanumSquareR;" class="mb-2"> 지원 분야 (남은 팀원 수) </label>
+                        <div>                 
+                        Front ({{front_crew}})  <input type="radio" name="chk_dev"  class="form-check-input  mx-2" value="radio_front" >
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="mb-5">
+                        <label for="inputsubject"  style="font-family:NanumSquareR;">제목</label>
+                        <input type="text" class="form-control mt-1" id="subject" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputmessage"  style="font-family:NanumSquareR;">메세지</label>
+                        <textarea class="form-control mt-1" id="message" name="message" placeholder="Message" rows="8" ></textarea>
+                    </div>
+                    </div>
+                    
+                    <div class="mb-5" style="float: none; margin:0 auto;">
+                        <div class="col text-end "  >
+                            <button type="submit" class="btn btn-success btn-lg px-3"  style="font-family:NanumSquareR;" >전송</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Contact -->
+    
+{%endblock content%}

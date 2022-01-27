@@ -1,0 +1,203 @@
+{% extends "no_footer_base.html" %}
+{% load static %}
+{% block content %}
+
+<link href='{% static "assets/css/fundingcard.css"%}' rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<div>
+  <div style="margin:3rem 0rem"></div>
+  <div>
+    <h2 class=text-success style="font-family: 'NanumSquareEB'; text-align:center;">
+      펀딩 진행 중
+    </h2>
+
+        <div class="p-5">
+          {% for item in data %}
+            <div class="card mb-3 p-4" style="max-width: 840px; margin:auto;">         
+              <div class="wrt_btn_head">
+                {% comment %} <p style="float:left;  font-family: 'NanumSquareR';" class= "user_name ml-2 my-2 mx-3" > 
+                  작성자 : <strong>{{item.user_id}}</strong>
+                </p> {% endcomment %}
+                <div class="d-md-flex justify-content-md-end">  
+                {% if item.user_id == current_user %}
+                <form action = "" method = "post">
+                  <button style="margin:0.5rem 0rem;" class="btn btn-outline-success btn-sm me-md-2 d-md-flex justify-content-md-end" type="submit" name = "btn_modify" value = "btn_modify">
+                    수정
+                  </button>
+                </form>
+                <form action = "" method = "post">
+                  <button style="margin:0.5rem 0rem;" class="btn btn-outline-success btn-sm mr-2" type="submit" name = "btn_delete" value = "btn_delete">
+                    삭제
+                  </button>
+                </form>
+                {% else %}
+                {% if item.crew_sum != 0 %}
+                <a href = "/app/fund/contact/{{item.board_id}}">
+
+                  <button style="margin:0.5rem 0rem; float:right; display:inline-block;" class="btn btn-outline-success mr-2" type="submit">팀원모집 {{item.join_pro}} / {{item.all_crew_sum}}</button>
+                </a>
+                {% endif %}
+                {% endif %}
+              
+              </div>
+              <div class="row g-0">
+
+                  <div class="col-md-4">
+                    <img src='/{{item.file_name}}' class="img-fluid rounded-start" alt="...">
+                  </div>
+
+                <div class="col-md-8">
+
+                  <div class="card-body">
+
+                    <div class="circle " style="font-family:NanumSquareR; float:right;">{{item.percent}}%</div>
+                    <h4 class="card-title mt-0" style="font-family:NanumSquareR;">{{item.title}}</h4>
+                    <p class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.intro}}</p>
+
+                    <div class="mb-2">
+                      <span class="badge badge-primary"style="font-family:NanumSquareR;"># {{item.language_text}}</span>
+                      <span class="badge badge-secondary"style="font-family:NanumSquareR;"># {{item.target}}</span>
+                      <span class="badge badge-success"style="font-family:NanumSquareR;"># {{item.category}}</span>
+                    </div>
+
+                  <div class= "price p-2">
+                      <span class="card-text " style="float: left; font-family:NanumSquareR;"> {{item.fund_total_price}}원 </span>
+                      <span class="card-text " style="float: right; font-family:NanumSquareR;"> {{item.fund_goal_price}}까지</span>
+                  </div>
+
+                  </div>
+
+                  <div style="margin:1rem rem"></div>
+                  <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{item.percent}}%;" aria-valuenow="{{item.percent}}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                   
+
+                    <div style="margin:1rem 0rem"></div> 
+                  
+                    <div>
+                    {% if item.user_id != current_user %}
+                    <form action="" method="post" class="mb-2">
+
+                      <button style="float:right;" type="submit" class="btn btn-success position-relative mx-1" name = "btn_funding", value = "btn_funding"> 
+                        <div>
+                        펀딩하기
+                        </div>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                          D-{{item.d_day}}
+                          <span class="visually-hidden">unread messages</span>
+                        </span>
+
+                      </button>
+
+
+                      <div class="d-grid gap-2 my-2">
+                          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                            
+                            <input type="checkbox" class="btn-check" id="btncheck1" name="func_check" autocomplete="off"
+                              value="1">
+                            <label class="btn btn-outline-success " for="btncheck1" style="font-family:NanumSquareR;">
+                              기능 1
+                            </label>
+
+                            <input type="checkbox" class="btn-check" id="btncheck2" name="func_check" autocomplete="off"
+                              value="2">
+                            <label class="btn btn-outline-success " for="btncheck2" style="font-family:NanumSquareR;">
+                              기능 2
+                            </label>
+
+                            <input type="checkbox" class="btn-check" id="btncheck3" name="func_check" autocomplete="off"
+                              value="3">
+                            <label class="btn btn-outline-success" for="btncheck3" style="font-family:NanumSquareR;">
+                              기능 3
+                            </label>
+                          
+                          </div>
+                      </div>
+                  </form>
+                  {% endif %}
+
+
+                    
+                  <div class="d-grid gap-2 mb-4 my-2">
+                    <a href="/{{item.file_name}}" download="다운로드.png">
+                      <button type="button" class="btn btn-secondary btn-lg btn-block btn-sm" name ="download_button" value="True" method="POST">
+                      image download
+                      </button>
+                    </a>
+                    </div>
+                </div>
+                </div>
+
+
+                  <div class="accordion p-3" id="accordionExample">
+
+                      <div class="accordion-item" >
+                        <h2 class="accordion-header" id="headingOne" style="font-family: 'NanumSquareEB'; text-align:center;">
+                          <button  class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            프로그램 기획 배경
+                          </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            {{item.background_text}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo" style="font-family: 'NanumSquareEB'; text-align:center;">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            프로그램 목적
+                          </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            {{item.object_text}}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree" style="font-family: 'NanumSquareEB'; text-align:center;"> 
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            기능별 설명
+                          </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            {{item.func_text}}
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour" style="font-family: 'NanumSquareEB'; text-align:center;"> 
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            주요 개발 내용
+                          </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            {{item.develop_content}}
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+{%endblock content%}
+
+
+      

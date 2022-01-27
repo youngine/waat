@@ -1,4 +1,5 @@
 
+
 from pathlib import Path
 import json,os
 from django.core.exceptions import ImproperlyConfigured
@@ -8,8 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-#secret_file = os.path.join(BASE_DIR, 'secrets.json')
-secret_file = [BASE_DIR /'secrets.json']
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
+#secret_file = [BASE_DIR /'secrets.json']
+# secret_file = [BASE_DIR /'secrets.json']
 
 with open(secret_file) as f:
     secrets = json.loads(f.read())
@@ -21,20 +23,21 @@ def get_secret(setting, secrets=secrets):
         error_msg = "Set the {} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
 
-SECRET_KEY = get_secret("SECRET_KEY")
 
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.35','*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'app',
+    'user',
+    'fundingapp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,8 +84,38 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    ## AIVLE DB 입니다.!
+    
+    'custom': { # thirdapp에서 사용할 데이터베이스 설정 추가
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'busan04',
+    'USER': 'busan04',
+    'PASSWORD': 'busan04',
+    'HOST': '13.125.52.234',
+    'PORT': 3306
+
+    ##
+
+    ## 저희 DB 살릴 때 사용하시면 됩니다.
+
+    # 'custom': { # thirdapp에서 사용할 데이터베이스 설정 추가
+    # 'ENGINE': 'django.db.backends.mysql',
+    # 'NAME': 'ktaivle',
+    # 'USER': 'kt_aivle',
+    # 'PASSWORD': 'aivle',
+    # 'HOST': '203.250.72.99',
+    # 'PORT': 8000
+
+    ##
+    }   
+    
 }
+DATABASE_ROUTERS = [
+    'fundingapp.router.DBRouter',
+    'user.router.DBRouter',
+    'app.router.DBRouter'
+]
 
 
 # Password validation
@@ -107,9 +140,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -119,7 +152,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
@@ -129,3 +162,8 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = BASE_DIR / 'media'

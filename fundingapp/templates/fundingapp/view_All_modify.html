@@ -1,0 +1,14 @@
+{% extends 'template.html' %}
+{% load static %} 
+
+{% block content %}
+    {% if page_num == 1 %}
+        {% include 'fundingapp/create_step1.html' %} 
+    {% elif page_num == 2%}
+        {% include 'fundingapp/create_step2.html' %} 
+    {% elif page_num == 3%}
+        {% include 'fundingapp/create_step3.html' %} 
+    {% else%}
+        <h2>{{page_num}}</h2>
+    {% endif %}
+{% endblock %}

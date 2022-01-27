@@ -1,0 +1,45 @@
+{% extends "no_footer_base.html" %}
+{% load static %}
+{% block content %}
+
+    <form method = "post" class="form-signin text-center" action="{% url 'user:signup' %}">
+      {% csrf_token %}
+      {% if messages %}
+      <div class="alert alert-danger" role="alert">
+          {% for message in messages %}
+              {{ message.message }}
+          {% endfor %}
+      </div>
+    {% endif %}
+    
+      <div class="mb-1 pb-1">
+            <i class="fas fa-cubes fa-2x me-3" style="color: #59ab6e;"></i>
+    </div>
+    <div class="mb-4">
+        <span class="h1 fw-bold mb-0">WAT</span>
+    </div>
+      <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+        <div class="form-group mb-2">
+            <label for="username" class="sr-only">ID</label>
+            <input type="text" name="username" id="username" class="form-control" placeholder="ID" required autofocus >
+        </div>
+        <div class="form-group mb-2">
+            <label for="last_name" class="sr-only">ID</label>
+            <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Name" required autofocus >
+        </div>
+        <div class="form-group">
+          <label for="password1" class="sr-only">Password</label>
+          <input type="password" name="password1" id="password1" class="form-control" placeholder="Password" required>
+        </div>
+        <div class="form-group">
+            <label for="password2" class="sr-only">PasswordCheck</label>
+            <input type="password" name="password2" id="password2" class="form-control" placeholder="Password Check" required>
+          </div>
+          <div class="form-group mb-5">
+            <label for="email" class="sr-only">PasswordCheck</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+          </div>
+      <button class="btn btn-outline-success" type="submit">Sign up</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+    </form>
+{%endblock content%}
