@@ -6,7 +6,12 @@ from django.db.models.fields import CharField, IntegerField, DateField, TextFiel
 label_name = 'fundingapp'
 class User1(models.Model):
 
+    # primary key
     user_id = CharField(max_length=30, primary_key=True)
+
+    # user_pw : 유저 패스워드
+    # user_name : 유저 이름
+    # user_email : 유저 이메일
     user_pw = CharField(max_length=30)
     user_name = CharField(max_length = 30)
     user_email = CharField(max_length=30)
@@ -19,9 +24,25 @@ class User1(models.Model):
 
 class FundingBoard(models.Model):
 
+    # primary key, auto increase
     board_id = IntegerField(primary_key=True)
+
+    # user_id : User Foriegn key
     user_id = CharField(max_length=30)
-    
+
+    # title : 제목
+    # category : 카테고리 선택
+    # language_text : 사용 언어 선택
+    # target : 타겟층 선택
+    # intro : 설명 저장
+    # file_name : 파일 이름 저장
+    # background_text : 배경 저장
+    # object_text : 목적 저장
+    # develop_content : 개발 배경 저장
+    # func_text : 기능별 가격 및 설명 저장
+    # regi_date : 게시판 만들어진 날짜 저장
+    # start_date : 펀딩 시작 일
+    # end_date : 펀딩 종료 일
     title = CharField(max_length=255, null=True)
     category = CharField(max_length=30, null=True)
     language_text = CharField(max_length=30, null=True)
@@ -111,12 +132,16 @@ class JoinProject(models.Model):
     board_id = IntegerField()
 
     # user_name : 유저 이름
-    # back_crew : 구하는 백엔드 팀원 수   
+    # user_email : 유저 이메일
+    # subject : 제목
+    # message : 내용
+    # check_crew : 프론트(0) 백(1)로 구분하는 값
     user_name = CharField(max_length=30)
     user_email = CharField(max_length=50)
     subject = CharField(max_length=255)
     message = TextField()
     check_crew = IntegerField()
+
 
 
     
