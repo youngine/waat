@@ -2,7 +2,7 @@ import re,os
 from django.forms import forms
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
-from .models import FundingBoard, User1, JoinFund,JoinProject
+from .models import FundingBoard, User1, JoinFund, JoinProject, FundingBoardCrew, FundingBoardPrice
 from django.views.generic import FormView
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse, reverse_lazy
@@ -15,9 +15,12 @@ import datetime
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from config import settings
+
+# 펀딩 참여를 눌렀을 때 나오는 페이지
 @csrf_exempt
 def select(request, select_drop):
 
+    # 페이징을 위한 내용
     now_page = int(request.GET.get('page', 1))
     data = FundingBoard.objects.all()
 
@@ -27,15 +30,14 @@ def select(request, select_drop):
 
         data = FundingBoard.objects.filter(title__contains = search_word)
 
-
-
-    
-
-
     result = []
     for d in data:
 
-        percent = int(d.fund_total_price / d.fund_goal_price * 100)
+        # 가격을 위해서는 FundingBoardPrice를 가져와야한다.
+
+        price_data = FundingBoardPrice.objects.get(board_id = d.board_id)
+
+        percent = int(price_data.fund_total_price / price_data.fund_goal_price * 100)
     
         # percent_n : 퍼센트 바 올라가는 갯수
         # percent_stan : 퍼센트 기준 값
@@ -64,8 +66,6 @@ def select(request, select_drop):
             join_user_count.append(jo.user_id)
         join_user_count = len(set(join_user_count))
 
-
-
         result.append({
 
             "board_id" : d.board_id,
@@ -78,20 +78,19 @@ def select(request, select_drop):
             "background_text" : d.background_text,
             "object_text" : d.object_text,
             "develop_content" : d.develop_content,
-            "func_a_price" : d.func_a_price,
             "language_text" : d.language_text,
-            "func_b_price" : d.func_b_price,
-            "func_c_price" : d.func_c_price,
-            "fund_goal_price" : d.fund_goal_price,
-            "fund_total_price" : d.fund_total_price,
-            "percent" : int(d.fund_total_price / d.fund_goal_price * 100),
+            "func_a_price" : price_data.func_a_price,
+            "func_b_price" : price_data.func_b_price,
+            "func_c_price" : price_data.func_c_price,
+            "fund_goal_price" : price_data.fund_goal_price,
+            "fund_total_price" : price_data.fund_total_price,
+            "percent" : percent,
             "regi_date" : d.regi_date,
             "start_date" : d.start_date,
             "end_date" : d.end_date,
             "percent_mark" : percent_mark,
             "d_day" : d_day,
             "join_user_count" : join_user_count
-            
         })
 
     # 최신순
@@ -116,8 +115,6 @@ def select(request, select_drop):
     if end_page > p.num_pages:
         end_page = p.num_pages
 
-
-
     return render(
         request,
         'fund_view/main.html',
@@ -126,18 +123,21 @@ def select(request, select_drop):
             "select_drop" : select_drop,
             "info" : info,
             'page_range' : range(start_page, end_page + 1)
-            
         }
     )
 
-
+# 펀딩 참여에서 게시물을 누른 경우
 @csrf_exempt
 def detail(request, board_id):
+
     data = FundingBoard.objects.get(board_id=board_id)
     current_user = request.session.get('user',0)
     filepath = data.file_name
     if request.method =="GET":
-        percent = int(data.fund_total_price / data.fund_goal_price * 100)
+        
+        price_data = FundingBoardPrice.objects.get(board_id = board_id)
+
+        percent = int(price_data.fund_total_price / price_data.fund_goal_price * 100)
         
         # percent_n : 퍼센트 바 올라가는 갯수
         # percent_stan : 퍼센트 기준 값
@@ -155,8 +155,10 @@ def detail(request, board_id):
         if d_day < 0:
             d_day = 0
         
+        crew_data = FundingBoardCrew.objects.get(board_id = board_id)
+
         # crew_sum = 현재 남은 수
-        crew_sum = data.front_crew + data.back_crew
+        crew_sum = crew_data.front_crew + crew_data.back_crew
 
         # 원래 남은 crew수를 구해야함.
         join_pro = JoinProject.objects.filter(board_id = board_id).count()
@@ -173,19 +175,22 @@ def detail(request, board_id):
                 "background_text" : data.background_text,
                 "object_text" : data.object_text,
                 "language_text" : data.language_text,
+                "func_text" : data.func_text,
                 "develop_content" : data.develop_content,
-                "func_a_price" : data.func_a_price,
-                "func_b_price" : data.func_b_price,
-                "func_c_price" : data.func_c_price,
-                "fund_goal_price" : data.fund_goal_price,
-                "fund_total_price" : data.fund_total_price,
-                "percent" : percent,
                 "regi_date" : data.regi_date,
                 "start_date" : data.start_date,
                 "end_date" : data.end_date,
+
+                "func_a_price" : price_data.func_a_price,
+                "func_b_price" : price_data.func_b_price,
+                "func_c_price" : price_data.func_c_price,
+                "fund_goal_price" : price_data.fund_goal_price,
+                "fund_total_price" : price_data.fund_total_price,
+
+                "percent" : percent,
                 "percent_mark" : percent_mark,
                 "d_day" : d_day,
-                "func_text" : data.func_text,
+
                 "join_pro" : join_pro,
                 "all_crew_sum" : all_crew_sum,
                 "crew_sum" : crew_sum,
@@ -199,6 +204,7 @@ def detail(request, board_id):
             "data" : result,
             "current_user" : current_user
         })
+
     if request.method == 'POST':
         try:
             # 현재는 root 아이디로 들어왔다고 가정하고 진행
@@ -208,7 +214,9 @@ def detail(request, board_id):
             return HttpResponseRedirect(reverse('user:signin'))
         if request.POST.get('btn_funding') == "btn_funding":
             selected = request.POST.getlist('func_check')
-            data = FundingBoard.objects.get(board_id=board_id)
+
+
+            price_data = FundingBoardPrice.objects.get(board_id=board_id)
 
             total_price = 0
             result_list = []
@@ -220,13 +228,15 @@ def detail(request, board_id):
                 for i in selected:
                     if i == "1":
                         result_list.append("1")
-                        total_price += data.func_a_price
+                        total_price += price_data.func_a_price
                     elif i == "2":
                         result_list.append("2")
-                        total_price += data.func_b_price
+                        total_price += price_data.func_b_price
                     elif i == "3":
                         result_list.append("3")
-                        total_price += data.func_c_price
+                        total_price += price_data.func_c_price
+
+            
 
             join_db = JoinFund()
             # 유저 이름
@@ -238,14 +248,20 @@ def detail(request, board_id):
             join_db.save()
 
             # data : 현재 선택 된 게시물 정보
-            data.fund_total_price += total_price
-            data.save()
+            price_data.fund_total_price += total_price
+            price_data.save()
             return HttpResponseRedirect('/app/fund/select/1')
 
         if request.POST.get('btn_delete') == "btn_delete":
             # foreign key 삭제 해야함...
-            join_db = JoinFund.objects.filter(board_id = board_id).delete()
-            join_project_db = JoinProject.objects.filter(board_id=board_id).delete()
+            data = FundingBoard.objects.get(board_id = board_id)
+            
+            # board데이터와 연관된 데이터들 삭제
+            JoinProject.objects.filter(board_id=board_id).delete()
+            FundingBoardCrew.objects.filter(board_id = board_id).delete()
+            JoinFund.objects.filter(board_id = board_id).delete()
+            FundingBoardPrice.objects.filter(board_id=board_id).delete()
+
             data.delete()
             return HttpResponseRedirect(reverse('app:funding_main'))
 
@@ -259,6 +275,8 @@ def detail(request, board_id):
 
         if request.POST.get('btn_concat') == "btn_concat":
 
+
+            data = FundingBoard.objects.get(board_id = board_id)
             user = User1.objects.get(user_id = request.session['user'])
             return render(
                 request,
@@ -271,16 +289,16 @@ def detail(request, board_id):
 
             )
 
+# 팀원 모집
 @csrf_exempt
 def contact(request, board_id):
 
-    
     if request.method == 'POST':
         # 데이터가 들어왔으니 저장해주자.
 
         # 만약 이미 신청한 사람이라면 안된다고 출력해주자.
         check_id = JoinProject.objects.filter(board_id = board_id)
-        data = JoinProject()
+        join_project_data = JoinProject()
         ck = -1
         for i in check_id:
             if i.user_id ==  request.session['user']:
@@ -288,36 +306,39 @@ def contact(request, board_id):
         chk_dev_text = request.POST.get('chk_dev',0)
 
         if "radio_front" == chk_dev_text:
-            data.check_crew = 0
+            join_project_data.check_crew = 0
         elif "radio_back" == chk_dev_text:
-            data.check_crew = 1
+            join_project_data.check_crew = 1
         else:
             return HttpResponseRedirect(reverse('app:funding_main'))
         
         
-        data.board_id = board_id
-        data.user_id = request.session['user']
-        data.user_name = request.POST['name']
-        data.user_email = request.POST['email']
-        data.subject = request.POST['subject']
-        data.message = request.POST['message']
+        join_project_data.board_id = board_id
+        join_project_data.user_id = request.session['user']
+        join_project_data.user_name = request.POST['name']
+        join_project_data.user_email = request.POST['email']
+        join_project_data.subject = request.POST['subject']
+        join_project_data.message = request.POST['message']
 
-        data.save()
+        join_project_data.save()
 
 
-        board = FundingBoard.objects.get(board_id = board_id)
-        if data.check_crew == 0:
-            board.front_crew -= 1
+        fund_crew_data = FundingBoardCrew.objects.get(board_id = board_id)
+        if join_project_data.check_crew == 0:
+            fund_crew_data.front_crew -= 1
 
-        if data.check_crew == 1:
-            board.back_crew -= 1
+        if join_project_data.check_crew == 1:
+            fund_crew_data.back_crew -= 1
 
-        board.save()
+        fund_crew_data.save()
         # 저장했으니 메인페이지로 보내주자.
         return HttpResponseRedirect(reverse('app:funding_main'))
     
+
+    
     # 여기로 오는 경우 처음들어온 경우다.
     data = FundingBoard.objects.get(board_id=board_id)
+    fund_crew_data = FundingBoardCrew.objects.get(board_id = board_id)
 
     user = User1.objects.get(user_id = request.session['user'])
     return render(
@@ -328,12 +349,11 @@ def contact(request, board_id):
             "user_email" : user.user_email,
             "board_user_name" : data.user_id,
             "board_title" : data.title,
-            "front_crew" : data.front_crew,
-            "back_crew" : data.back_crew,
+            "front_crew" : fund_crew_data.front_crew,
+            "back_crew" : fund_crew_data.back_crew,
         }
 
     )
-
 
 
 def download(request,file_path):
@@ -351,7 +371,7 @@ class Create1(View):
     def get(self, request, *args, **kwargs):
         request.session['step1_complete'] = False
         request.session['step2_complete'] = False
-        if len(request.session.get('user',"")) ==0:
+        if len(request.session.get('user',"")) == 0:
             return HttpResponseRedirect(reverse('user:signin'))
         else:
             return render(request, 'fundingapp/create_step1.html') 
@@ -407,40 +427,56 @@ class Create3(View):
             # 삭제전 세션에 저장된 데이터 DB에 저장하기.
             # 여기부터 DB 코드임.-> 종원
 
-            FDB = FundingBoard()
-
-            FDB.user_id = request.session['user']
+            board = FundingBoard()
+            price = FundingBoardPrice()
+            crew = FundingBoardCrew()
             
-            FDB.title = request.session['title']
-            FDB.category = request.session['category']
-            FDB.language_text = request.session['language']
-            FDB.target = request.session['target']
-            
-            FDB.func_a_price = request.POST.get('eqA',0)
-            FDB.func_b_price = request.POST.get('eqB',0)
-            FDB.func_c_price = request.POST.get('eqC',0)
 
-            FDB.file_name = request.session['imgefile']
-            FDB.intro = request.session['intro']
-            FDB.background_text = request.session['background']
-            FDB.object_text = request.session['objects']
-            FDB.develop_content = request.POST['developContent']
-            FDB.fund_goal_price = request.POST.get('goal_money',0)
-            FDB.func_text = request.POST['func_text']
+            board.user_id = request.session['user']
+            board.title = request.session['title']
+            board.category = request.session['category']
+            board.language_text = request.session['language']
+            board.target = request.session['target']
+            board.intro = request.session['intro']
+            board.file_name = request.session['imgefile']
+            board.background_text = request.session['background']
+            board.object_text = request.session['objects']
+            board.develop_content = request.POST['developContent']
+            board.func_text = request.POST['func_text']
 
-            FDB.fund_total_price = 0
             request.session['regi_date'] = datetime.datetime.now().strftime ("%Y-%m-%d")
-            FDB.regi_date = request.session['regi_date'] 
+            board.regi_date = request.session['regi_date'] 
+            board.start_date = request.POST['start_date']
+            board.end_date = request.POST['end_date']
+            board.save()
 
-            # FDB.start_date = datetime.datetime.strptime(request.POST['start_date'], "%Y-%m-%d")
-            FDB.start_date =request.POST['start_date']
-            FDB.end_date =request.POST['end_date']
+            request.session['start_date'] = request.POST['start_date']
+            request.session['end_date'] = request.POST['end_date']
 
-            # FDB.end_date = datetime.datetime.strptime(request.POST['end_date'], "%Y-%m-%d")
-            FDB.front_crew = 0
-            FDB.back_crew = 0
+            # 생성된 board_id를 가져와야한다. user_id, title, start_date, end_date를 비교하자. 여기까지 같으면 어쩔수없긴하다..
 
-            FDB.save()
+            board_id = FundingBoard.objects.filter(
+                user_id = request.session['user'], 
+                title = request.session['title'],
+                start_date = request.POST['start_date'],
+                end_date = request.POST['end_date'])[0].board_id
+            
+            price.board_id = board_id
+            price.func_a_price = request.POST.get('eqA',0)
+            price.func_b_price = request.POST.get('eqB',0)
+            price.func_c_price = request.POST.get('eqC',0)
+
+            price.fund_goal_price = request.POST.get('goal_money',0)
+            price.fund_total_price = 0
+
+            price.save()
+
+            crew.board_id = board_id
+            crew.front_crew = 0
+            crew.back_crew = 0
+
+            crew.save()
+
 
 
 
@@ -470,19 +506,66 @@ class AllViewPage(View):
         page_num = kwargs['page_num']
         board_id = kwargs['board_id']
         
+        # 수정할 때 데이터이므로.. 여기다가 모든 데이터를 넣어주어야한다..
         DB_data = self.FDB.objects.get(board_id=board_id)
-        if page_num ==1:
+
+        # DB 데이터를 넘겨주어도 상관이 없다.
+        if page_num == 1:
             file_name = DB_data.file_name.split("/img/")[-1]
             return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id, "DB_data":DB_data , "file_name" : file_name })
-        elif page_num ==3:
+        elif page_num == 3:
+
             start_date = str(DB_data.start_date)
             end_date = str(DB_data.end_date)
-            fc = DB_data.front_crew
-            bc = DB_data.back_crew
+
+            crew_data = FundingBoardCrew.objects.get(board_id = board_id)
+            fc = crew_data.front_crew
+            bc = crew_data.back_crew
+            print(fc)
+            print(bc)
+
+
+            price_data = FundingBoardPrice.objects.get(board_id = board_id)
+            print(price_data.func_a_price)
+            print(price_data.func_b_price)
+            print(price_data.func_c_price)
+            print(price_data.fund_goal_price)
+
+            result = {
+                "board_id" : DB_data.board_id,
+                "user_id" : DB_data.user_id,
+                "title" : DB_data.title,
+                "category" : DB_data.category,
+                "target" : DB_data.target,
+                "intro" : DB_data.intro,
+                "file_name" : DB_data.file_name,
+                "background_text" : DB_data.background_text,
+                "object_text" : DB_data.object_text,
+                "language_text" : DB_data.language_text,
+                "func_text" : DB_data.func_text,
+                "develop_content" : DB_data.develop_content,
+                "regi_date" : DB_data.regi_date,
+                "start_date" : DB_data.start_date,
+                "end_date" : DB_data.end_date,
+
+                "func_a_price" : price_data.func_a_price,
+                "func_b_price" : price_data.func_b_price,
+                "func_c_price" : price_data.func_c_price,
+                "fund_goal_price" : price_data.fund_goal_price,
+                "fund_total_price" : price_data.fund_total_price,
+
+                "fc" : fc,
+                "bc" : bc
+
+
+            }
+
+
+
             if fc + bc >0:
                 checkTeamsFlag = True
-                return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id,"DB_data":DB_data,"start_date": start_date,"end_date":end_date,"checkTeamsFlag":checkTeamsFlag})
-            return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id,"DB_data":DB_data,"start_date": start_date,"end_date":end_date}) 
+                return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id,"DB_data":result,"start_date": start_date,"end_date":end_date,"checkTeamsFlag":checkTeamsFlag})
+            return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id,"DB_data":result,"start_date": start_date,"end_date":end_date}) 
         else:
             return render(request, 'fundingapp/view_All_modify.html',{"page_num": page_num,"board_id" : board_id,"DB_data":DB_data}) 
 
@@ -492,6 +575,9 @@ class AllViewPage(View):
         page_num = kwargs['page_num']
 
         DB_data = self.FDB.objects.get(board_id=board_id)
+        price = FundingBoardPrice.objects.get(board_id = board_id)
+        crew = FundingBoardCrew.objects.get(board_id = board_id)
+
         if page_num !=1:
             if request.POST.get("next",0) =="다음":
                 DB_data.intro = request.POST.get('intro',DB_data.intro)
@@ -502,21 +588,21 @@ class AllViewPage(View):
             if request.POST.get("before",0) =="이전":
                 page_num -=1 
             if request.POST.get("finsh",0) =="완료":
-                DB_data.fund_goal_price = request.POST.get('goal_money', DB_data.fund_goal_price)
-                DB_data.func_a_price = request.POST.get('eqA', DB_data.func_a_price)
-                DB_data.func_b_price = request.POST.get('eqB', DB_data.func_b_price)
-                DB_data.func_c_prce = request.POST.get('eqC', DB_data.func_c_price)
+                DB_data.fund_goal_price = request.POST.get('goal_money', price.fund_goal_price)
+                DB_data.func_a_price = request.POST.get('eqA', price.func_a_price)
+                DB_data.func_b_price = request.POST.get('eqB', price.func_b_price)
+                DB_data.func_c_prce = request.POST.get('eqC', price.func_c_price)
                 DB_data.develop_content = request.POST.get('developContent',DB_data.develop_content)
                 DB_data.regi_date = datetime.datetime.now().strftime ("%Y-%m-%d")
 
                 DB_data.save()
                 if request.POST.get("checkAddTeams") =="체크":
                     request.session['board_id'] = board_id
-                    fc = DB_data.front_crew
-                    bc = DB_data.back_crew
-                    print(fc,bc,board_id,"입니다.")
+                    fc = crew.front_crew
+                    bc = crew.back_crew
+
                     return render(request,'fundingapp/addTeam.html',{'board_id':board_id,'fc':fc,'bc':bc})
-                    # return HttpResponseRedirect(reverse('fundingapp:ADDTeam'))
+
                 return HttpResponseRedirect(reverse('app:funding_main'))
         else:
             DB_data.title = request.POST.get('title',DB_data.title)
@@ -531,12 +617,18 @@ class AllViewPage(View):
                                         }))
 
 
+
 class ADDTeams(View):
+
+    # board_id를 불러오자.
+
     def get(self, request, *args, **kwargs):
         if request.session.get('board_id',False):
-            FB = FundingBoard.objects.get(board_id = request.session.get('board_id'))
-            fc = FB.front_crew
-            bc = FB.back_crew
+
+            crew = FundingBoardCrew.objects.get(board_id = request.session.get('board_id'))
+
+            fc = crew.front_crew
+            bc = crew.back_crew
             return render(request,'fundingapp/addTeam.html',{'fc':fc,'bc':bc})
 
         regi = request.session['regi_date']
@@ -547,22 +639,23 @@ class ADDTeams(View):
     def post(self, request, *args, **kwargs):
         if request.POST.get("TeamFinsh",0) =="팀원모집":
             if request.session.get('board_id',False):
-                FB = FundingBoard.objects.get(board_id = request.session.get('board_id'))
+                crew = FundingBoardCrew.objects.get(board_id = request.session.get('board_id'))
                 del request.session['board_id']
             else:
                 regi = request.session['regi_date']
                 title = request.session['title']
                 user_id = request.session['user']
-                
-                sqlQ = FundingBoard.objects.filter(regi_date = regi, title = title, user_id = user_id)
-                FB = FundingBoard.objects.get(board_id = sqlQ[0].board_id)
+                start_date = request.session['start_date']
+                end_date = request.session['end_date']
+
+                sqlQ = FundingBoard.objects.filter(regi_date = regi, title = title, user_id = user_id, start_date = start_date, end_date = end_date)
+                crew = FundingBoardCrew.objects.get(board_id = sqlQ[0].board_id)
                 del request.session['title']
                 del request.session['regi_date']
-                # print("오이이ㅣ이잉1111")
-            FB.front_crew = request.POST.get("FrontEnd",0)
-            FB.back_crew = request.POST.get("BackEnd",0)
-            FB.save()
-            #print("오이이ㅣ이잉22222")
-            print(request.POST.get("FrontEnd", 0))
+
+            crew.front_crew = request.POST.get("FrontEnd",0)
+            crew.back_crew = request.POST.get("BackEnd",0)
+            crew.save()
+
             return HttpResponseRedirect(reverse('app:funding_main'))
 

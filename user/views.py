@@ -1,10 +1,11 @@
 from email.policy import default
 from django.shortcuts import render,redirect
-from .models import  User_info, FundingBoard,  JoinFund,JoinProject
+from .models import FundingBoard, User_info, JoinFund, JoinProject, FundingBoardCrew, FundingBoardPrice
 from django.contrib import messages
 from django.http import  HttpResponseRedirect
 from django.urls import reverse
 from collections import defaultdict
+
 def signin(request):
     if request.method =='POST':
         username = request.POST.get('username')
@@ -21,16 +22,7 @@ def signin(request):
                 return HttpResponseRedirect(reverse('user:signin'))   
         else:
             request.session['user'] = username
-            # access_detail, detail_board_id = request.session.get('detail_funding',(False, False))
 
-            # if access_detail:
-            #     return render(
-            #         request,
-            #         "app/fundingapp/fund_detail.html",
-            #         {
-            #             "data" : detail_board_id
-            #         }
-            #     )
 
             return HttpResponseRedirect(reverse('app:funding_main'))    
     else:
@@ -51,7 +43,7 @@ def signup(request):
             return HttpResponseRedirect(reverse('user:signup'))   
         try:
             user = User_info.objects.get(user_id = user_id)
-            messages.info(request, '존재하는 아이디입니다.')
+            messages.info(request, '사용중인 아이디입니다.')
             return HttpResponseRedirect(reverse('user:signup'))   
         except User_info.DoesNotExist as e:
             m = User_info(user_id=user_id, user_pw=user_pw, user_name=user_name,user_email=user_email)
@@ -124,6 +116,7 @@ def myfunding(request):
 
     for i in join_board_id:
         data = FundingBoard.objects.get(board_id = i)
+        price = FundingBoardPrice.objects.get(board_id = i)
 
         result.append({
             "board_id" : data.board_id,
@@ -131,11 +124,8 @@ def myfunding(request):
             "file_name" : data.file_name,
             "fund_total" : join_dic[data.board_id],
             "intro" : data.intro,
-            "percent" : int(data.fund_total_price / data.fund_goal_price * 100),
+            "percent" : int(price.fund_total_price / price.fund_goal_price * 100),
         })
-            
-
-
 
     return render(request,
     'user/myfunding.html',
@@ -145,17 +135,18 @@ def myfunding(request):
 
 def myboarding(request):
 
-
     data = FundingBoard.objects.filter(user_id = request.session.get('user'))
+
     result = []
     for d in data:
+        price = FundingBoardPrice.objects.get(board_id = d.board_id)
         result.append({
             "board_id" : d.board_id,
             "title" : d.title,
             "file_name" : d.file_name,
             "intro" : d.intro,
-            "total_funding" : d.fund_total_price,
-            "percent" : int(d.fund_total_price / d.fund_goal_price * 100),
+            "total_funding" : price.fund_total_price,
+            "percent" : int(price.fund_total_price / price.fund_goal_price * 100),
 
         })
 
