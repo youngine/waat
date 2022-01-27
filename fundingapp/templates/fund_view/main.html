@@ -9,26 +9,17 @@
 <div>
   <div>
       
-    <h2 class= "text-success mt-5 mb-4" style="font-family: 'NanumSquareEB'; text-align:center;">
+    <h2 class= "text-success mt-5 mb-5" style="font-family: 'NanumSquareEB'; text-align:center;">
         펀딩 참여
     </h2>
     
      <div style="text-align:center;">
       <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-        <form action = "/app/fund/select/{{select_drop}}" method="post">
-          <input  style="display:inline-block" placeholder="검색할 단어를 입력해주세요" type="text" name="search_word">
-          <input  style="display:inline-block" class="btn btn-success btn-primary ml-1 mr-2" value ="검색" type="submit" name="search">
-        </form>
-        {% comment %} <div class="btn-group" role="group">
-          <button syle="float:right" id="btnGroupDrop1" type="button" class="btn btn-success btn-primary dropdown-toggle ml-2" data-bs-toggle="dropdown" aria-expanded="false">
-            정렬 순서
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <li><a class="dropdown-item" href="/app/fund/select/1">최신순</a></li>
-            <li><a class="dropdown-item" href="/app/fund/select/2">인기순</a></li>
-            <li><a class="dropdown-item" href="/app/fund/select/3">오랜된순</a></li>
-          </ul>
-        </div>{% endcomment %}
+        <form class="d-flex mx-4" action = "/app/fund/select/{{select_drop}}" method="post">
+        <input class="form-control me-2" type="search" placeholder="Search" name="search_word" aria-label="Search">
+        <button class="btn btn-success" name="search" type="submit">Search</button>
+       </form>
+
       </div> 
       <a class="btn btn-outline-success btn-sm me-md-2" type="button" href="/app/fund/select/1">최신순</a>
       <a class="btn btn-outline-success btn-sm me-md-2" type="button" href="/app/fund/select/2">인기순</a>
@@ -36,10 +27,6 @@
       <div style="margin:3rem 0rem"></div>
 
     </div>
-  
-      {% comment %} <a class="dropdown-item" href="/app/fund/select/1">최신순</a>
-      <a class="dropdown-item" href="/app/fund/select/2">인기순</a>
-      <a class="dropdown-item" href="/app/fund/select/3">오랜된순</a> {% endcomment %}
 
       
      
@@ -55,7 +42,9 @@
               <div class="card-body">
                 
                 <div class="circle " style="font-family:NanumSquareR; float:right;">{{item.percent}}%</div>
-                <div style="font-family:NanumSquareR; float:right;">펀딩 참여 인원 : {{item.join_user_count}}</div>
+                <span class="mx-4 badge rounded-pill bg-warning text-dark" style="font-family:NanumSquareR; float:right;">
+                  펀딩 참여 인원 : {{item.join_user_count}}
+                </span>
                 <h4 class="card-title mt-0" style="font-family:NanumSquareR;">{{item.title}}</h4>
                 <p class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.intro}}</p>
                 <div class="mb-2">
@@ -64,9 +53,6 @@
                   <span class="badge badge-success"style="font-family:NanumSquareR;"># {{item.category}}</span>
                 </div>
 
-                {% comment %} <div style="margin:1rem 0rem"></div>
-                <div class= funding_main_bar_color style="display:inline-block"></div>
-                <div style="margin:0.5rem 0rem"></div> {% endcomment %}
 
                 <div class="percent">
                   {% if item.percent_mark == 0 %}
@@ -106,20 +92,16 @@
                   <div class= percent_bar_color style="display:inline-block"></div>
                   <div class= percent_bar_color style="display:inline-block"></div>
                   {% endif %}
-                  {% comment %} <p style = "float:right" class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.fund_goal_price}}원 까지 {% endcomment %}
                   <div style="margin:1rem 0rem"></div>
 
                 </div>
 
 
                 
-                <h2 class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.start_date}} - {{item.end_date}}
-                <div style="float:right" class="card-text mb-1"style="font-family:NanumSquareR;"> {{item.d_day}}일 남음</div>
+                <h2 class="card-text mb-1" style="font-family:NanumSquareR;"> {{item.start_date}} - {{item.end_date}}
+                  <h2 style="float:right" class="card-text mb-1" style="font-family:NanumSquareR;"> {{item.d_day}}일 남음</h2>
                 </h2>
-                
-                {% comment %} <p class="card-text mb-1"style="font-family:NanumSquareR;"> 작성일자 : {{item.regi_date}}</p>
-                <p class="card-text mb-1"style="font-family:NanumSquareR;"> 펀딩 시작 : {{item.start_date}}</p>  
-                <p class="card-text mb-1"style="font-family:NanumSquareR;"> 펀딩 마감 : {{item.end_date}}</p>       {% endcomment %}
+
               </div>
             </div>
           </div>
@@ -127,26 +109,7 @@
       </div>   
       {% endfor %}
     
-      {% comment %} <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">4</a></li>
-          <li class="page-item"><a class="page-link" href="#">5</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav> {% endcomment %}
-
+    
     
       <div class="p-5">
         <div style="text-align:center">
@@ -171,25 +134,3 @@
 
 {%endblock content%}
 
-
-<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  펀딩하기
-
-  </button>
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">펀딩을 진행하시겠습니까?</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          총 진행된 금액은 {{item.fund_goal_price}} 입니다.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">안하겠습니다.</button>
-          <button type="button" class="btn btn-primary">사겠습니다.</button>
-        </div>
-      </div>
-    </div>
-  </div> -->

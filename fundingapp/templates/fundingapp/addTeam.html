@@ -3,8 +3,8 @@
 
 {% block content %}
 
-<div>
-    <h2 class= "text-success mt-5 mb-4" style="font-family: 'NanumSquareEB'; text-align:center;"> 팀원 지원 요청서</h2>
+<div class="card h-70 col-md-7 mt-5 mb-5 shadow-sm" style="float: none; margin:0 auto;">
+    <h3 class= "text-success mt-5 mb-4" style="font-family: 'NanumSquareEB'; text-align:center;"> 팀원 지원 요청서</h3>
 
     <div class="text-center">
         <div class= create_bar_color style="display:inline-block"></div>
@@ -32,13 +32,11 @@
           <input type="number" class="form-control" id="validationTooltipUsername"  name="BackEnd"  value = {{bc}} aria-describedby="validationTooltipUsernamePrepend"  required>
         </div>          
       </div>
-      </div>
 
       <div class="mb-5 col-md-7 mt-5 text-center" style="float: none; margin:0 auto;">
           <input class="btn btn-success mx-3" style="font-family:NanumSquareR;"  method="POST" type="submit" name="TeamFinsh" value="팀원모집">
       </div>
-
-    <div class="p-5"></div>
+     </form>
   </div>
 
 {%else%}
@@ -57,20 +55,18 @@
         </div>
       </div>
 
-      <div class="col-md-4" style="float: none; margin:0 auto;">
+      <div class="col-md-4 mb-5" style="float: none; margin:0 auto;">
         <div class="input-group has-validation">
           <span class="input-group-text" id="validationTooltipUsernamePrepend" style="font-family:NanumSquareR;">BackEnd</span>
           <input type="number" class="form-control" id="validationTooltipUsername"  name="BackEnd"  value = 1 aria-describedby="validationTooltipUsernamePrepend"  required>
         </div>          
       </div>
-      </div>
 
-      <div class="mb-5 col-md-7 mt-5 text-center" style="float: none; margin:0 auto;">
+      <div class="p-2 col-md-7 text-center" style="float: none; margin:0 auto;">
           <input class="btn btn-success mx-3" style="font-family:NanumSquareR;"  method="POST" type="submit" name="TeamFinsh" value="팀원모집">
       </div>
 
-    <div class="p-5"></div>
-
+    </form>
   </div>
 {%endif%}
 

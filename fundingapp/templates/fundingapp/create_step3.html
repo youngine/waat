@@ -3,8 +3,8 @@
 
 {% block content %}
 
-<div>
-    <h2 class= "text-success mt-5 mb-5" style="font-family: 'NanumSquareEB'; text-align:center;"> 신청서</h2>
+<div class="card h-120 col-md-9 mt-5 mb-5 shadow-sm" style="float: none; margin:0 auto;">
+    <h3 class= "text-success mt-5 mb-5" style="font-family: 'NanumSquareEB'; text-align:center;"> 신청서</h3>
 
     <div class="text-center">
         <div class= create_bar_color style="display:inline-block"></div>
@@ -13,14 +13,14 @@
     </div>
 
 {% if page_num %}
- <form class="was-validated p-4" action="/app/fund/allViewPage/{{page_num}}/{{board_id}}/" method="POST">
+ <form class="was-validated" action="/app/fund/allViewPage/{{page_num}}/{{board_id}}/" method="POST">
      {% csrf_token %}
-    <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
-    <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">펀딩 목표금액</label>
-    <input type="number" style="font-family:NanumSquareR;" class="form-control is-invalid" id="validationTextarea" name="goal_money" value={{DB_data.fund_goal_price}} placeholder="목표금액을 입력해주세요" required>
-  </div>
+    <div class="mb-3 col-md-9" style="float: none; margin:0 auto;">
+      <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">펀딩 목표금액</label>
+      <input type="number" style="font-family:NanumSquareR;" class="form-control is-invalid" id="validationTextarea" name="goal_money" value={{DB_data.fund_goal_price}} placeholder="목표금액을 입력해주세요" required>
+    </div>
 
-  <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+  <div class="mb-3 col-md-9" style="float: none; margin:0 auto;">
     <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">기능별 가격</label>
     <div class="container">
       <div class="row">
@@ -50,12 +50,12 @@
     </div>
   </div>
 
-   <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+   <div class="mb-3 col-md-9" style="float: none; margin:0 auto;">
         <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">기능별 설명</label>
         <textarea class="form-control is-invalid" id="validationTextarea" name="func_text" placeholder="Required example textarea" required>{{DB_data.func_text}}</textarea>
     </div>
 
-  <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+  <div class="mb-3 col-md-9" style="float: none; margin:0 auto;">
     <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">프로젝트 기간</label>
     <div class="container">
       <div class="row">
@@ -78,42 +78,42 @@
     </div>
   </div>
 
-     <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+     <div class="mb-3 col-md-9" style="float: none; margin:0 auto;">
         <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">주요 개발내용</label>
         <textarea class="form-control is-invalid" id="validationTextarea" name="developContent" placeholder="Required example textarea" required>{{DB_data.develop_content}}</textarea>
     </div>
     {% if checkTeamsFlag %}
-        <div class="mb-3 col-md-7 text-center" style="float: none; margin:0 auto;">
+        <div class="mb-3 col-md-9 text-center" style="float: none; margin:0 auto;">
         <input class="form-check-input" type="checkbox" name="checkAddTeams" value="체크" id="flexCheckChecked" checked>
         <label class="form-check-label" for="flexCheckChecked" style="font-family:NanumSquareR;">
             팀원 모집도 같이 진행하고 싶으면 체크해주세요.
         </label>
         </div>
     {% else %}
-        <div class="mb-3 col-md-7 text-center" style="float: none; margin:0 auto;">
+        <div class="mb-3 col-md-9 text-center" style="float: none; margin:0 auto;">
             <input class="form-check-input" type="checkbox" name="checkAddTeams" value="체크" id="flexCheckChecked">
             <label class="form-check-label" for="flexCheckChecked" style="font-family:NanumSquareR;">
             팀원 모집도 같이 진행하고 싶으면 체크해주세요.
             </label>
         </div>
     {% endif%}
-    <div class="mb-5 col-md-7 mt-5 text-center" style="float: none; margin:0 auto;">
+    <div class="mb-5 col-md-9 mt-5 text-center" style="float: none; margin:0 auto;">
         <input class="btn btn-success mx-3" style="font-family:NanumSquareR;"  method="POST" type="submit" name="before" value="이전">
         <input class="btn btn-success" style="font-family:NanumSquareR;"  method="POST" type="submit" name="finsh" value="완료">
     </div>
 
 </form>
-
+</div>
  {% else %}
 
- <form class="was-validated p-4" action="/app/fund/create3/" method="POST" enctype="multipart/form-data">
+ <form class="was-validated" action="/app/fund/create3/" method="POST" enctype="multipart/form-data">
      {% csrf_token %}
-    <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+    <div class="mb-3 col-md-9" style="float: none; margin:0 auto;">
     <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">펀딩 목표금액</label>
     <input type="number" style="font-family:NanumSquareR;" class="form-control is-invalid" id="validationTextarea" name="goal_money"  placeholder="목표금액을 입력해주세요" required>
   </div>
 
-  <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+  <div class="mb-3 col-md-9" style="float: none; margin:0 auto;">
     <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">기능별 가격</label>
     <div class="container">
       <div class="row">
@@ -143,12 +143,12 @@
     </div>
   </div>
 
-   <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+   <div class="mb-3 col-md-9" style="float: none; margin:0 auto;">
         <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">기능별 설명</label>
         <textarea class="form-control is-invalid" id="validationTextarea" name="func_text" placeholder="Required example textarea" required></textarea>
     </div>
 
-  <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+  <div class="mb-3 col-md-9" style="float: none; margin:0 auto;">
     <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">프로젝트 기간</label>
     <div class="container">
       <div class="row">
@@ -171,25 +171,25 @@
     </div>
   </div>
 
-     <div class="mb-3 col-md-7 mb-5" style="float: none; margin:0 auto;">
+     <div class="mb-3 col-md-9 mb-5" style="float: none; margin:0 auto;">
         <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">주요 개발내용</label>
         <textarea class="form-control is-invalid" id="validationTextarea" name="developContent" placeholder="Required example textarea" required></textarea>
     </div>
 
-    <div class="mb-3 col-md-7 text-center" style="float: none; margin:0 auto;">
+    <div class="mb-3 col-md-9 text-center" style="float: none; margin:0 auto;">
       <input class="form-check-input" type="checkbox" name="checkAddTeams" value="체크" id="flexCheckChecked">
       <label class="form-check-label" for="flexCheckChecked" style="font-family:NanumSquareR;">
         팀원 모집도 같이 진행하고 싶으면 체크해주세요.
       </label>
     </div>
 
-    <div class="mb-5 col-md-7 mt-5 text-center" style="float: none; margin:0 auto;">
+    <div class="mb-5 col-md-9 text-center" style="float: none; margin:0 auto;">
         <input class="btn btn-success mx-3" style="font-family:NanumSquareR;"  method="POST" type="submit" name="before" value="이전">
         <input class="btn btn-success" style="font-family:NanumSquareR;"  method="POST" type="submit" name="finsh" value="완료">
     </div>
 
 </form>
-
+</div>
 {% endif%}
 
 <script>
