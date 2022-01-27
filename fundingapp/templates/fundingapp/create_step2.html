@@ -3,8 +3,8 @@
 
 {% block content %}
 
-<div>
-    <h2 class= "text-success mt-5 mb-5" style="font-family: 'NanumSquareEB'; text-align:center;"> 신청서</h2>
+<div class="card h-70 col-md-7 mt-5 mb-5 shadow-sm" style="float: none; margin:0 auto;">
+    <h3 class= "text-success mt-5 mb-5" style="font-family: 'NanumSquareEB'; text-align:center;"> 신청서</h3>
 
     <div class="text-center">
         <div class= create_bar_color style="display:inline-block"></div>
@@ -14,7 +14,7 @@
 
 {% if page_num %}
 
-<form class="was-validated p-4" action="/app/fund/allViewPage/{{page_num}}/{{board_id}}/" method="POST">
+<form class="was-validated p-3" action="/app/fund/allViewPage/{{page_num}}/{{board_id}}/" method="POST">
      {% csrf_token %}
 
     <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
@@ -43,7 +43,7 @@
 
  {% else %}
 
-<form class="was-validated p-4" action="/app/fund/create2/" method="POST">
+<form class="was-validated p-3" action="/app/fund/create2/" method="POST">
      {% csrf_token %}
 
     <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
@@ -56,7 +56,7 @@
         <textarea class="form-control is-invalid" id="validationTextarea"name="background"  placeholder="Required example textarea" required></textarea>
     </div>
 
-    <div class="mb-3 col-md-7" style="float: none; margin:0 auto;">
+    <div class="mb-5 col-md-7" style="float: none; margin:0 auto;">
         <label for="validationTextarea" class="form-label" style="font-family:NanumSquareR;">프로젝트 목적</label>
         <textarea class="form-control is-invalid" id="validationTextarea" name="objects" placeholder="Required example textarea" required></textarea>
     </div>

@@ -4,7 +4,7 @@
 
 {% block content %}
     {% include 'banner.html' %} 
-    <section class="container py-5">
+    <section class="container py-4">
         <div class="row text-center pt-3">
             <div class="col-lg-6 m-auto" >
                 <p class="fs-2" style="font-family:NanumSquareR;">주목하세요! 최근에 오픈한 펀딩</p>
@@ -19,7 +19,7 @@
         <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
             {% for item in result %}
             <div class="col">
-                <div class="card h-100 shadow-sm">
+                <div class="card h-80 shadow-sm">
                     <!-- 이미지위치 -->
                     <img src='/{{item.file_name}}' class="card-img-top h-50" alt="...">
                     <!-- 현재 펀딩률 -->

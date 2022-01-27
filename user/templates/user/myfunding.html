@@ -10,21 +10,25 @@
         <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
             {% for item in data %}
             <div class="col">
-                <div class="card h-100 shadow-sm">
+                <div class="card h-80 shadow-sm">
                     <!-- 이미지위치 -->
                     <img src='/{{item.file_name}}' class="card-img-top h-50" alt="...">
                     <!-- 현재 펀딩률 -->
                     <div class="label-top shadow-sm fs-6" style="font-family:NanumSquareR;">현재 펀딩률 : {{item.percent}}%</div>
                     <div class="card-body">
-                        <div class="clearfix mb-3"> 
-                            <!-- 펀딩 타이틀 -->
+                     <!-- 펀딩 타이틀 -->
+                        <div class="clearfix mb-1"> 
                             <span class="float-start badge rounded-pill bg-success mb-2" style="font-family:NanumSquareR;">
                                {{item.title}}
                             </span> 
-                            <!-- 총 펀딩금액 -->
-                            <span class="float-start badge rounded-pill bg-primary" style="font-family:NanumSquareR;">
-                                총 펀딩금액: {{item.fund_total}}원
-                            </span> 
+                        </div>
+                         <!-- 총 펀딩금액 -->
+                            <div class="clearfix mb-3"> 
+                                <div>
+                                <span class="float-start badge rounded-pill bg-primary" style="font-family:NanumSquareR;">
+                                    총 펀딩금액: {{item.fund_total}}원
+                                </span> 
+                            </div>
                         </div>
                         <!-- 펀딩설명 -->
                         <h5 class="card-title" style="font-family:NanumSquareR;">
