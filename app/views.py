@@ -28,7 +28,7 @@ def assemble(request):
 def funding_main(request):
 
     # 최신 순서대로 게시물 id 가져오기
-    funding_board_data = FundingBoard.objects.all().order_by('board_id')
+    funding_board_data = FundingBoard.objects.all().order_by('-board_id')
     
     # 결과값 저장할 공간
     result = []
@@ -37,7 +37,7 @@ def funding_main(request):
     for i, d in enumerate(funding_board_data):
         if i == 4:
             break
-        print(i, d.board_id)
+
         # 값도 가져와야 하므로 FundingBoardPrice의 값도 가져오자.
         price_data = FundingBoardPrice.objects.get(board_id = d.board_id)
 
