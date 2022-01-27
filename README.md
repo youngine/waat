@@ -46,11 +46,11 @@ Database
 <br>
 
 ## 🌞 Contributors
-- 김종원 👉 [chanbi428](https://github.com/JONWON2)
-- 신민진 👉 [hye-ppy](https://github.com/Shinminjin)
-- 장성우 👉 [hye-ppy](https://github.com/CastleRain)
+- 김종원 👉 [JONWON2](https://github.com/JONWON2)
+- 신민진 👉 [Shinminjin](https://github.com/Shinminjin)
+- 장성우 👉 [CastleRain](https://github.com/CastleRain)
 - 장영인 👉 [youngine](https://github.com/youngine)
-- 조상은 👉 [youngine](https://github.com/sejoe-dct)
+- 조상은 👉 [sejoe-dct](https://github.com/sejoe-dct)
 
 <br>
 
