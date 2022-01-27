@@ -1,0 +1,11 @@
+bootstrap4==0.1.0
+certifi==2021.10.8
+Django==4.0.1
+django-environ==0.8.1
+django-filter==21.1
+djangorestframework==3.13.1
+mysqlclient==2.1.0
+Pillow==9.0.0
+pytz==2021.3
+tzdata==2021.5
+wincertstore==0.2
