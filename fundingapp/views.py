@@ -51,7 +51,8 @@ def select(request, select_drop):
             percent_mark = percent_n
 
         # 펀딩 남은 기간 확인, d_day가 끝난 경우(음수인 경우 0으로 표시)
-        d_day = (d.end_date - d.start_date).days
+
+        d_day = (d.end_date -  datetime.date.today()).days
         if d_day < 0:
             d_day = 0
         
@@ -151,7 +152,7 @@ def detail(request, board_id):
             percent_mark = percent_n
 
         # 펀딩 남은 기간 확인, d_day가 끝난 경우(음수인 경우 0으로 표시)
-        d_day = (data.end_date - data.start_date).days
+        d_day = (data.end_date -  datetime.date.today()).days
         if d_day < 0:
             d_day = 0
         
