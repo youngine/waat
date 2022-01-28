@@ -73,6 +73,12 @@ Database
 - erd cloud
 - adove xd
 
+
+<br>
+
+## 🔥 발표자료
+- [what is wat?](https://www.miricanvas.com/v/1v0zl3)
+
 <br>
 
 ## 🌞 Contributors
