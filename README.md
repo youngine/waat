@@ -6,6 +6,36 @@
 - 개발자와 서포터를 연결시켜 펀딩서비스를 지원하고, 팀원모집 기능을 제공하는 웹 플랫폼입니다. 
 <br>
 
+
+## 🚗 How to run
+1. wat repository를 clone해주세요.
+```
+https://github.com/youngine/waat.git
+```
+2. 프로젝트 실행에 필요한 패키지를 설치해주세요.
+```
+pip install -r requirements.txt
+```
+3. 아래 링크에서 secret key를 생성해주세요!
+```
+https://www.miniwebtool.com/django-secret-key-generator/ 
+```
+4. 루트디렉토리에 아래코드를 포함한 secrets.json파일을 생성하고, secret key를 넣어주세요.
+```
+{
+  "SECRET_KEY": "..."
+}
+```
+5. 프로젝트 실행에 필요한 테이블을 생성해주세요.
+```
+python manage.py migrate
+```
+6. 서버를 실행시켜주세요.
+```
+python manage.py runserver
+```
+<br>
+
 ## ⚙ Environment
 
 Frontend
@@ -38,7 +68,7 @@ Database
 <br>
 
 ## 📃 communication
-- notion
+- [notion](https://www.notion.so/4-WAT-4cc11ebb588e4f10987c47de0a0c49ba)
 - github
 - erd cloud
 - adove xd
