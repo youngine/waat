@@ -15,7 +15,7 @@ import datetime
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from config import settings
-
+import time
 # 펀딩 참여를 눌렀을 때 나오는 페이지
 @csrf_exempt
 def select(request, select_drop):
@@ -453,9 +453,12 @@ class Create3(View):
             request.session['start_date'] = request.POST['start_date']
             request.session['end_date'] = request.POST['end_date']
 
-
+            
 
             # 생성된 board_id를 가져와야한다. user_id, title, start_date, end_date를 비교하자. 여기까지 같으면 어쩔수없긴하다..
+            # 생성되기전에 진행되면 안보이므로.. sleep을 써서 1초정도는 스탑을 해주자. 계속 멈추게하면 무한 로딩이 걸릴수 있어서 이정도로 손봐야겠다..
+
+            time.sleep(1)
 
             board_id = FundingBoard.objects.filter(
                 user_id = request.session['user'], 
