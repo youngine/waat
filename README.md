@@ -4,7 +4,8 @@
 
 - You are not Alone, We Are Togeter.(WAT)
 - 개발자와 서포터를 연결시켜 펀딩서비스를 지원하고, 팀원모집 기능을 제공하는 웹 플랫폼입니다.
-  <br>
+
+<br>
 
 ## 🚗 How to run
 
